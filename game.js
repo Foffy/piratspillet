@@ -1,19 +1,22 @@
-var width = 320,
-height = 500,
-c = document.getElementById('canvas'),
+var c = document.getElementById('c');
 ctx = c.getContext('2d');
 
-c.width = width;
-c.height = height;
+var width = window.innerWidth;
+var height = window.innerHeight;
 
 var clear = function(){
-	ctx.fillStyle = '#d0e7f9';
+	c.width = window.innerWidth;
+	c.height = window.innerHeight;
+	width = c.width;
+	height = c.height;
 	
+	ctx.fillStyle = '#d0e7f9';
 	ctx.beginPath();
 	ctx.rect(0,0,width,height);
 	ctx.closePath();
 	ctx.fill();
 }
+
 
 var numCircles = 10, circles = [];
 
