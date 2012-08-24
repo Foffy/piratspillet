@@ -1,15 +1,20 @@
 var c = document.getElementById('c');
 ctx = c.getContext('2d');
 
-var width = window.innerWidth;
-var height = window.innerHeight;
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+var width = c.width;
+var height = c.height;
+window.addEventListener('resize', resizeCanvas,false);
 
-var clear = function(){
+function resizeCanvas(){
 	c.width = window.innerWidth;
 	c.height = window.innerHeight;
 	width = c.width;
 	height = c.height;
-	
+}
+
+function clear(){
 	ctx.fillStyle = '#d0e7f9';
 	ctx.beginPath();
 	ctx.rect(0,0,width,height);
@@ -36,13 +41,13 @@ function DrawCircles(){
 
 function MoveCircles(deltaY){
 	for(var i = 0; i < numCircles; i++){
-		if(circles[i][1] - circles[i][2] > height){
+		if(circles[i][1] < -circles[i][2]){
 			circles[i][0] = Math.random() * width;
 			circles[i][2] = Math.random() * 100;
-			circles[i][1] = 0 - circles[i][2];
+			circles[i][1] = height + circles[i][2];
 			circles[i][3] = Math.random() / 2;
 		}else{
-			circles[i][1] += deltaY;
+			circles[i][1] -= deltaY;
 		}
 	}
 }
@@ -69,12 +74,13 @@ function Player(){
 	}
 }
 var player = new Player();
-player.setPosition((width-player.width)/2,(height - player.height)/2);
+//player.setPosition((width-player.width)/2,(height - player.height)/2);
+player.setPosition(width - player.width, height - player.height);
 
 
 var GameLoop = function(){
 	clear();
-	MoveCircles(5);
+	MoveCircles(10);
 	DrawCircles();
 	player.draw();
 	setTimeout(GameLoop, 1000 / 50);
