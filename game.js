@@ -26,6 +26,10 @@ function pctOf(value,total){
 	return total/100*value;	
 }
 
+function drawImg(img, pctX, pctY, pctW, pctH){
+	//ctx.drawImage(img, 
+}
+
 
 
 
