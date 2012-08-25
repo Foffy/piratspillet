@@ -1,4 +1,4 @@
 piratspillet
 ============
 
-The world famous pirate game
+The world famous pirate drinking game
