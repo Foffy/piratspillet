@@ -1,3 +1,4 @@
+// global variables
 var c = document.getElementById('c');
 ctx = c.getContext('2d');
 
@@ -5,12 +6,13 @@ c.width = window.innerWidth;
 c.height = window.innerHeight;
 var width = c.width;
 var height = c.height;
-var xDisp = 0;
-var yDisp = 0;
+var xDisp = 0; // if screen is too wide
+var yDisp = 0; // if screen is too high
 resizeCanvas();
-
 window.addEventListener('resize', resizeCanvas,false);
 
+// resizes the canvas to the current window parameters
+// and calculates where to paint
 function resizeCanvas(){
 	c.width = window.innerWidth;
 	c.height = window.innerHeight;
@@ -28,6 +30,7 @@ function resizeCanvas(){
 	}
 }
 
+// clears the canvas for painting
 function clear(){
 	ctx.fillStyle = '#d0e7f9';
 	ctx.beginPath();
@@ -36,22 +39,31 @@ function clear(){
 	ctx.fill();
 }
 
+// converts a percentage of the width to an exact x value
 function pctToX(value){
 	return xDisp + pctOf(value,width);
 }
 
+// converts a percentage of the height to an exact y value
 function pctToY(value){
 	return yDisp + pctOf(value,height);	
 }
 
+// simple method to get a percentage of something
 function pctOf(value,total){
 	return total/100*value;	
 }
 
+// draw an image from the given position with the given height and width
+// (in percentages)
 function drawImg(img, pctX, pctY, pctW, pctH){
 	//ctx.drawImage(img, 
 }
 
+// draws a text starting with the upper left corner in the position given
+// and width the given maximum width. It will break the text down if it
+// is too wide and make new lines underneath. The font is also given relative
+// to the screen size (width).
 function drawText(text, pctX, pctY, pctW, pctFont){
 	ctx.fillStyle = "black";
 	//var splitted = text.split("\n");
@@ -60,6 +72,8 @@ function drawText(text, pctX, pctY, pctW, pctFont){
 	ctx.fillText(text, pctToX(pctX),pctToY(pctY) + fontH);
 }
 
+// draws a filled rectangle at the given position with the given width,
+// height and color.
 function drawRect(pctX, pctY, pctW, pctH, color){
 		ctx.fillStyle = color;
 		ctx.fillRect(pctToX(pctX),pctToY(pctY),pctToX(pctW)-xDisp,pctToY(pctH)-yDisp);
@@ -68,6 +82,7 @@ function drawRect(pctX, pctY, pctW, pctH, color){
 
 var names = [];
 
+// the main gameloop function
 var GameLoop = function(){
 	clear();
 	drawRect(0,0,100,100,"green");
