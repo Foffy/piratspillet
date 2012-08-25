@@ -55,7 +55,7 @@ function MoveCircles(deltaY){
 // player code
 function Player(){
 	this.image = new Image();
-	this.image.src = "icon_start.png";
+	this.image.src = "images/icon_start.png";
 	this.width = 50;
 	this.height = 50;
 	this.X = 0;
