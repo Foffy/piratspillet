@@ -4,8 +4,20 @@
 	@import url(reset.meyer.css);
 
 /* FONTS */
+	/* font-family: 'Rye', serif; */
 	@import url(http://fonts.googleapis.com/css?family=Rye);
-
+	
+	/* font-family: 'IM Fell DW Pica', serif; */
+	@import url(http://fonts.googleapis.com/css?family=IM+Fell+DW+Pica:400,400italic);
+	
+	/* font-family: 'Creepster', cursive; */
+	@import url(http://fonts.googleapis.com/css?family=Creepster);
+	
+	/* font-family: 'Annie Use Your Telescope', cursive; */
+	@import url(http://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope);
+	
+	/* font-family: 'Yesteryear', cursive; */
+	@import url(http://fonts.googleapis.com/css?family=Yesteryear);
 
 /* DEFAULT STYLE */
 	html {
@@ -68,6 +80,24 @@
 
 	h1 {
 		font-family:rye, serif;
-		font-size:40px;
-		color:;
+		font-size:30px;
+		line-height:45px;
 	}
+	
+	/* fonts */
+	.rape {
+		font-family:'Creepster', serif;
+	}
+	
+	.speak {
+		font-family:'Annie Use Your Telescope', serif;
+	}
+	.speak2 {
+		font-family:'Yesteryear', serif;
+	}
+	.speak3 {
+		font-family:'IM Fell DW Pica', serif;
+	}
+	
+	
+	
