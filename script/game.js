@@ -67,6 +67,8 @@ function drawImage(img, pctX, pctY, pctW){
 }
 
 function colorString(array){
+	if(typeof array == "string") return array;
+	
 	if(array.length > 3){
 		return "rgba("+parseInt(array[0])+","+parseInt(array[1])+","+parseInt(array[2])+", "+parseInt(array[3])+")"
 	}else{
@@ -87,9 +89,14 @@ function drawText(text, pctX, pctY, pctW, pctFont){
 
 // draws a filled rectangle at the given position with the given width,
 // height and color.
-function drawRect(pctX, pctY, pctW, pctH, color){
+function drawRect(pctX, pctY, pctW, pctH, color, border){
 		ctx.fillStyle = colorString(color);
 		ctx.fillRect(pctToX(pctX),pctToY(pctY),pctToX(pctW)-xDisp,pctToY(pctH)-yDisp);
+		if(border){
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = "black";
+			ctx.stroke();	
+		}
 }
 
 function drawCircle(pctX, pctY, pctR, border, color){
@@ -110,7 +117,8 @@ function drawCircle(pctX, pctY, pctR, border, color){
 // constants and stuff
 var players = [];
 var curPlayer = 0;
-var curState = 0;
+var curState = null;
+var leftToActivate = [];
 
 var whorebank = 5;
 var goldbank = 10;
@@ -137,18 +145,21 @@ function Player(name){
 	this.draw = function(){
 		var coords = board_positions[this.pos];
 		var center = [coords[0]+this.offset[0],coords[1]+this.offset[1]];
-		
+		this.drawXY(center[0],center[1]);
+	}
+	this.drawXY = function(x, y){
 		var textsize = 1.5
 		var textheight = pctOf(textsize,width);
 		ctx.font = "bold " + textheight + "px Arial";
 		var dim = ctx.measureText(this.name);
 		var textwidth = dim.width;
 		
-		drawCircle(center[0],center[1],playerRadius,true,this.color);
-		drawText(this.name,center[0]-(textwidth/width)*50,center[1]-textsize*0.75,0,textsize);
+		drawCircle(x,y,playerRadius,true,this.color);
+		drawText(this.name,x-(textwidth/width)*50,y-textsize*0.75,0,textsize);
 	}
 }
 
+// all the possible states in the game
 State = {
 	ROLL : "To Roll",
 	LANDED : "Landed on a tile",
@@ -166,13 +177,13 @@ State = {
 var GameLoop = function(){
 	clear();
 	drawboard();
-	if(players.length > 0) drawText(onTileString(),5,5,0,2.5);
+	if(curState != null) {drawState(); /* hej jimmy */ takeInput(); } 
 
 	setTimeout(GameLoop, 1000 / 50);
 }
 
-GameLoop();
-
+// draws the basic parts of the board that shall be visible
+// in all states
 function drawboard(){
 	drawImage(imgBg,0, 0, 100);
 	for(var i = 0; i < players.length; i++){
@@ -180,7 +191,25 @@ function drawboard(){
 	}	
 }
 
+// draws extra gui depending on the current game state
+function drawState(){
+	switch(curState){
+		case State.ROLL:{
+			drawBox(players[curPlayer]);
+		}
+	}
+}
+
+function takeInput(){
+	switch(curState){
+		case State.ROLL:{
+			
+		}
+	}
+}
+
 // INITIALISATION
+GameLoop();
 
 // name inputs
 var numPlayers = parseInt(prompt("How many players?",""));
@@ -188,6 +217,7 @@ var numPlayers = parseInt(prompt("How many players?",""));
 for(var i = 1; i <= numPlayers; i++){
 	players.push(new Player(prompt("What is the name of player "+i+"?","")));
 }
+curState = State.ROLL;
 
 // GAME METHODS
 
@@ -214,6 +244,23 @@ function onTileString(){
 		}
 	}
 	return result;
+}
+
+function drawBox(player){
+	var rectX = pctToX(30);
+	var rectY = pctToY(30);
+	var rectW = pctToX(40)-xDisp;
+	var rectH = pctToY(40)-yDisp;
+	
+	ctx.fillStyle = "black";
+	ctx.fillRect(rectX,rectY,rectW,rectH);
+	if(player != null){
+		drawCircle(30,30,playerRadius+0.75,true,"white");
+	}
+	ctx.fillStyle = "white";
+	ctx.fillRect(rectX+1, rectY+1, rectW-2,rectH-2);
+	
+	player.drawXY(30,30);
 }
 
 
