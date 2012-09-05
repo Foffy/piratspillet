@@ -99,7 +99,7 @@ function drawRect(pctX, pctY, pctW, pctH, color, border){
 		}
 }
 
-function drawCircle(pctX, pctY, pctR, border, color){
+function drawCircle(pctX, pctY, pctR, color, border){
 		ctx.beginPath();
 		ctx.arc(pctToX(pctX),pctToY(pctY),pctOf(pctR,width),0,2*Math.PI,false);
 		ctx.fillStyle = colorString(color);
@@ -127,20 +127,27 @@ var silverbank = 10;
 var board_positions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
 var tilePct = 13;
 var playerRadius = 3.5;
+var coinSmallSize = 2;
 var imgBg = new Image();
 imgBg.src = "images/background.jpg";
+
+var imgGoldSmall = new Image();
+imgGoldSmall.src = "images/gold_small.png";
+
+var imgSilverSmall = new Image();
+imgSilverSmall.src = "images/silver_small.png";
 
 // classes
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 0;
-	this.silver = 0;
+	this.gold = 4;
+	this.silver = 5;
 	this.whore = 0;
 	this.skeleton = 0;
 	this.pos = 0;
-	this.color = [Math.random()*200+55,Math.random()*200+55,Math.random()*200+55];
-	this.offset = [Math.random()*8-4,Math.random()*8-4];
+	this.color = [Math.random()*200+55,Math.random()*200+55,Math.random()*200+55]; // Only non-dark colors
+	this.offset = [Math.random()*8-4,Math.random()*8-4]; // Give player a random offset on its tile
 	
 	this.draw = function(){
 		var coords = board_positions[this.pos];
@@ -154,8 +161,20 @@ function Player(name){
 		var dim = ctx.measureText(this.name);
 		var textwidth = dim.width;
 		
-		drawCircle(x,y,playerRadius,true,this.color);
+		drawCircle(x,y,playerRadius,this.color,true);
 		drawText(this.name,x-(textwidth/width)*50,y-textsize*0.75,0,textsize);
+		
+		// Draw coins next to portrait
+		var coinPosY = y+playerRadius-coinSmallSize*0.75;
+		
+		for (var i = 0;i < this.gold;i++){		
+			drawImage(imgGoldSmall,x-playerRadius-coinSmallSize/2,coinPosY,coinSmallSize);
+			coinPosY -= coinSmallSize*0.35;
+		}
+		for (var i = 0; i < this.silver; i++){
+			drawImage(imgSilverSmall,x-playerRadius-coinSmallSize/2,coinPosY,coinSmallSize);
+			coinPosY -= coinSmallSize*0.35;
+		}
 	}
 }
 
@@ -255,7 +274,7 @@ function drawBox(player){
 	ctx.fillStyle = "black";
 	ctx.fillRect(rectX,rectY,rectW,rectH);
 	if(player != null){
-		drawCircle(30,30,playerRadius+0.75,true,"white");
+		drawCircle(30,30,playerRadius+0.75,"white",true);
 	}
 	ctx.fillStyle = "white";
 	ctx.fillRect(rectX+1, rectY+1, rectW-2,rectH-2);
