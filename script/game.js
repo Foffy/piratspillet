@@ -112,12 +112,17 @@ var players = [];
 var curPlayer = 0;
 var curState = 0;
 
+var whorebank = 5;
+var goldbank = 10;
+var silverbank = 10;
+
 var board_positions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
 var tilePct = 13;
 var playerRadius = 3.5;
 var imgBg = new Image();
 imgBg.src = "images/background.jpg";
 
+// classes
 function Player(name){
 	this.name = name;
 	this.active = true;
@@ -144,18 +149,36 @@ function Player(name){
 	}
 }
 
+State = {
+	ROLL : "To Roll",
+	LANDED : "Landed on a tile",
+	DRINK_DIGGED : "Drink for digged down coins",
+	COINS_BOUGHT : "Coins for sips",
+	SELECT_SWITCH : "Switch coins",
+	SELECT_CANNON : "Take randomly",
+	DIG_DOWN : "Dig down coins",
+	DIG_AMOUNT : "How much to dig down",
+	IN_HARBOUR : "Give sips away",
+	GAME_WON : "Someone won the game"
+}
+
 // the main gameloop function
 var GameLoop = function(){
 	clear();
-	drawImage(imgBg,0, 0, 100);
-	for(var i = 0; i < players.length; i++){
-		players[i].draw();	
-	}
+	drawboard();
+	if(players.length > 0) drawText(onTileString(),5,5,0,2.5);
 
 	setTimeout(GameLoop, 1000 / 50);
 }
 
 GameLoop();
+
+function drawboard(){
+	drawImage(imgBg,0, 0, 100);
+	for(var i = 0; i < players.length; i++){
+		players[i].draw();	
+	}	
+}
 
 // INITIALISATION
 
@@ -166,6 +189,32 @@ for(var i = 1; i <= numPlayers; i++){
 	players.push(new Player(prompt("What is the name of player "+i+"?","")));
 }
 
+// GAME METHODS
+
+// Gives a string listing the players
+// on the current tile
+function onTileString(){
+	var matches = [players[curPlayer]];
+	
+	// gather players
+	for(var i = 0; i < players.length; i++){
+		if(i != curPlayer && players[i].pos == players[curPlayer].pos){
+			matches.push(players[i]);
+		}
+	}
+	matches.reverse();
+	
+	// list them
+	var result = matches.pop().name;
+	while(matches.length > 0){
+		if(matches.length > 1){
+			result += ", "+matches.pop().name;
+		}else{
+			result += " and "+matches.pop().name;
+		}
+	}
+	return result;
+}
 
 
 
