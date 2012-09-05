@@ -33,8 +33,9 @@ function resizeCanvas(){
 }
 
 // clears the canvas for painting
+var bgcolor = colorString([162,206,231]);
 function clear(){
-	ctx.fillStyle = '#d0e7f9';
+	ctx.fillStyle = bgcolor;
 	ctx.beginPath();
 	ctx.rect(0,0,c.width,c.height);
 	ctx.closePath();
@@ -108,6 +109,8 @@ function drawCircle(pctX, pctY, pctR, border, color){
 
 // constants and stuff
 var players = [];
+var curPlayer = 0;
+var curState = 0;
 
 var board_positions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
 var tilePct = 13;
