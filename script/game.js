@@ -9,7 +9,7 @@ var height = c.height;
 var xDisp = 0; // if screen is too wide
 var yDisp = 0; // if screen is too high
 var mousePos = [0,0];
-var mouseClicked = [0,0];
+var mouseClicked = null;
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas,false);
 
@@ -47,13 +47,14 @@ function clear(){
 // get mouse coordinates
 function getMousePosition(evt){	
 	var rect = c.getBoundingClientRect(), root = document.documentElement;
-	var mouseX = event.clientX - rect.top - root.scrollTop-c.offsetLeft-parseInt(xDisp);
-	var mouseY = event.clientY - rect.left - root.scrollLeft-c.offsetTop-parseInt(yDisp);
+	var mouseX = evt.clientX - rect.top - root.scrollTop-c.offsetLeft;
+	var mouseY = evt.clientY - rect.left - root.scrollLeft-c.offsetTop;
 	mousePos[0] = mouseX;
 	mousePos[1] = mouseY;
 }
 
 function getMouseClick(){
+	mouseClicked = [];
 	mouseClicked[0] = xToPct(mousePos[0]);
 	mouseClicked[1] = yToPct(mousePos[1]);	
 }
@@ -71,12 +72,14 @@ function pctToY(value){
 
 // converts a x value to a percentage of the height
 function xToPct(value){
-	return value*100/width;
+	return ((value-xDisp)/width)*100;
+	//return value*100/width;
 }
 
 // converts a y value to a percentage of the height
 function yToPct(value){
-	return value*100/height;
+	return ((value-yDisp)/height)*100;
+	//return value*100/height;
 }
 
 // simple method to get a percentage of something
@@ -263,12 +266,13 @@ State = {
 	IN_HARBOUR : "Give sips away",
 	GAME_WON : "Someone won the game"
 }
-
+var clickText = "lolz";
 // the main gameloop function
-var GameLoop = function(){
+function GameLoop(){
 	clear();
 	drawboard();
-	if(curState != null) {drawState(); /* hej jimmy */ takeInput(); } 
+	if(curState != null) {drawState(); /* hej jimmy */ takeInput(); }
+	drawText(clickText,5,5,0,2.5);
 
 	setTimeout(GameLoop, 1000 / 50);
 }
@@ -295,12 +299,15 @@ function drawState(){
 }
 
 function takeInput(){
+	if(mouseClicked == null) return; // no new click waiting
+	
 	switch(curState){
 		case State.ROLL:{
-			c.addEventListener('mousemove',getMousePosition,false);
-			c.addEventListener('click',getMouseClick,false);
+			clickText = parseInt(mouseClicked[0])+","+parseInt(mouseClicked[1]);
 		}	
 	}
+	
+	mouseClicked = null; // click consumed
 }
 
 // INITIALISATION
@@ -312,7 +319,11 @@ var numPlayers = parseInt(prompt("How many players?",""));
 for(var i = 1; i <= numPlayers; i++){
 	players.push(new Player(prompt("What is the name of player "+i+"?","")));
 }
+
+// ... and we're on!
 curState = State.ROLL;
+c.addEventListener('mousemove',getMousePosition,false);
+c.addEventListener('click',getMouseClick,false);
 
 // GAME METHODS
 
