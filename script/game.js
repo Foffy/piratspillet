@@ -154,7 +154,6 @@ function drawCircle(pctX, pctY, pctR, color, border){
 var players = [];
 var curPlayer = 0;
 var curState = null;
-var diceClicked = 0;
 var leftToActivate = [];
 
 var whorebank = 5;
@@ -256,6 +255,7 @@ function Player(name){
 // all the possible states in the game
 State = {
 	ROLL : "To Roll",
+	ROLLING: "Rolling the dice",
 	LANDED : "Landed on a tile",
 	DRINK_DIGGED : "Drink for digged down coins",
 	COINS_BOUGHT : "Coins for sips",
@@ -291,9 +291,11 @@ function drawState(){
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
-			if(diceClicked == 0){
-				drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
-			}
+			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
+		}
+		case State.ROLLING:{
+			drawBox(players[curPlayer]);
+			drawImage(imgDiceIdle,50,50,diceSize);
 		}
 	}
 }
@@ -304,6 +306,9 @@ function takeInput(){
 	switch(curState){
 		case State.ROLL:{
 			clickText = parseInt(mouseClicked[0])+","+parseInt(mouseClicked[1]);
+		}
+		case State.ROLLING:{
+			clickText = "Rolling, rolling!";
 		}	
 	}
 	
