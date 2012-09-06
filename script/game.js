@@ -300,6 +300,10 @@ function drawState(){
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
 			break;
 		}
+		case State.LANDED:{
+			drawLandedTile(players[curPlayer].pos);
+			break;	
+		}
 	}
 }
 
@@ -314,7 +318,11 @@ function takeInput(){
 		case State.ROLLING:{
 			clickText = "Rolling, rolling!";
 			break;
-		}	
+		}
+		case State.LANDED:{
+			inputForTile(players[curPlayer].pos);
+			break;	
+		}
 	}
 	
 	mouseClicked = null; // click consumed
@@ -377,6 +385,26 @@ function drawBox(player){
 	ctx.fillRect(rectX+1, rectY+1, rectW-2,rectH-2);
 	
 	player.drawXY(30,30);
+}
+
+// MORE GAME LOGIC
+
+function drawLandedTile(tile){
+	switch(tile){
+		case 0:{
+			break;	
+		}
+		// ...
+	}
+}
+
+function inputForTile(tile){
+	switch(tile){
+		case 0:{
+			break;	
+		}
+		// ...
+	}
 }
 
 
