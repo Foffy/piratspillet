@@ -128,7 +128,7 @@ var board_positions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[
 var tilePct = 13;
 var playerRadius = 3.5;
 var imgBg = new Image();
-imgBg.src = "images/background.jpg";
+imgBg.src = "images/background.png";
 
 // classes
 function Player(name){
