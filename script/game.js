@@ -438,7 +438,7 @@ function inputForTile(tile){
 }
 
 function wordWrap(text, maxWidthPct, pctFont){
-	ctx.font = "bold " + pctToX(pctFont) + "px Arial";
+	ctx.font = "bold " + pctOf(pctFont,width) + "px Arial";
 	
 	var wordsIndex = 0;
 	var words = text.split(" ");
