@@ -257,6 +257,7 @@ State = {
 	ROLL : "To Roll",
 	ROLLING: "Rolling the dice",
 	LANDED : "Landed on a tile",
+	ACTIVATED : "Players tile activated",
 	DRINK_DIGGED : "Drink for digged down coins",
 	COINS_BOUGHT : "Coins for sips",
 	SELECT_SWITCH : "Switch coins",
@@ -266,13 +267,12 @@ State = {
 	IN_HARBOUR : "Give sips away",
 	GAME_WON : "Someone won the game"
 }
-var clickText = "lolz";
+
 // the main gameloop function
 function GameLoop(){
 	clear();
 	drawboard();
 	if(curState != null) {drawState(); /* hej jimmy */ takeInput(); }
-	drawText(clickText,5,5,0,2.5);
 
 	setTimeout(GameLoop, 1000 / 50);
 }
@@ -288,14 +288,17 @@ function drawboard(){
 
 // draws extra gui depending on the current game state
 function drawState(){
+	drawText(curState,5,5,0,2.5);
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
+			break;
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			drawImage(imgDiceIdle,50,50,diceSize);
+			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
+			break;
 		}
 	}
 }
@@ -305,10 +308,12 @@ function takeInput(){
 	
 	switch(curState){
 		case State.ROLL:{
-			clickText = parseInt(mouseClicked[0])+","+parseInt(mouseClicked[1]);
+			curState = State.ROLLING;
+			break;
 		}
 		case State.ROLLING:{
 			clickText = "Rolling, rolling!";
+			break;
 		}	
 	}
 	
