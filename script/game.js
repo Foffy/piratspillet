@@ -196,7 +196,7 @@ var skeletonSmallSize = 2;
 var skeletonDisplacement = 0.35;
 var diceSize = 5;
 var imgBg = new Image();
-imgBg.src = "images/background.png";
+imgBg.src = "images/background.jpg";
 
 var imgGoldSmall = new Image();
 imgGoldSmall.src = "images/gold_small.png";
