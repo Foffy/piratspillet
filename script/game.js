@@ -318,7 +318,7 @@ function drawState(){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
-			drawText("Hej foffy jeg syntes denne tekst gerne må blive på, en linje. Ja i know der skulle ikke være komme der, men what are you gonna, do?",30,30,40,2.5,"center");
+			drawText("Derp",30,30,40,2.5,"center");
 			break;
 		}
 		case State.ROLLING:{
@@ -433,7 +433,7 @@ function inputForTile(tile){
 }
 
 function wordWrap(text, maxWidthPct, pctFont){
-	ctx.font = "bold " + pctToX(pctFont) + "px Arial";
+	ctx.font = "bold " + pctOf(pctFont,width) + "px Arial";
 	
 	var wordsIndex = 0;
 	var words = text.split(" ");
