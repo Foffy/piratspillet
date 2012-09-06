@@ -8,6 +8,8 @@ var width = c.width;
 var height = c.height;
 var xDisp = 0; // if screen is too wide
 var yDisp = 0; // if screen is too high
+var mousePos = [0,0];
+var mouseClicked = [0,0];
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas,false);
 
@@ -42,6 +44,21 @@ function clear(){
 	ctx.fill();
 }
 
+// get mouse coordinates
+function getMousePosition(evt){	
+	var rect = c.getBoundingClientRect(), root = document.documentElement;
+	var mouseX = event.clientX - rect.top - root.scrollTop-c.offsetLeft-parseInt(xDisp);
+	var mouseY = event.clientY - rect.left - root.scrollLeft-c.offsetTop-parseInt(yDisp);
+	mousePos[0] = mouseX;
+	mousePos[1] = mouseY;
+}
+
+function getMouseClick(){
+	mouseClicked[0] = xToPct(mousePos[0]);
+	mouseClicked[1] = yToPct(mousePos[1]);	
+}
+	
+
 // converts a percentage of the width to an exact x value
 function pctToX(value){
 	return xDisp + pctOf(value,width);
@@ -52,6 +69,16 @@ function pctToY(value){
 	return yDisp + pctOf(value,height);	
 }
 
+// converts a x value to a percentage of the height
+function xToPct(value){
+	return value*100/width;
+}
+
+// converts a y value to a percentage of the height
+function yToPct(value){
+	return value*100/height;
+}
+
 // simple method to get a percentage of something
 function pctOf(value,total){
 	return (total/100.0)*value;
@@ -59,11 +86,17 @@ function pctOf(value,total){
 
 // draw an image from the given position with the given width(in percentages),
 // the hight will be set to keep the aspect ratio as original.
-function drawImage(img, pctX, pctY, pctW){
+// 
+function drawImage(img, pctX, pctY, pctW, cropX, cropY, cropXWidth, cropYHeight){
 	//drawText("X="+pctToX(pctX)+" Y="+pctToY(pctY),5,5,0,2.5);
 	var ratio = img.height/img.width;
 	var width = pctToX(pctW)-xDisp;
-	ctx.drawImage(img, pctToX(pctX), pctToY(pctY),width,width*ratio);
+	if(typeof(cropX)==='undefined'){
+		ctx.drawImage(img, pctToX(pctX), pctToY(pctY),width,width*ratio);
+	}
+	else{
+		ctx.drawImage(img,cropX, cropY, cropXWidth, cropYHeight, pctToX(pctX), pctToY(pctY), width,width*ratio);
+	}
 }
 
 function colorString(array){
@@ -118,16 +151,23 @@ function drawCircle(pctX, pctY, pctR, color, border){
 var players = [];
 var curPlayer = 0;
 var curState = null;
+var diceClicked = 0;
 var leftToActivate = [];
 
 var whorebank = 5;
 var goldbank = 10;
 var silverbank = 10;
 
-var board_positions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
+var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
 var tilePct = 13;
 var playerRadius = 3.5;
 var coinSmallSize = 2;
+var smallCoinDisplacement = 0.35;
+var whoreSmallSize = 2;
+var whoreDisplacement = 0.35;
+var skeletonSmallSize = 2;
+var skeletonDisplacement = 0.35;
+var diceSize = 5;
 var imgBg = new Image();
 imgBg.src = "images/background.jpg";
 
@@ -137,20 +177,38 @@ imgGoldSmall.src = "images/gold_small.png";
 var imgSilverSmall = new Image();
 imgSilverSmall.src = "images/silver_small.png";
 
+var imgWhoreSmall = new Image();
+imgWhoreSmall.src = "images/whore_small.png";
+
+var imgSkeletonSmall = new Image();
+imgSkeletonSmall.src = "images/skeleton_small.png";
+
+var imgDiceIdle = new Image();
+imgDiceIdle.src = "images/icon_start.png";
+
 // classes
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 4;
-	this.silver = 5;
+	this.gold = 0;
+	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
 	this.pos = 0;
 	this.color = [Math.random()*200+55,Math.random()*200+55,Math.random()*200+55]; // Only non-dark colors
 	this.offset = [Math.random()*8-4,Math.random()*8-4]; // Give player a random offset on its tile
 	
+	// get the coordinates in pct for the players center
+	this.getPosition = function(){
+		var x,y;
+		return{
+			 x: boardPositions[this.pos][0]+this.offset[0],
+			 y: boardPositions[this.pos][1]+this.offset[1]
+		};
+	}
+	
 	this.draw = function(){
-		var coords = board_positions[this.pos];
+		var coords = boardPositions[this.pos];
 		var center = [coords[0]+this.offset[0],coords[1]+this.offset[1]];
 		this.drawXY(center[0],center[1]);
 	}
@@ -169,11 +227,25 @@ function Player(name){
 		
 		for (var i = 0;i < this.gold;i++){		
 			drawImage(imgGoldSmall,x-playerRadius-coinSmallSize/2,coinPosY,coinSmallSize);
-			coinPosY -= coinSmallSize*0.35;
+			coinPosY -= coinSmallSize*smallCoinDisplacement;
 		}
 		for (var i = 0; i < this.silver; i++){
 			drawImage(imgSilverSmall,x-playerRadius-coinSmallSize/2,coinPosY,coinSmallSize);
-			coinPosY -= coinSmallSize*0.35;
+			coinPosY -= coinSmallSize*smallCoinDisplacement;
+		}
+		
+		// Draw Whore coins next to portrait
+		var whorePosY = y+playerRadius-whoreSmallSize*0.75;
+		for (var i = 0; i < this.whore; i++){
+			drawImage(imgWhoreSmall,x+playerRadius-whoreSmallSize/2,whorePosY,whoreSmallSize);
+			whorePosY -= whoreSmallSize*whoreDisplacement;
+		}
+		
+		// Draw skeletons next to portrait
+		var skeletonPosY = y-playerRadius-skeletonSmallSize*0.75;
+		for (var i = 0; i < this.whore; i++){
+			drawImage(imgSkeletonSmall,x+playerRadius-skeletonSmallSize/2,skeletonPosY,skeletonSmallSize);
+			skeletonPosY += skeletonSmallSize*skeletonDisplacement;
 		}
 	}
 }
@@ -215,6 +287,9 @@ function drawState(){
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
+			if(diceClicked == 0){
+				drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
+			}
 		}
 	}
 }
@@ -222,8 +297,9 @@ function drawState(){
 function takeInput(){
 	switch(curState){
 		case State.ROLL:{
-			
-		}
+			c.addEventListener('mousemove',getMousePosition,false);
+			c.addEventListener('click',getMouseClick,false);
+		}	
 	}
 }
 
