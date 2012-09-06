@@ -116,11 +116,36 @@ function colorString(array){
 // and width the given maximum width. It will break the text down if it
 // is too wide and make new lines underneath. The font is also given relative
 // to the screen size (width).
-function drawText(text, pctX, pctY, pctW, pctFont){
+function drawText(text, pctX, pctY, pctW, pctFont, allign){
 	ctx.fillStyle = "black";
 	var fontH = pctOf(pctFont,width)
 	ctx.font = "bold " + fontH + "px Arial";
-	ctx.fillText(text, pctToX(pctX),pctToY(pctY) + fontH);
+	
+	if(pctW > 0){
+		lines = wordWrap(text, pctW, pctFont);
+		var maxwidth = pctOf(pctW,width);
+		var x = pctToX(pctX);
+		var y = pctToY(pctY) + fontH;
+		for(var i = 0; i < lines.length; i++){
+			switch(allign){
+				case "center":{
+					//var width = ;
+					ctx.fillText(lines[i],x+(maxwidth-ctx.measureText(lines[i]).width)/2,y);
+					break;	
+				}
+				case "right":{
+					ctx.fillText(lines[i],x+maxwidth-ctx.measureText(lines[i]).width,y);
+					break;	
+				}
+				default:{
+					ctx.fillText(lines[i],x,y);
+				}
+			}
+			y += fontH;
+		}
+	}else{
+		ctx.fillText(text, pctToX(pctX),pctToY(pctY) + fontH);
+	}
 }
 
 // draws a filled rectangle at the given position with the given width,
@@ -257,18 +282,18 @@ function Player(name){
 
 // all the possible states in the game
 State = {
-	ROLL : "To Roll",
-	ROLLING: "Rolling the dice",
-	LANDED : "Landed on a tile",
-	ACTIVATED : "Players tile activated",
-	DRINK_DIGGED : "Drink for digged down coins",
-	COINS_BOUGHT : "Coins for sips",
-	SELECT_SWITCH : "Switch coins",
-	SELECT_CANNON : "Take randomly",
-	DIG_DOWN : "Dig down coins",
-	DIG_AMOUNT : "How much to dig down",
-	IN_HARBOUR : "Give sips away",
-	GAME_WON : "Someone won the game"
+	ROLL : "1: To Roll",
+	ROLLING: "2: Rolling the dice",
+	LANDED : "3: Landed on a tile",
+	ACTIVATED : "4: Players tile activated",
+	DRINK_DIGGED : "5: Drink for digged down coins",
+	COINS_BOUGHT : "6: Coins for sips",
+	SELECT_SWITCH : "7: Switch coins",
+	SELECT_CANNON : "8: Take randomly",
+	DIG_DOWN : "9: Dig down coins",
+	DIG_AMOUNT : "10: How much to dig down",
+	IN_HARBOUR : "11: Give sips away",
+	GAME_WON : "12: Someone won the game"
 }
 
 // the main gameloop function
@@ -291,17 +316,18 @@ function drawboard(){
 
 // draws extra gui depending on the current game state
 function drawState(){
-	drawText(curState,5,5,0,2.5);
+	drawText("State: "+curState,5,5,0,2.5);
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50);
+			drawText("Hej foffy jeg syntes denne tekst gerne må blive på, en linje. Ja i know der skulle ikke være komme der, men what are you gonna, do?",30,30,40,2,"center");
 			break;
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
 			var diceToShow = parseInt(Math.random()*6)+1;
-			drawText(diceToShow,49.5,40,2,2);
+			drawText(diceToShow,49.5,40,0,2,"center");
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,diceToShow*50-50,0,50,50);
 			break;
 		}
@@ -411,5 +437,36 @@ function inputForTile(tile){
 	}
 }
 
-
+function wordWrap(text, maxWidthPct, pctFont){
+	ctx.font = "bold " + pctToX(pctFont) + "px Arial";
+	
+	var wordsIndex = 0;
+	var words = text.split(" ");
+	var results = [];
+	var maxwidth = pctToX(maxWidthPct)-xDisp;
+	
+	var line = "";
+	var nextWord = null;
+	while(wordsIndex < words.length){
+		nextWord = words[wordsIndex];
+		if(ctx.measureText(line + nextWord).width <= maxwidth){ // cut word
+			line += nextWord + " ";
+			wordsIndex++;
+		}else if(ctx.measureText(nextWord).width > maxwidth){ // cut word
+			var end = nextWord.length - 1;
+			while(ctx.measureText(line + nextWord.substring(0, end) + "-").width > maxwidth){ // see what we have space for
+				end--;
+			}
+			results.push(line + nextWord.substring(0,end) + "-");
+			line = "";
+			words[wordsIndex] = words[wordsIndex].substring(end, words[wordsIndex].length - end); // let the remaining be
+		}else{ // word doesn't fit, but its not too long
+			results.push(line);
+			line = "";
+		}
+	}
+	results.push(line);
+	
+	return results;
+}
 
