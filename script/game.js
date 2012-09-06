@@ -327,7 +327,7 @@ function drawState(){
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
 			var diceToShow = parseInt(Math.random()*6)+1;
-			drawText(diceToShow,49.5,40,0,2,"center");
+			drawText(diceToShow,30,30,40,2,"center");
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,diceToShow*50-50,0,50,50);
 			break;
 		}
@@ -441,7 +441,7 @@ function wordWrap(text, maxWidthPct, pctFont){
 	ctx.font = "bold " + pctOf(pctFont,width) + "px Arial";
 	
 	var wordsIndex = 0;
-	var words = text.split(" ");
+	var words = (""+text).split(" ");
 	var results = [];
 	var maxwidth = pctToX(maxWidthPct)-xDisp;
 	
