@@ -171,7 +171,7 @@ var skeletonSmallSize = 2;
 var skeletonDisplacement = 0.35;
 var diceSize = 5;
 var imgBg = new Image();
-imgBg.src = "images/background.jpg";
+imgBg.src = "images/background.png";
 
 var imgGoldSmall = new Image();
 imgGoldSmall.src = "images/gold_small.png";
@@ -187,6 +187,9 @@ imgSkeletonSmall.src = "images/skeleton_small.png";
 
 var imgDiceIdle = new Image();
 imgDiceIdle.src = "images/icon_start.png";
+
+var imgDiceRolling = new Image();
+imgDiceRolling.src = "images/dice.png";
 
 // classes
 function Player(name){
@@ -292,17 +295,19 @@ function drawState(){
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
-			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
+			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50);
 			break;
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize);
+			var diceToShow = parseInt(Math.random()*6)+1;
+			drawText(diceToShow,49.5,40,2,2);
+			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,diceToShow*50-50,0,50,50);
 			break;
 		}
 		case State.LANDED:{
 			drawLandedTile(players[curPlayer].pos);
-			break;	
+			break;
 		}
 	}
 }
@@ -316,7 +321,6 @@ function takeInput(){
 			break;
 		}
 		case State.ROLLING:{
-			clickText = "Rolling, rolling!";
 			break;
 		}
 		case State.LANDED:{
