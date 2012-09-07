@@ -34,6 +34,10 @@ function resizeCanvas(){
 	}
 }
 
+function setFont(pctFont){
+	ctx.font = pctOf(pctFont,width) + "px Matura MT Script Capitals";	
+}
+
 // clears the canvas for painting
 var bgcolor = colorString([162,206,231]);
 function clear(){
@@ -119,7 +123,8 @@ function colorString(array){
 function drawText(text, pctX, pctY, pctW, pctFont, allign){
 	ctx.fillStyle = "black";
 	var fontH = pctOf(pctFont,width)
-	ctx.font = "bold " + fontH + "px Arial";
+	//ctx.font = "bold " + fontH + "px Arial";
+	setFont(pctFont);
 	
 	if(pctW > 0){
 		lines = wordWrap(text, pctW, pctFont);
@@ -437,9 +442,7 @@ function inputForTile(tile){
 	}
 }
 
-function wordWrap(text, maxWidthPct, pctFont){
-	ctx.font = "bold " + pctOf(pctFont,width) + "px Arial";
-	
+function wordWrap(text, maxWidthPct, pctFont){	
 	var wordsIndex = 0;
 	var words = (""+text).split(" ");
 	var results = [];

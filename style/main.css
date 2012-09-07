@@ -85,6 +85,10 @@
 	}
 	
 	/* fonts */
+	@font-face {
+    	font-family: 'Matura';
+    	src: url('res/matura.TTF');
+	}
 	.rape {
 		font-family:'Creepster', serif;
 	}
