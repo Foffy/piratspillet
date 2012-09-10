@@ -178,8 +178,16 @@ function drawCircle(pctX, pctY, pctR, color, border){
 		if(border){
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = "black";
-			ctx.stroke();	
+			ctx.stroke();
 		}
+}
+
+// moves the current player to the specified field, one step at the time
+function movePlayer(field){
+	if(players[curPlayer].pos < field){
+		players[curPlayer].pos += 1;
+		players[curPlayer].draw();
+	}
 }
 
 // THE ACTUAL GAME
@@ -204,6 +212,8 @@ var whoreDisplacement = 0.35;
 var skeletonSmallSize = 2;
 var skeletonDisplacement = 0.35;
 var diceSize = 5;
+var diceToShow = 0;
+var newField = 0;
 var imgBg = new Image();
 imgBg.src = "images/background.png";
 
@@ -309,7 +319,10 @@ State = {
 function GameLoop(){
 	clear();
 	drawboard();
-	if(curState != null) {drawState(); /* hej jimmy */ takeInput(); }
+	if(curState != null){
+		drawState(); 
+		takeInput(); 
+	}
 
 	setTimeout(GameLoop, 1000 / 50);
 }
@@ -335,13 +348,17 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			var diceToShow = parseInt(Math.random()*6)+1;
-			drawText(diceToShow,30,30,40,2,"center");
+			diceToShow = parseInt(Math.random()*6)+1;
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
+			newField = players[curPlayer].pos + diceToShow;
 			break;
 		}
 		case State.LANDED:{
+			drawBox(players[curPlayer]);
 			drawLandedTile(players[curPlayer].pos);
+			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
+			drawText(newField,0,5,40,2);
+			movePlayer(newField);
 			break;
 		}
 	}
@@ -356,6 +373,7 @@ function takeInput(){
 			break;
 		}
 		case State.ROLLING:{
+			curState = State.LANDED;
 			break;
 		}
 		case State.LANDED:{
