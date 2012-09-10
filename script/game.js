@@ -214,6 +214,7 @@ var skeletonDisplacement = 0.35;
 var diceSize = 5;
 var diceToShow = 0;
 var newField = 0;
+var newTimeout = 20;
 var imgBg = new Image();
 imgBg.src = "images/background.png";
 
@@ -324,7 +325,7 @@ function GameLoop(){
 		takeInput(); 
 	}
 
-	setTimeout(GameLoop, 1000 / 50);
+	setTimeout(GameLoop, newTimeout);
 }
 
 // draws the basic parts of the board that shall be visible
@@ -358,6 +359,7 @@ function drawState(){
 			drawLandedTile(players[curPlayer].pos);
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			drawText(newField,0,5,40,2);
+			newTimeout = 500;
 			movePlayer(newField);
 			break;
 		}
