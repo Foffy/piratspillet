@@ -333,7 +333,7 @@ function drawState(){
 			drawBox(players[curPlayer]);
 			var diceToShow = parseInt(Math.random()*6)+1;
 			drawText(diceToShow,30,30,40,2,"center");
-			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,diceToShow*50-50,0,50,50);
+			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50);
 			break;
 		}
 		case State.LANDED:{
