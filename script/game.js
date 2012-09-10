@@ -184,8 +184,12 @@ function drawCircle(pctX, pctY, pctR, color, border){
 
 // moves the current player to the specified field, one step at the time
 function movePlayer(field){
-	if(players[curPlayer].pos < field){
+	if(players[curPlayer].pos < field || field == 0){
 		players[curPlayer].pos += 1;
+		players[curPlayer].draw();
+	}
+	if(players[curPlayer].pos == 13 && field == 0){
+		players[curPlayer].pos = 0;
 		players[curPlayer].draw();
 	}
 }
@@ -339,7 +343,7 @@ function drawboard(){
 
 // draws extra gui depending on the current game state
 function drawState(){
-	drawText("State: "+curState,5,5,0,2.5);
+	drawText("State: "+curState+" Timeout: "+newTimeout,5,5,0,2.5);
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
@@ -359,9 +363,12 @@ function drawState(){
 			drawLandedTile(players[curPlayer].pos);
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			drawText(newField,0,5,40,2);
-			newTimeout = 500;
 			movePlayer(newField);
+			curState = State.ACTIVATED;
 			break;
+		}
+		case State.ACTIVATED:{
+			drawBox(players[curPlayer]);
 		}
 	}
 }
@@ -376,11 +383,16 @@ function takeInput(){
 		}
 		case State.ROLLING:{
 			curState = State.LANDED;
+			newTimeout = 200
 			break;
 		}
-		case State.LANDED:{
+		case State.LANDED:{;
+			newTimeout = 20;
 			inputForTile(players[curPlayer].pos);
 			break;	
+		}
+		case State.ACTIVATED:{
+			break;
 		}
 	}
 	
