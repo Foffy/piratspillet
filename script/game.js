@@ -92,9 +92,10 @@ function pctOf(value,total){
 }
 
 // draw an image from the given position with the given width(in percentages),
-// the hight will be set to keep the aspect ratio as original.
+// if sizeRatio is given, the height will be calculated from that.
+// Otherwise the hight will be set to keep the aspect ratio as original,
 // 
-function drawImage(img, pctX, pctY, pctW, cropX, cropY, cropXWidth, cropYHeight){
+function drawImage(img, pctX, pctY, pctW, cropX, cropY, cropXWidth, cropYHeight, sizeRatio){
 	//drawText("X="+pctToX(pctX)+" Y="+pctToY(pctY),5,5,0,2.5);
 	var ratio = img.height/img.width;
 	var width = pctToX(pctW)-xDisp;
@@ -102,7 +103,10 @@ function drawImage(img, pctX, pctY, pctW, cropX, cropY, cropXWidth, cropYHeight)
 		ctx.drawImage(img, pctToX(pctX), pctToY(pctY),width,width*ratio);
 	}
 	else{
-		ctx.drawImage(img,cropX, cropY, cropXWidth, cropYHeight, pctToX(pctX), pctToY(pctY), width,width*ratio);
+			if(typeof(sizeRatio==='number')){
+				var ratio = sizeRatio;
+			}
+		ctx.drawImage(img,cropX, cropY, cropXWidth, cropYHeight, pctToX(pctX), pctToY(pctY), width, width*ratio);
 	}
 }
 
@@ -325,7 +329,7 @@ function drawState(){
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
-			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50);
+			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
 			drawText("Hej foffy jeg syntes denne tekst gerne må blive på, en linje. Ja i know der skulle ikke være komme der, men what are you gonna, do?",30,30,40,2,"center");
 			break;
 		}
@@ -333,7 +337,7 @@ function drawState(){
 			drawBox(players[curPlayer]);
 			var diceToShow = parseInt(Math.random()*6)+1;
 			drawText(diceToShow,30,30,40,2,"center");
-			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50);
+			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			break;
 		}
 		case State.LANDED:{
