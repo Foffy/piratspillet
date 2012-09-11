@@ -86,9 +86,12 @@
 	
 	/* fonts */
 	@font-face {
-    	font-family: 'Matura';
-    	src: url('res/matura.TTF');
+    	font-family: 'Kingthings';
+    	src: url('../fonts/Kingthings_Calligraphica_2-webfont.ttf') format('truetype');
+    	font-weight: normal;
+    	font-style: normal;
 	}
+	
 	.rape {
 		font-family:'Creepster', serif;
 	}

@@ -35,7 +35,7 @@ function resizeCanvas(){
 }
 
 function setFont(pctFont){
-	ctx.font = pctOf(pctFont,width) + "px Matura MT Script Capitals";	
+	ctx.font = pctOf(pctFont,width) + "px Kingthings";	
 }
 
 // clears the canvas for painting
@@ -330,7 +330,7 @@ function drawState(){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
-			drawText("Hej foffy jeg syntes denne tekst gerne må blive på, en linje. Ja i know der skulle ikke være komme der, men what are you gonna, do?",30,30,40,2,"center");
+			drawText("It is "+players[curPlayer].name+"'s time to roll!",30,35,40,3,"center");
 			break;
 		}
 		case State.ROLLING:{
