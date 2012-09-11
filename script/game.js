@@ -182,16 +182,35 @@ function drawCircle(pctX, pctY, pctR, color, border){
 		}
 }
 
-// moves the current player to the specified field, one step at the time
-function movePlayer(field){
-	if(players[curPlayer].pos < field || field == 0){
-		players[curPlayer].pos += 1;
-		players[curPlayer].draw();
+function wordWrap(text, maxWidthPct, pctFont){	
+	var wordsIndex = 0;
+	var words = (""+text).split(" ");
+	var results = [];
+	var maxwidth = pctToX(maxWidthPct)-xDisp;
+	
+	var line = "";
+	var nextWord = null;
+	while(wordsIndex < words.length){
+		nextWord = words[wordsIndex];
+		if(ctx.measureText(line + nextWord).width <= maxwidth){ // cut word
+			line += nextWord + " ";
+			wordsIndex++;
+		}else if(ctx.measureText(nextWord).width > maxwidth){ // cut word
+			var end = nextWord.length - 1;
+			while(ctx.measureText(line + nextWord.substring(0, end) + "-").width > maxwidth){ // see what we have space for
+				end--;
+			}
+			results.push(line + nextWord.substring(0,end) + "-");
+			line = "";
+			words[wordsIndex] = words[wordsIndex].substring(end, words[wordsIndex].length - end); // let the remaining be
+		}else{ // word doesn't fit, but its not too long
+			results.push(line);
+			line = "";
+		}
 	}
-	if(players[curPlayer].pos == 13 && field == 0){
-		players[curPlayer].pos = 0;
-		players[curPlayer].draw();
-	}
+	results.push(line);
+	
+	return results;
 }
 
 // THE ACTUAL GAME
@@ -308,16 +327,17 @@ function Player(name){
 State = {
 	ROLL : "1: To Roll",
 	ROLLING: "2: Rolling the dice",
-	LANDED : "3: Landed on a tile",
-	ACTIVATED : "4: Players tile activated",
-	DRINK_DIGGED : "5: Drink for digged down coins",
-	COINS_BOUGHT : "6: Coins for sips",
-	SELECT_SWITCH : "7: Switch coins",
-	SELECT_CANNON : "8: Take randomly",
-	DIG_DOWN : "9: Dig down coins",
-	DIG_AMOUNT : "10: How much to dig down",
-	IN_HARBOUR : "11: Give sips away",
-	GAME_WON : "12: Someone won the game"
+	MOVING: "3: Moving one space",
+	LANDED : "4: Landed on a tile",
+	ACTIVATED : "5: Players tile activated",
+	DRINK_DIGGED : "6: Drink for digged down coins",
+	COINS_BOUGHT : "7: Coins for sips",
+	SELECT_SWITCH : "8: Switch coins",
+	SELECT_CANNON : "9: Take randomly",
+	DIG_DOWN : "10: Dig down coins",
+	DIG_AMOUNT : "11: How much to dig down",
+	IN_HARBOUR : "12: Give sips away",
+	GAME_WON : "13: Someone won the game"
 }
 
 // the main gameloop function
@@ -358,17 +378,21 @@ function drawState(){
 			newField = players[curPlayer].pos + diceToShow;
 			break;
 		}
-		case State.LANDED:{
+		case State.MOVING:{
 			drawBox(players[curPlayer]);
 			drawLandedTile(players[curPlayer].pos);
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			drawText(newField,0,5,40,2);
 			movePlayer(newField);
-			curState = State.ACTIVATED;
+			
+			if(newField == players[curPlayer].pos){
+				curState = State.ROLL;
+				newTimeout = 20;
+			}
 			break;
 		}
 		case State.ACTIVATED:{
-			drawBox(players[curPlayer]);
+			//drawBox(players[curPlayer]);
 		}
 	}
 }
@@ -386,8 +410,8 @@ function takeInput(){
 			newTimeout = 200
 			break;
 		}
-		case State.LANDED:{;
-			newTimeout = 20;
+		case State.MOVING:{;
+			
 			inputForTile(players[curPlayer].pos);
 			break;	
 		}
@@ -460,6 +484,21 @@ function drawBox(player){
 
 // MORE GAME LOGIC
 
+// moves the current player to the specified field, one step at the time
+function movePlayer(){
+	players[curPlayer].pos += players[curPlayer].pos < 13 ? 1 : -13;
+	if(players[curPlayer].pos == 0) newField = 0;
+	
+	/*if(players[curPlayer].pos < field || field == 0){
+		players[curPlayer].pos += 1;
+		players[curPlayer].draw();
+	}
+	if(players[curPlayer].pos == 13 && field == 0){
+		players[curPlayer].pos = 0;
+		players[curPlayer].draw();
+	}*/
+}
+
 function drawLandedTile(tile){
 	switch(tile){
 		case 0:{
@@ -476,36 +515,5 @@ function inputForTile(tile){
 		}
 		// ...
 	}
-}
-
-function wordWrap(text, maxWidthPct, pctFont){	
-	var wordsIndex = 0;
-	var words = (""+text).split(" ");
-	var results = [];
-	var maxwidth = pctToX(maxWidthPct)-xDisp;
-	
-	var line = "";
-	var nextWord = null;
-	while(wordsIndex < words.length){
-		nextWord = words[wordsIndex];
-		if(ctx.measureText(line + nextWord).width <= maxwidth){ // cut word
-			line += nextWord + " ";
-			wordsIndex++;
-		}else if(ctx.measureText(nextWord).width > maxwidth){ // cut word
-			var end = nextWord.length - 1;
-			while(ctx.measureText(line + nextWord.substring(0, end) + "-").width > maxwidth){ // see what we have space for
-				end--;
-			}
-			results.push(line + nextWord.substring(0,end) + "-");
-			line = "";
-			words[wordsIndex] = words[wordsIndex].substring(end, words[wordsIndex].length - end); // let the remaining be
-		}else{ // word doesn't fit, but its not too long
-			results.push(line);
-			line = "";
-		}
-	}
-	results.push(line);
-	
-	return results;
 }
 
