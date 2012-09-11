@@ -178,8 +178,20 @@ function drawCircle(pctX, pctY, pctR, color, border){
 		if(border){
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = "black";
-			ctx.stroke();	
+			ctx.stroke();
 		}
+}
+
+// moves the current player to the specified field, one step at the time
+function movePlayer(field){
+	if(players[curPlayer].pos < field || field == 0){
+		players[curPlayer].pos += 1;
+		players[curPlayer].draw();
+	}
+	if(players[curPlayer].pos == 13 && field == 0){
+		players[curPlayer].pos = 0;
+		players[curPlayer].draw();
+	}
 }
 
 // THE ACTUAL GAME
@@ -204,6 +216,9 @@ var whoreDisplacement = 0.35;
 var skeletonSmallSize = 2;
 var skeletonDisplacement = 0.35;
 var diceSize = 5;
+var diceToShow = 0;
+var newField = 0;
+var newTimeout = 20;
 var imgBg = new Image();
 imgBg.src = "images/background.png";
 
@@ -309,9 +324,12 @@ State = {
 function GameLoop(){
 	clear();
 	drawboard();
-	if(curState != null) {drawState(); /* hej jimmy */ takeInput(); }
+	if(curState != null){
+		drawState(); 
+		takeInput(); 
+	}
 
-	setTimeout(GameLoop, 1000 / 50);
+	setTimeout(GameLoop, newTimeout);
 }
 
 // draws the basic parts of the board that shall be visible
@@ -325,7 +343,7 @@ function drawboard(){
 
 // draws extra gui depending on the current game state
 function drawState(){
-	drawText("State: "+curState,5,5,0,2.5);
+	drawText("State: "+curState+" Timeout: "+newTimeout,5,5,0,2.5);
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
@@ -335,14 +353,22 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			var diceToShow = parseInt(Math.random()*6)+1;
-			drawText(diceToShow,30,30,40,2,"center");
+			diceToShow = parseInt(Math.random()*6)+1;
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
+			newField = players[curPlayer].pos + diceToShow;
 			break;
 		}
 		case State.LANDED:{
+			drawBox(players[curPlayer]);
 			drawLandedTile(players[curPlayer].pos);
+			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
+			drawText(newField,0,5,40,2);
+			movePlayer(newField);
+			curState = State.ACTIVATED;
 			break;
+		}
+		case State.ACTIVATED:{
+			drawBox(players[curPlayer]);
 		}
 	}
 }
@@ -356,11 +382,17 @@ function takeInput(){
 			break;
 		}
 		case State.ROLLING:{
+			curState = State.LANDED;
+			newTimeout = 200
 			break;
 		}
-		case State.LANDED:{
+		case State.LANDED:{;
+			newTimeout = 20;
 			inputForTile(players[curPlayer].pos);
 			break;	
+		}
+		case State.ACTIVATED:{
+			break;
 		}
 	}
 	
