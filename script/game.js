@@ -124,14 +124,14 @@ function colorString(array){
 // and width the given maximum width. It will break the text down if it
 // is too wide and make new lines underneath. The font is also given relative
 // to the screen size (width).
-function drawText(text, pctX, pctY, pctW, pctFont, allign){
+function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap){
 	ctx.fillStyle = "black";
 	var fontH = pctOf(pctFont,width)
 	//ctx.font = "bold " + fontH + "px Arial";
 	setFont(pctFont);
 	
 	if(pctW > 0){
-		lines = wordWrap(text, pctW, pctFont);
+		lines = wordwrap == false ? [text] : wordWrap(text, pctW, pctFont);
 		var maxwidth = pctOf(pctW,width);
 		var x = pctToX(pctX);
 		var y = pctToY(pctY) + fontH;
@@ -226,6 +226,7 @@ var goldbank = 10;
 var silverbank = 10;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
+var treasureIsland = [];
 var tilePct = 13;
 var playerRadius = 3.5;
 var coinSmallSize = 2;
@@ -287,13 +288,9 @@ function Player(name){
 	}
 	this.drawXY = function(x, y){
 		var textsize = 1.5
-		var textheight = pctOf(textsize,width);
-		ctx.font = "bold " + textheight + "px Arial";
-		var dim = ctx.measureText(this.name);
-		var textwidth = dim.width;
 		
 		drawCircle(x,y,playerRadius,this.color,true);
-		drawText(this.name,x-(textwidth/width)*50,y-textsize*0.75,0,textsize);
+		drawText(this.name,x-playerRadius/2,y-textsize*0.75,playerRadius,textsize,"center",false);
 		
 		// Draw coins next to portrait
 		var coinPosY = y+playerRadius-coinSmallSize*0.75;
@@ -361,10 +358,9 @@ function drawboard(){
 
 // draws extra gui depending on the current game state
 function drawState(){
-	drawText("State: "+curState+" Timeout: "+newTimeout,5,5,0,2.5);
+	drawText("State: "+curState+" - Timeout: "+newTimeout,5,5,0,2.5);
 	switch(curState){
 		case State.ROLL:{
-			newTimeout = 20;
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
 			drawText("It is "+players[curPlayer].name+"'s time to roll!",30,35,40,3,"center");
@@ -384,10 +380,14 @@ function drawState(){
 			movePlayer(newField);
 			
 			if(newField == players[curPlayer].pos){
-				curState = State.ROLL;
-				
+				curState = State.DRINK_DIGGED;
 			}
 			break;
+		}
+		case State.DRINK_DIGGED:{
+			newTimeout = 20; // back from moving
+			
+			drawBox(players[curPlayer]);
 		}
 		case State.ACTIVATED:{
 			//drawBox(players[curPlayer]);
@@ -405,7 +405,7 @@ function takeInput(){
 		}
 		case State.ROLLING:{
 			curState = State.MOVING;
-			newTimeout = 500
+			newTimeout = 350;
 			//diceToShow = rollDice();
 			break;
 		}
@@ -480,6 +480,13 @@ function drawBox(player){
 }
 
 // MORE GAME LOGIC
+
+function coinsToString(gold, silver){
+	if(gold == 0 && silver != 0) return silver + " silver";
+	if(gold != 0 && silver == 0) return gold + " gold";
+	if(gold != 0 && silver != 0) return gold + " gold and " + silver +" silver";
+	return "nothing";
+}
 
 // simply rolls a die
 function rollDice(){
