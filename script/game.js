@@ -343,11 +343,9 @@ State = {
 // the main gameloop function
 function GameLoop(){
 	clear();
+	if(curState != null) takeInput();
 	drawboard();
-	if(curState != null){
-		drawState(); 
-		takeInput(); 
-	}
+	if(curState != null) drawState(); 
 
 	setTimeout(GameLoop, newTimeout);
 }
@@ -358,7 +356,7 @@ function drawboard(){
 	drawImage(imgBg,0, 0, 100);
 	for(var i = 0; i < players.length; i++){
 		players[i].draw();	
-	}	
+	}
 }
 
 // draws extra gui depending on the current game state
@@ -366,6 +364,7 @@ function drawState(){
 	drawText("State: "+curState+" Timeout: "+newTimeout,5,5,0,2.5);
 	switch(curState){
 		case State.ROLL:{
+			newTimeout = 20;
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
 			drawText("It is "+players[curPlayer].name+"'s time to roll!",30,35,40,3,"center");
@@ -373,21 +372,20 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = parseInt(Math.random()*6)+1;
+			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
 		}
 		case State.MOVING:{
 			drawBox(players[curPlayer]);
-			drawLandedTile(players[curPlayer].pos);
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
-			drawText(newField,0,5,40,2);
+			drawText(newField,30,30,40,2,"center");
 			movePlayer(newField);
 			
 			if(newField == players[curPlayer].pos){
 				curState = State.ROLL;
-				newTimeout = 20;
+				
 			}
 			break;
 		}
@@ -406,13 +404,12 @@ function takeInput(){
 			break;
 		}
 		case State.ROLLING:{
-			curState = State.LANDED;
-			newTimeout = 200
+			curState = State.MOVING;
+			newTimeout = 500
+			//diceToShow = rollDice();
 			break;
 		}
 		case State.MOVING:{;
-			
-			inputForTile(players[curPlayer].pos);
 			break;	
 		}
 		case State.ACTIVATED:{
@@ -483,6 +480,12 @@ function drawBox(player){
 }
 
 // MORE GAME LOGIC
+
+// simply rolls a die
+function rollDice(){
+	return parseInt(Math.random()*6)+1;
+}
+
 
 // moves the current player to the specified field, one step at the time
 function movePlayer(){
