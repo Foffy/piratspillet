@@ -230,7 +230,7 @@ var goldbank = 10;
 var silverbank = 10;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
-var treasureIsland = [[0,0],[1,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,1],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
+var treasureIsland = [[0,0],[1,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,1],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
 var tilePct = 13;
 var playerRadius = 3.5;
 var coinSmallSize = 2;
@@ -365,8 +365,8 @@ function drawboard(){
 // draws extra gui depending on the current game state
 var debugging = "";
 function drawState(){
-	drawText("State: "+curState+" - Timeout: "+newTimeout,5,5,0,2.5);
-	drawText(""+debugging,100,0,pctOf(xDisp,width),2.5,"left");
+	drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
+	drawText(""+debugging,100,0,20,2.5,"left");
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
@@ -376,7 +376,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = 1;//rollDice();
+			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -398,15 +398,17 @@ function drawState(){
 			if(curTreasure == null){
 				curTreasure = findTreasure();
 				curSips = treasureToSips(curTreasure);
-				debugging = curSips;
+				
 				// if nothing go
 				if(curSips == 0) curState = State.LANDED;
 			}
 			drawBox(players[curPlayer]);
 			drawTextInBox("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString()+".");
+			break;
 		}
 		case State.ACTIVATED:{
 			drawBox(players[curPlayer]);
+			break;
 		}
 	}
 }
@@ -584,15 +586,6 @@ function rollDice(){
 function movePlayer(){
 	players[curPlayer].pos += players[curPlayer].pos < 13 ? 1 : -13;
 	if(players[curPlayer].pos == 0) newField = 0;
-	
-	/*if(players[curPlayer].pos < field || field == 0){
-		players[curPlayer].pos += 1;
-		players[curPlayer].draw();
-	}
-	if(players[curPlayer].pos == 13 && field == 0){
-		players[curPlayer].pos = 0;
-		players[curPlayer].draw();
-	}*/
 }
 
 function drawLandedTile(tile){
