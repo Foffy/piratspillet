@@ -226,7 +226,7 @@ var goldbank = 10;
 var silverbank = 10;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
-var treasureIsland = [];
+var treasureIsland = [[0,0],[1,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,1],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
 var tilePct = 13;
 var playerRadius = 3.5;
 var coinSmallSize = 2;
@@ -239,6 +239,8 @@ var diceSize = 5;
 var diceToShow = 0;
 var newField = 0;
 var newTimeout = 20;
+var curTreasure = null;
+var curSips = 0;
 var imgBg = new Image();
 imgBg.src = "images/background.png";
 
@@ -357,8 +359,10 @@ function drawboard(){
 }
 
 // draws extra gui depending on the current game state
+var debugging = "";
 function drawState(){
 	drawText("State: "+curState+" - Timeout: "+newTimeout,5,5,0,2.5);
+	drawText(""+debugging,100,0,pctOf(xDisp,width),2.5,"left");
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
@@ -368,7 +372,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 1;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -387,8 +391,15 @@ function drawState(){
 		case State.DRINK_DIGGED:{
 			newTimeout = 20; // back from moving
 			
+			if(curTreasure == null){
+				curTreasure = findTreasure();
+				curSips = 0;//treasureToSips(curTreasure);
+				
+				// if nothing go
+				if(curSips == 0) curState = State.LANDED;
+			}
 			drawBox(players[curPlayer]);
-			//if(treasureIsland)
+			//drawText("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString(),30,35,40,3,"center");
 		}
 		case State.ACTIVATED:{
 			//drawBox(players[curPlayer]);
@@ -410,10 +421,8 @@ function takeInput(){
 			//diceToShow = rollDice();
 			break;
 		}
-		case State.MOVING:{;
-			break;	
-		}
-		case State.ACTIVATED:{
+		case State.DRINK_DIGGED:{
+			curState = State.LANDED;
 			break;
 		}
 	}
@@ -484,20 +493,40 @@ function drawBox(player){
 
 // finds any treasure on the current players tile and
 // decreases it by one value (if possible, else two)
-// and the amount to drink is returned
+// and the amount to drink is returned.
 function findTreasure(){
 	// look up
 	var spots = treasureIslandIndexes(players[curPlayer].pos);
 	
 	// count
-	var coins = { gold: 0, silver: 0};
+	var coins = []; // [[gold,silver,doubleUp], ...]
 	for(var i = 0; i < spots.length; i++){
-		// TODO	
+		var spot = treasureIsland[spots[i]];
+		coins.push([spot[0],spot[1],spots[i] < 14]);
 	}
 	
 	// decrement
+	for(var i = 0; i < spots.length; i++){
+		islandDecrement(spots[i]);	
+	}
 	
 	// return
+	return coins;
+}
+
+function islandDecrement(coins){
+	if(coins[1] > 0){
+		coins[1] -= 1;
+		silverbank += 1;
+	}else if(coins[0] > 0 && silverbank > 0){
+		coins[0] -= 1;
+		coins[1] += 1;
+		silverbank -= 1;
+		goldbank += 1;
+	}else if(coins[0] > 0){
+		goldbank += 1;
+		coins[0] -= 1;	
+	}
 }
 
 function treasureIslandIndexes(tile){
@@ -518,7 +547,20 @@ function treasureIslandIndexes(tile){
 		case 12:{ result.push(14); break;}
 		case 13:{ result.push(14); result.push(15); break;}
 	}
+	debugging = result.join(",");
 	return result;
+}
+
+function treasureToSips(treasure){
+	var sips = 0;
+	for(var i = 0; i < treasure.length; i++){
+		sips += coinsToSips(treasure[i][0], treasure[i][1], treasure[i][2]);
+	}
+	return sips;
+}
+
+function coinsToSips(gold, silver, doubleUp){
+	return doubleUp ? 2*(gold*2+silver) : gold*2+silver;
 }
 
 function coinsToString(gold, silver){
