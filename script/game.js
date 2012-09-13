@@ -380,8 +380,8 @@ function drawboard(){
 // draws extra gui depending on the current game state
 var debugging = "";
 function drawState(){
-	drawText("State: "+curState+" - Timeout: "+newTimeout,5,5,0,2.5);
-	drawText(""+debugging,100,0,pctOf(xDisp,width),2.5,"left");
+	drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
+	drawText(""+debugging,100,0,20,2.5,"left");
 	switch(curState){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
@@ -391,7 +391,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = 1;//rollDice();
+			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -413,15 +413,17 @@ function drawState(){
 			if(curTreasure == null){
 				curTreasure = findTreasure();
 				curSips = treasureToSips(curTreasure);
-				debugging = curSips;
+				
 				// if nothing go
 				if(curSips == 0) curState = State.LANDED;
 			}
 			drawBox(players[curPlayer]);
 			drawTextInBox("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString()+".");
+			break;
 		}
 		case State.ACTIVATED:{
 			drawBox(players[curPlayer]);
+			break;
 		}
 	}
 }
@@ -617,15 +619,6 @@ function drawCoinStack(gold,silver,pos){
 function movePlayer(){
 	players[curPlayer].pos += players[curPlayer].pos < 13 ? 1 : -13;
 	if(players[curPlayer].pos == 0) newField = 0;
-	
-	/*if(players[curPlayer].pos < field || field == 0){
-		players[curPlayer].pos += 1;
-		players[curPlayer].draw();
-	}
-	if(players[curPlayer].pos == 13 && field == 0){
-		players[curPlayer].pos = 0;
-		players[curPlayer].draw();
-	}*/
 }
 
 function drawLandedTile(tile){
