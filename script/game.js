@@ -224,10 +224,14 @@ var players = [];
 var curPlayer = 0;
 var curState = null;
 var leftToActivate = [];
+var recievingPlayers = [];
+var nonRecievingPlayers = [];
 
 var whorebank = 5;
 var goldbank = 10;
 var silverbank = 10;
+
+var fieldUsed = false;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
 var treasureIsland = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
@@ -391,7 +395,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 6;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -415,14 +419,18 @@ function drawState(){
 				curSips = treasureToSips(curTreasure);
 				
 				// if nothing go
-				if(curSips == 0) curState = State.LANDED;
+				if(curSips == 0){
+					curState = State.LANDED;
+					break;
+				}
 			}
 			drawBox(players[curPlayer]);
 			drawTextInBox("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString()+".");
 			break;
 		}
-		case State.ACTIVATED:{
+		case State.LANDED:{
 			drawBox(players[curPlayer]);
+			drawLandedTile(players[curPlayer].pos);
 			break;
 		}
 	}
@@ -444,6 +452,10 @@ function takeInput(){
 		}
 		case State.DRINK_DIGGED:{
 			curState = State.LANDED;
+			break;
+		}
+		case State.LANDED:{
+			inputForTile(players[curPlayer].pos);
 			break;
 		}
 	}
@@ -468,21 +480,30 @@ c.addEventListener('click',getMouseClick,false);
 
 // GAME METHODS
 
-// Gives a string listing the players
-// on the current tile
-function onTileString(){
-	var matches = [players[curPlayer]];
-	
+function nextPlayer(){
+	curPlayer += curPlayer >= players.length-1 ? -curPlayer : 1;
+}
+
+function activatedPlayers(){
+	var matches = [];
+
 	// gather players
 	for(var i = 0; i < players.length; i++){
 		if(i != curPlayer && players[i].pos == players[curPlayer].pos){
 			matches.push(players[i]);
 		}
 	}
-	matches.reverse();
-	
-	// list them
+	return matches;
+}
+
+// Gives a string listing a specific list
+// of players on the current tile
+function onTileActivatedString(playerArray){
+	if(playerArray.length == 0) return "";
+
+	var matches = playerArray.slice();
 	var result = matches.pop().name;
+
 	while(matches.length > 0){
 		if(matches.length > 1){
 			result += ", "+matches.pop().name;
@@ -491,6 +512,13 @@ function onTileString(){
 		}
 	}
 	return result;
+}
+
+// Gives a string listing all the players
+// on the current tile
+function onTileString(){
+	var matches = activatedPlayers().concat([players[curPlayer]]);	
+	return onTileActivatedString(matches);
 }
 
 function drawBox(player){
@@ -568,7 +596,6 @@ function treasureIslandIndexes(tile){
 		case 12:{ result.push(14); break;}
 		case 13:{ result.push(14); result.push(15); break;}
 	}
-	debugging = result.join(",");
 	return result;
 }
 
@@ -626,6 +653,46 @@ function drawLandedTile(tile){
 		case 0:{
 			break;	
 		}
+		case 1:{
+			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 2 sips.");
+			break;
+		}
+		case 2:{
+			drawTextInBox("Ye landed on the skull and bones! One half cup 'o mead for "+onTileString()+".");
+			break;
+		}
+		case 4:{
+			drawTextInBox("Ye must fill yer mouth with ale before swallowing it, "+onTileString()+".");
+			break;
+		}
+		case 5:{
+			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 3 sips.");
+			break;
+		}
+		case 6:{
+			if(fieldUsed == false){
+				recievingPlayers = [];
+				nonRecievingPlayers.push(players[curPlayer]);
+				nonRecievingPlayers.concat(activatedPlayers());
+				while(nonRecievingPlayers.length > 0 && silverbank > 0){
+					recievingPlayers.push(nonRecievingPlayers.pop());
+					recievingPlayers[0].silver++;
+					silverbank--;
+				}
+				fieldUsed = true;
+			}
+			debugging = "Players : "+recievingPlayers.join(", ");
+			drawTextInBox(onTileActivatedString(recievingPlayers)+" recieves a silver coin from the open treasure chest.");
+			//drawTextInBox(onTileString()+" recieves nothing 'cus the treasure chest was empty");
+			break;
+		}
+		case 10:{
+			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 4 sips.");
+			break;
+		}
+		case 11:{
+			break;
+		}
 		// ...
 	}
 }
@@ -634,6 +701,11 @@ function inputForTile(tile){
 	switch(tile){
 		case 0:{
 			break;	
+		}
+		default:{
+			fieldUsed = false;
+			nextPlayer();
+			curState = State.ROLL;
 		}
 		// ...
 	}
