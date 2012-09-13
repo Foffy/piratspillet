@@ -388,6 +388,7 @@ function drawState(){
 			newTimeout = 20; // back from moving
 			
 			drawBox(players[curPlayer]);
+			if(treasureIsland)
 		}
 		case State.ACTIVATED:{
 			//drawBox(players[curPlayer]);
@@ -480,6 +481,45 @@ function drawBox(player){
 }
 
 // MORE GAME LOGIC
+
+// finds any treasure on the current players tile and
+// decreases it by one value (if possible, else two)
+// and the amount to drink is returned
+function findTreasure(){
+	// look up
+	var spots = treasureIslandIndexes(players[curPlayer].pos);
+	
+	// count
+	var coins = { gold: 0, silver: 0};
+	for(var i = 0; i < spots.length; i++){
+		// TODO	
+	}
+	
+	// decrement
+	
+	// return
+}
+
+function treasureIslandIndexes(tile){
+	var result = [tile];
+	switch(tile){
+		case 0:{ result.push(15); break;}
+		case 1:{ result.push(15); result.push(16); break;}
+		case 2:
+		case 3:{ result.push(16); break;}
+		case 4:
+		case 5: { result.push(17); break;}
+		case 6:{ result.push(17); result.push(18); break;}
+		case 7:{ result.push(18); break;}
+		case 8:{ result.push(18); result.push(19); break;}
+		case 9:
+		case 10:{ result.push(19); break;}
+		case 11:
+		case 12:{ result.push(14); break;}
+		case 13:{ result.push(14); result.push(15); break;}
+	}
+	return result;
+}
 
 function coinsToString(gold, silver){
 	if(gold == 0 && silver != 0) return silver + " silver";
