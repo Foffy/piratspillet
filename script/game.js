@@ -230,11 +230,14 @@ var goldbank = 10;
 var silverbank = 10;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
-var treasureIsland = [[0,0],[1,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,1],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
+var treasureIsland = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
+var islandPositions = [[45,39],[59,39],[70,39],[70,51.6],[70,63.8],[70,75.5],[59,75.5],[45,75.5],[33,75.5],[22,75.5],[22,63.8],[22,51.6],[22,39],[33,39],[33,51.6],[45,51.6],[59,51.6],[59,63.8],[45,63.8],[33,63.8]]; // coordinates for the digable spots on the island
 var tilePct = 13;
 var playerRadius = 3.5;
 var coinSmallSize = 2;
 var smallCoinDisplacement = 0.35;
+var largeCoinDisplacement = 1;
+var coinLargeSize = 8;
 var whoreSmallSize = 2;
 var whoreDisplacement = 0.35;
 var skeletonSmallSize = 2;
@@ -245,8 +248,15 @@ var newField = 0;
 var newTimeout = 20;
 var curTreasure = null;
 var curSips = 0;
+
 var imgBg = new Image();
 imgBg.src = "images/background.png";
+
+var imgGoldLarge = new Image();
+imgGoldLarge.src = "images/gold.png";
+
+var imgSilverLarge = new Image();
+imgSilverLarge.src = "images/silver.png";
 
 var imgGoldSmall = new Image();
 imgGoldSmall.src = "images/gold_small.png";
@@ -293,7 +303,7 @@ function Player(name){
 		this.drawXY(center[0],center[1]);
 	}
 	this.drawXY = function(x, y){
-		var textsize = 1.5
+		var textsize = 1.5;
 		
 		drawCircle(x,y,playerRadius,this.color,true);
 		drawText(this.name,x-playerRadius/2,y-textsize*0.75,playerRadius,textsize,"center",false);
@@ -301,7 +311,7 @@ function Player(name){
 		// Draw coins next to portrait
 		var coinPosY = y+playerRadius-coinSmallSize*0.75;
 		
-		for (var i = 0;i < this.gold;i++){		
+		for (var i = 0;i < this.gold;i++){
 			drawImage(imgGoldSmall,x-playerRadius-coinSmallSize/2,coinPosY,coinSmallSize);
 			coinPosY -= coinSmallSize*smallCoinDisplacement;
 		}
@@ -360,6 +370,11 @@ function drawboard(){
 	for(var i = 0; i < players.length; i++){
 		players[i].draw();	
 	}
+	for(var i = 0; i < islandPositions.length; i++){
+		drawCoinStack(treasureIsland[i][0], treasureIsland[i][1], islandPositions[i]);
+	}
+	drawCoinStack(0, silverbank, [3,20])
+	drawCoinStack(goldbank, 0, [0,25]);;
 }
 
 // draws extra gui depending on the current game state
@@ -579,6 +594,24 @@ function rollDice(){
 	return parseInt(Math.random()*6)+1;
 }
 
+// draws a stack of coins at a given position. Pos = [x,y]
+function drawCoinStack(gold,silver,pos){
+	pos = [pos[0],pos[1]]; // For referential integrity, Jimmy.
+	var ratio = imgGoldLarge.height/imgGoldLarge.width;
+	pos[1] -= ratio*coinLargeSize;
+	if(gold > 0){
+		for(var i = 0; i < gold; i++){
+			drawImage(imgGoldLarge,pos[0],pos[1],coinLargeSize);
+			pos[1] -= largeCoinDisplacement;
+		}
+	}
+	if(silver > 0){
+		for(var i = 0; i < silver; i++){
+			drawImage(imgSilverLarge,pos[0],pos[1],coinLargeSize);
+			pos[1] -= largeCoinDisplacement;
+		}
+	}
+}
 
 // moves the current player to the specified field, one step at the time
 function movePlayer(){
