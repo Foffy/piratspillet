@@ -157,6 +157,10 @@ function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap){
 	}
 }
 
+function drawTextInBox(text){
+	drawText(text,31,35,38,3,"center");	
+}
+
 // draws a filled rectangle at the given position with the given width,
 // height and color.
 function drawRect(pctX, pctY, pctW, pctH, color, border){
@@ -367,7 +371,7 @@ function drawState(){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
-			drawText("It is "+players[curPlayer].name+"'s time to roll!",30,35,40,3,"center");
+			drawTextInBox("It is "+players[curPlayer].name+"'s time to roll!");
 			break;
 		}
 		case State.ROLLING:{
@@ -393,16 +397,16 @@ function drawState(){
 			
 			if(curTreasure == null){
 				curTreasure = findTreasure();
-				curSips = 0;//treasureToSips(curTreasure);
-				
+				curSips = treasureToSips(curTreasure);
+				debugging = curSips;
 				// if nothing go
 				if(curSips == 0) curState = State.LANDED;
 			}
 			drawBox(players[curPlayer]);
-			//drawText("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString(),30,35,40,3,"center");
+			drawTextInBox("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString()+".");
 		}
 		case State.ACTIVATED:{
-			//drawBox(players[curPlayer]);
+			drawBox(players[curPlayer]);
 		}
 	}
 }
