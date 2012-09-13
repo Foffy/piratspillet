@@ -388,7 +388,7 @@ function drawState(){
 			newTimeout = 20; // back from moving
 			
 			drawBox(players[curPlayer]);
-			if(treasureIsland)
+			//if(treasureIsland)
 		}
 		case State.ACTIVATED:{
 			//drawBox(players[curPlayer]);
