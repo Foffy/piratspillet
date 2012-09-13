@@ -671,6 +671,7 @@ function drawLandedTile(tile){
 		}
 		case 6:{
 			if(fieldUsed == false){
+				// TODO: Activated players gets no coins!
 				recievingPlayers = [];
 				nonRecievingPlayers.push(players[curPlayer]);
 				nonRecievingPlayers.concat(activatedPlayers());
