@@ -612,4 +612,3 @@ function inputForTile(tile){
 		// ...
 	}
 }
-
