@@ -35,7 +35,11 @@ function resizeCanvas(){
 }
 
 function setFont(pctFont, italic){
-	ctx.font = italic ? "italic " : "" + pctOf(pctFont,width) + "px Kingthings";	
+	if(italic){
+		ctx.font = "italic "+pctOf(pctFont,width) + "px Kingthings";
+	}else{
+		ctx.font = pctOf(pctFont,width) + "px Kingthings";
+	}
 }
 
 // clears the canvas for painting
