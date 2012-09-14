@@ -157,8 +157,18 @@ function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap){
 	}
 }
 
-function drawTextInBox(text){
-	drawText(text,31,35,38,3,"center");	
+function drawTextInBox(text, position){
+	switch(position){
+		case "header":{
+			drawImage(imgBanner,35,25,30);
+			drawText(text,35,26,30,4,"center");
+			break;
+		}
+		default:{ // which is "body"
+			drawText(text,31,35,38,3,"center");		
+		}
+	}
+	
 }
 
 // draws a filled rectangle at the given position with the given width,
@@ -167,7 +177,8 @@ function drawRect(pctX, pctY, pctW, pctH, color, border){
 		ctx.fillStyle = colorString(color);
 		ctx.fillRect(pctToX(pctX),pctToY(pctY),pctToX(pctW)-xDisp,pctToY(pctH)-yDisp);
 		if(border){
-			ctx.lineWidth = 1;
+			var w = pctOf(0.4,width);
+			ctx.lineWidth = w > 1 ? w : 1;
 			ctx.strokeStyle = "black";
 			ctx.stroke();	
 		}
@@ -180,7 +191,8 @@ function drawCircle(pctX, pctY, pctR, color, border){
 		ctx.fill();
 		
 		if(border){
-			ctx.lineWidth = 1;
+			var b = getBorderWidth();
+			ctx.lineWidth = b;
 			ctx.strokeStyle = "black";
 			ctx.stroke();
 		}
@@ -255,6 +267,9 @@ var curSips = 0;
 
 var imgBg = new Image();
 imgBg.src = "images/background.png";
+
+var imgBanner = new Image();
+imgBanner.src = "images/banner.png";
 
 var imgGoldLarge = new Image();
 imgGoldLarge.src = "images/gold.png";
@@ -390,7 +405,8 @@ function drawState(){
 		case State.ROLL:{
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
-			drawTextInBox("It is "+players[curPlayer].name+"'s time to roll!");
+			drawTextInBox(players[curPlayer].name+"'s Turn","header");
+			drawTextInBox("Click the die to start rolling");
 			break;
 		}
 		case State.ROLLING:{
@@ -533,9 +549,14 @@ function drawBox(player){
 		drawCircle(30,30,playerRadius+0.75,"white",true);
 	}
 	ctx.fillStyle = "white";
-	ctx.fillRect(rectX+1, rectY+1, rectW-2,rectH-2);
+	var b = getBorderWidth();
+	ctx.fillRect(rectX+b, rectY+b, rectW-2*b,rectH-2*b);
 	
 	player.drawXY(30,30);
+}
+
+function getBorderWidth(){
+	return pctOf(0.2,width);	
 }
 
 // MORE GAME LOGIC
