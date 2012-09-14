@@ -505,6 +505,27 @@ c.addEventListener('click',getMouseClick,false);
 
 // GAME METHODS
 
+// draw a pile of coins with the combined value
+// as given as first parameter at the coordinates (x,y)
+// and the width.
+// The function will simplify to as few coins as possible.
+function drawCoinsByValue(value, x, y, width, yDisp){
+		var goldCoins = 0;
+		var silverCoins = 0;
+		while(value > 1 && goldbank > 0){
+			goldCoins++;
+			value -= 2;
+			drawImage(imgGoldLarge, x, y, width);
+			y -= yDisp;
+		}
+		while(value > 0 && silverbank > 0){
+			silverCoins++;
+			value -= 1;
+			drawImage(imgSilverLarge, x, y, width);
+			y -= yDisp;
+		}
+}
+
 function nextPlayer(){
 	curPlayer += curPlayer >= players.length-1 ? -curPlayer : 1;
 }
@@ -740,6 +761,7 @@ function drawLandedTile(tile){
 		case 7:
 		case 13:{
 			drawTextInBox("Plunderin'","header");
+			drawCoinsByValue(4,33,55,7,0.7);
 			drawRect(34,62,5,4,"white",true);
 			drawRect(43,62,5,4,"white",true);
 			drawRect(52,62,5,4,"white",true);
