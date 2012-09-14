@@ -127,8 +127,7 @@ function colorString(array){
 // to the screen size (width).
 function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap, color, italic){
 	ctx.fillStyle = colorString(color);
-	var fontH = pctOf(pctFont,width)
-	//ctx.font = "bold " + fontH + "px Arial";
+	var fontH = pctOf(pctFont,width);
 	setFont(pctFont,italic);
 	
 	if(pctW > 0){
@@ -139,16 +138,15 @@ function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap, color, ital
 		for(var i = 0; i < lines.length; i++){
 			switch(allign){
 				case "center":{
-					//var width = ;
-					ctx.fillText(lines[i],x+(maxwidth-ctx.measureText(lines[i]).width)/2,y);
+					ctx.fillText(lines[i],2+x+(maxwidth-ctx.measureText(lines[i]).width)/2,y);
 					break;	
 				}
 				case "right":{
-					ctx.fillText(lines[i],x+maxwidth-ctx.measureText(lines[i]).width,y);
+					ctx.fillText(lines[i],2+x+maxwidth-ctx.measureText(lines[i]).width,y);
 					break;	
 				}
 				default:{
-					ctx.fillText(lines[i],x,y);
+					ctx.fillText(lines[i],2+x,y);
 				}
 			}
 			y += fontH;
