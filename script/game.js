@@ -57,12 +57,17 @@ function getMousePosition(evt){
 	mousePos[1] = mouseY;
 }
 
-function getMouseClick(){
+function getMouseClick(x, y, width, height){
 	mouseClicked = [];
 	mouseClicked[0] = xToPct(mousePos[0]);
-	mouseClicked[1] = yToPct(mousePos[1]);	
+	mouseClicked[1] = yToPct(mousePos[1]);
+	if(typeof(x) == 'number'){
+		if(mouseClicked[0] >= x && mouseClicked[0] <= (x+width) && mouseClicked[1] >= y && mouseClicked[1] <= (y+height)){
+			return true;
+		}
+	}
+	return false;
 }
-	
 
 // converts a percentage of the width to an exact x value
 function pctToX(value){
@@ -103,7 +108,7 @@ function drawImage(img, pctX, pctY, pctW, cropX, cropY, cropXWidth, cropYHeight,
 		ctx.drawImage(img, pctToX(pctX), pctToY(pctY),width,width*ratio);
 	}
 	else{
-			if(typeof(sizeRatio==='number')){
+			if(typeof(sizeRatio === 'number')){
 				var ratio = sizeRatio;
 			}
 		ctx.drawImage(img,cropX, cropY, cropXWidth, cropYHeight, pctToX(pctX), pctToY(pctY), width, width*ratio);
@@ -411,7 +416,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 3;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -721,6 +726,14 @@ function drawLandedTile(tile){
 		case 3: 
 		case 7:
 		case 13:{
+			drawTextInBox("Plunderin'","header");
+			drawRect(34,62,5,4,"white",true);
+			drawRect(43,62,5,4,"white",true);
+			drawRect(52,62,5,4,"white",true);
+			drawRect(61,62,5,4,"white",true);
+			for(i = 4; i >=1; i--){
+				drawText(""+i, 70-i*9, 62-1, 5, 3, "center");
+			}
 			break;
 		}
 		case 4:{
@@ -771,6 +784,15 @@ function inputForTile(tile){
 	switch(tile){
 		case 0:{
 			break;	
+		}
+		case 3:
+		case 7:
+		case 13:{
+			if(getMouseClick(34,63,5,4)){
+				nextPlayer();
+				curState = State.ROLL;
+			}
+			break;
 		}
 		default:{
 			fieldUsed = false;
