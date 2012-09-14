@@ -420,6 +420,7 @@ function drawState(){
 				// if nothing go
 				if(curSips == 0){
 					curState = State.LANDED;
+					curTreasure = null;
 					break;
 				}
 			}
