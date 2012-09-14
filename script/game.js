@@ -177,13 +177,15 @@ function drawTextInBox(text, position){
 // draws a filled rectangle at the given position with the given width,
 // height and color.
 function drawRect(pctX, pctY, pctW, pctH, color, border){
-		ctx.fillStyle = colorString(color);
-		ctx.fillRect(pctToX(pctX),pctToY(pctY),pctToX(pctW)-xDisp,pctToY(pctH)-yDisp);
-		if(border){
-			ctx.lineWidth = getBorderWidth();
-			ctx.strokeStyle = "black";
-			ctx.stroke();	
-		}
+	ctx.beginPath();
+	ctx.rect(pctToX(pctX),pctToY(pctY),pctToX(pctW)-xDisp,pctToY(pctH)-yDisp);
+	ctx.fillStyle = colorString(color);
+	ctx.fill();
+	if(border){
+		ctx.lineWidth = getBorderWidth();
+		ctx.strokeStyle = "black";
+		ctx.stroke();	
+	}
 }
 
 function drawCircle(pctX, pctY, pctR, color, border){
