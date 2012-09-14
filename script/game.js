@@ -395,7 +395,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = 6;//rollDice();
+			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -403,7 +403,6 @@ function drawState(){
 		case State.MOVING:{
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
-			drawText(newField,30,30,40,2,"center");
 			movePlayer(newField);
 			
 			if(newField == players[curPlayer].pos){
@@ -672,17 +671,17 @@ function drawLandedTile(tile){
 		case 6:{
 			if(fieldUsed == false){
 				// TODO: Activated players gets no coins!
-				recievingPlayers = [];
+				recievingPlayers = [];		
+				nonRecievingPlayers = activatedPlayers();
 				nonRecievingPlayers.push(players[curPlayer]);
-				nonRecievingPlayers.concat(activatedPlayers());
 				while(nonRecievingPlayers.length > 0 && silverbank > 0){
-					recievingPlayers.push(nonRecievingPlayers.pop());
-					recievingPlayers[0].silver++;
+					var cur = nonRecievingPlayers.pop();
+					cur.silver++;
 					silverbank--;
+					recievingPlayers.push(cur);					
 				}
 				fieldUsed = true;
 			}
-			debugging = "Players : "+recievingPlayers.join(", ");
 			drawTextInBox(onTileActivatedString(recievingPlayers)+" recieves a silver coin from the open treasure chest.");
 			//drawTextInBox(onTileString()+" recieves nothing 'cus the treasure chest was empty");
 			break;
