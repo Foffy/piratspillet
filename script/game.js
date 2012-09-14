@@ -34,8 +34,8 @@ function resizeCanvas(){
 	}
 }
 
-function setFont(pctFont){
-	ctx.font = pctOf(pctFont,width) + "px Kingthings";	
+function setFont(pctFont, italic){
+	ctx.font = italic ? "italic " : "" + pctOf(pctFont,width) + "px Kingthings";	
 }
 
 // clears the canvas for painting
@@ -116,6 +116,7 @@ function drawImage(img, pctX, pctY, pctW, cropX, cropY, cropXWidth, cropYHeight,
 }
 
 function colorString(array){
+	if(typeof array == "undefined") return "black";
 	if(typeof array == "string") return array;
 	
 	if(array.length > 3){
@@ -129,11 +130,10 @@ function colorString(array){
 // and width the given maximum width. It will break the text down if it
 // is too wide and make new lines underneath. The font is also given relative
 // to the screen size (width).
-function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap){
-	ctx.fillStyle = "black";
-	var fontH = pctOf(pctFont,width)
-	//ctx.font = "bold " + fontH + "px Arial";
-	setFont(pctFont);
+function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap, color, italic){
+	ctx.fillStyle = colorString(color);
+	var fontH = pctOf(pctFont,width);
+	setFont(pctFont,italic);
 	
 	if(pctW > 0){
 		lines = wordwrap == false ? [text] : wordWrap(text, pctW, pctFont);
@@ -143,16 +143,15 @@ function drawText(text, pctX, pctY, pctW, pctFont, allign, wordwrap){
 		for(var i = 0; i < lines.length; i++){
 			switch(allign){
 				case "center":{
-					//var width = ;
-					ctx.fillText(lines[i],x+(maxwidth-ctx.measureText(lines[i]).width)/2,y);
+					ctx.fillText(lines[i],2+x+(maxwidth-ctx.measureText(lines[i]).width)/2,y);
 					break;	
 				}
 				case "right":{
-					ctx.fillText(lines[i],x+maxwidth-ctx.measureText(lines[i]).width,y);
+					ctx.fillText(lines[i],2+x+maxwidth-ctx.measureText(lines[i]).width,y);
 					break;	
 				}
 				default:{
-					ctx.fillText(lines[i],x,y);
+					ctx.fillText(lines[i],2+x,y);
 				}
 			}
 			y += fontH;
@@ -166,7 +165,11 @@ function drawTextInBox(text, position){
 	switch(position){
 		case "header":{
 			drawImage(imgBanner,35,25,30);
-			drawText(text,35,26,30,4,"center");
+			drawText(text,36.5,26,28.5,4,"center");
+			break;
+		}
+		case "flavor":{
+			drawText('"'+text+'"',31,59,38,3,"center",true,"gray",true);
 			break;
 		}
 		default:{ // which is "body"
@@ -182,8 +185,7 @@ function drawRect(pctX, pctY, pctW, pctH, color, border){
 		ctx.fillStyle = colorString(color);
 		ctx.fillRect(pctToX(pctX),pctToY(pctY),pctToX(pctW)-xDisp,pctToY(pctH)-yDisp);
 		if(border){
-			var w = pctOf(0.4,width);
-			ctx.lineWidth = w > 1 ? w : 1;
+			ctx.lineWidth = getBorderWidth();
 			ctx.strokeStyle = "black";
 			ctx.stroke();	
 		}
@@ -196,8 +198,7 @@ function drawCircle(pctX, pctY, pctR, color, border){
 		ctx.fill();
 		
 		if(border){
-			var b = getBorderWidth();
-			ctx.lineWidth = b;
+			ctx.lineWidth = getBorderWidth();
 			ctx.strokeStyle = "black";
 			ctx.stroke();
 		}
@@ -412,6 +413,7 @@ function drawState(){
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
 			drawTextInBox(players[curPlayer].name+"'s Turn","header");
 			drawTextInBox("Click the die to start rolling");
+			drawTextInBox("See where t' wind be takin' you!","flavor");
 			break;
 		}
 		case State.ROLLING:{
@@ -712,9 +714,9 @@ function movePlayer(){
 
 function drawLandedTile(tile){
 	switch(tile){
-		case 0:{
+		/*case 0:{
 			break;	
-		}
+		}*/
 		case 1:{
 			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 2 sips.");
 			break;
