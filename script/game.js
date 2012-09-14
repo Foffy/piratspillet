@@ -538,6 +538,42 @@ function drawBox(player){
 }
 
 // MORE GAME LOGIC
+function bankType(coinType){
+	return (coinType == "silver" && silverbank > 0) || (coinType == "gold" && goldbank > 0)
+}
+
+// writes who gets a coin (silver or gold) from the field and who doesn't.
+function printCoinRecieved(coinType){
+	var nonRecievingText = " "+onTileActivatedString(nonRecievingPlayers)
+						   +" receives nothing 'cus the treasure chest was empty!";
+	
+	if(recievingPlayers.length == 0){
+		drawTextInBox(onTileActivatedString(nonRecievingPlayers)+" receives nothing 'cus the treasure chest was empty!");
+		}else if(nonRecievingPlayers.length == 0){
+			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest.");
+		}else{
+			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest."+nonRecievingText);
+			}
+}
+
+// gives a silver or gold coin to the current player and all else on the
+// field, provided the bank can afford it
+function giveCoinFromField(coinType){
+	recievingPlayers = [];		
+	nonRecievingPlayers = activatedPlayers();
+	nonRecievingPlayers.push(players[curPlayer]);
+	while(nonRecievingPlayers.length > 0 && bankType(coinType)){
+		var cur = nonRecievingPlayers.pop();
+		if(coinType == "silver"){
+			cur.silver++;
+			silverbank--; // For economical integrity, Jimmy
+		}else{
+			cur.gold++;
+			goldbank--; // For economical integrity, Jimmy
+		}
+		recievingPlayers.push(cur);					
+	}
+}
 
 // finds any treasure on the current players tile and
 // decreases it by one value (if possible, else two)
@@ -669,21 +705,13 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 6:{
+			// gives a silver coin to the current player (if the bank can afford it)
+			// and to other players on the field, if any (and if bank can afford it)
 			if(fieldUsed == false){
-				// TODO: Activated players gets no coins!
-				recievingPlayers = [];		
-				nonRecievingPlayers = activatedPlayers();
-				nonRecievingPlayers.push(players[curPlayer]);
-				while(nonRecievingPlayers.length > 0 && silverbank > 0){
-					var cur = nonRecievingPlayers.pop();
-					cur.silver++;
-					silverbank--;
-					recievingPlayers.push(cur);					
-				}
+				giveCoinFromField("silver");
 				fieldUsed = true;
 			}
-			drawTextInBox(onTileActivatedString(recievingPlayers)+" recieves a silver coin from the open treasure chest.");
-			//drawTextInBox(onTileString()+" recieves nothing 'cus the treasure chest was empty");
+			printCoinRecieved("silver");
 			break;
 		}
 		case 10:{
@@ -691,6 +719,21 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 11:{
+			// gives a coin (gold if dice=6, else silver) to the current player (if the bank can afford it)
+			// and to other players on the field, if any (and the bank can afford it)
+			if(fieldUsed == false){
+				if(diceToShow == 6){
+					giveCoinFromField("gold");
+				}else{
+					giveCoinFromField("silver");
+				}
+				fieldUsed = true;
+			}
+			if(diceToShow == 6){
+				printCoinRecieved("gold")
+			}else{
+				printCoinRecieved("silver")
+			}
 			break;
 		}
 		// ...
