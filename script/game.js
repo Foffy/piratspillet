@@ -697,6 +697,11 @@ function drawLandedTile(tile){
 			drawTextInBox("Ye landed on the skull and bones! One half cup 'o mead for "+onTileString()+".");
 			break;
 		}
+		case 3: 
+		case 7:
+		case 13:{
+			break;
+		}
 		case 4:{
 			drawTextInBox("Ye must fill yer mouth with ale before swallowing it, "+onTileString()+".");
 			break;
