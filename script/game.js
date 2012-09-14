@@ -510,20 +510,44 @@ c.addEventListener('click',getMouseClick,false);
 // and the width.
 // The function will simplify to as few coins as possible.
 function drawCoinsByValue(value, x, y, width, yDisp){
+		var goldInBank = goldbank;
+		var silverInBank = silverbank;
+		var goldCoins = 0;
+		var silverCoins = 0;
+		while(value > 1 && goldInBank > 0){
+			goldCoins++;
+			value -= 2;
+			goldInBank--;
+			drawImage(imgGoldLarge, x, y, width);
+			y -= yDisp;
+		}
+		while(value > 0 && silverInBank > 0){
+			silverCoins++;
+			value -= 1;
+			silverInBank--;
+			drawImage(imgSilverLarge, x, y, width);
+			y -= yDisp;
+		}
+}
+
+// gives coins specified by value to the player
+// and removes them from the bank
+function giveCoinsByValue(value, player){
 		var goldCoins = 0;
 		var silverCoins = 0;
 		while(value > 1 && goldbank > 0){
 			goldCoins++;
+			player.gold++;
+			goldbank--;
 			value -= 2;
-			drawImage(imgGoldLarge, x, y, width);
-			y -= yDisp;
 		}
 		while(value > 0 && silverbank > 0){
 			silverCoins++;
+			player.silver++;
+			silverbank--;
 			value -= 1;
-			drawImage(imgSilverLarge, x, y, width);
-			y -= yDisp;
 		}
+		return[goldCoins, silverCoins];
 }
 
 function nextPlayer(){
@@ -752,12 +776,9 @@ function drawLandedTile(tile){
 		case 7:
 		case 13:{
 			drawTextInBox("Plunderin'","header");
-			drawCoinsByValue(4,33,55,7,0.7);
-			drawRect(34,62,5,4,"white",true);
-			drawRect(43,62,5,4,"white",true);
-			drawRect(52,62,5,4,"white",true);
-			drawRect(61,62,5,4,"white",true);
 			for(i = 4; i >=1; i--){
+				drawCoinsByValue(i,68.75-i*9,55,7,0.8);
+				drawRect(69.75-i*9,62,5,4,"white",true);
 				drawText(""+i, 70-i*9, 62-1, 5, 3, "center");
 			}
 			break;
@@ -815,6 +836,22 @@ function inputForTile(tile){
 		case 7:
 		case 13:{
 			if(getMouseClick(34,63,5,4)){
+				var coins = giveCoinsByValue(4,players[curPlayer]);
+				nextPlayer();
+				curState = State.ROLL;
+			}
+			if(getMouseClick(43,62,5,4)){
+				var coins = giveCoinsByValue(3,players[curPlayer]);
+				nextPlayer();
+				curState = State.ROLL;
+			}
+			if(getMouseClick(52,62,5,4)){
+				var coins = giveCoinsByValue(2,players[curPlayer]);
+				nextPlayer();
+				curState = State.ROLL;
+			}
+			if(getMouseClick(61,62,5,4)){
+				var coins = giveCoinsByValue(1,players[curPlayer]);
 				nextPlayer();
 				curState = State.ROLL;
 			}
