@@ -35,7 +35,11 @@ function resizeCanvas(){
 }
 
 function setFont(pctFont, italic){
-	ctx.font = italic ? "italic " : "" + pctOf(pctFont,width) + "px Kingthings";	
+	if(italic){
+		ctx.font = "italic "+pctOf(pctFont,width) + "px Kingthings";
+	}else{
+		ctx.font = pctOf(pctFont,width) + "px Kingthings";
+	}
 }
 
 // clears the canvas for painting
@@ -415,12 +419,12 @@ function drawState(){
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
 			drawTextInBox(players[curPlayer].name+"'s Turn","header");
 			drawTextInBox("Click the die to start rolling");
-			drawTextInBox("See where t' wind be takin' you!","flavor");
+			drawTextInBox("Avast! Pull Me Mast!","flavor");
 			break;
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = 3;//rollDice();
+			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -620,15 +624,22 @@ function bankType(coinType){
 
 // writes who gets a coin (silver or gold) from the field and who doesn't.
 function printCoinRecieved(coinType){
+	// first the basics
+	drawTextInBox("The Open Chest","header");
+	
+	// then the body
 	var nonRecievingText = " "+onTileActivatedString(nonRecievingPlayers)
 						   +" receives nothing 'cus the treasure chest was empty!";
 	
 	if(recievingPlayers.length == 0){
 		drawTextInBox(onTileActivatedString(nonRecievingPlayers)+" receives nothing 'cus the treasure chest was empty!");
+		drawTextInBox("T' Davy Jones wit it!","flavor");
 		}else if(nonRecievingPlayers.length == 0){
 			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest.");
+			drawTextInBox("Dead men don't tell tales.","flavor");
 		}else{
 			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest."+nonRecievingText);
+			drawTextInBox("Dead men don't tell tales.","flavor");
 			}
 }
 
@@ -647,7 +658,7 @@ function giveCoinFromField(coinType){
 			cur.gold++;
 			goldbank--; // For economical integrity, Jimmy
 		}
-		recievingPlayers.push(cur);					
+		recievingPlayers.push(cur);
 	}
 }
 
@@ -710,7 +721,8 @@ function treasureIslandIndexes(tile){
 	return result;
 }
 
-function treasureToSips(treasure){
+// input as array of [gold,silver,doubleUp]
+function treasureToSips(treasure){ 
 	var sips = 0;
 	for(var i = 0; i < treasure.length; i++){
 		sips += coinsToSips(treasure[i][0], treasure[i][1], treasure[i][2]);
@@ -718,14 +730,15 @@ function treasureToSips(treasure){
 	return sips;
 }
 
+// input as [gold,silver,doubleUp]
 function coinsToSips(gold, silver, doubleUp){
 	return doubleUp ? 2*(gold*2+silver) : gold*2+silver;
 }
 
 function coinsToString(gold, silver){
-	if(gold == 0 && silver != 0) return silver + " silver";
-	if(gold != 0 && silver == 0) return gold + " gold";
-	if(gold != 0 && silver != 0) return gold + " gold and " + silver +" silver";
+	if(gold == 0 && silver != 0) return silver + " silver coin" + silver > 1 ? "s" : "";
+	if(gold != 0 && silver == 0) return gold + " gold coin" + gold > 1 ? "s" : "";
+	if(gold != 0 && silver != 0) return coinsToString(gold,0) + " and " + coinsToString(0,silver);
 	return "nothing";
 }
 
@@ -784,7 +797,9 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 4:{
-			drawTextInBox("Ye must fill yer mouth with ale before swallowing it, "+onTileString()+".");
+			drawTextInBox("Mouth full","header");
+			drawTextInBox("You must fill your mouth with beer before swallowing it, "+onTileString()+".");
+			drawTextInBox("Arrr! Bring more grog!","flavor");
 			break;
 		}
 		case 5:{
@@ -829,9 +844,9 @@ function drawLandedTile(tile){
 
 function inputForTile(tile){
 	switch(tile){
-		case 0:{
+		/*case 0:{
 			break;	
-		}
+		}*/
 		case 3:
 		case 7:
 		case 13:{
