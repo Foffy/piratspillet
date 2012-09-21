@@ -645,9 +645,9 @@ function printCoinRecieved(coinType){
 // field, provided the bank can afford it
 function giveCoinFromField(coinType){
 	recievingPlayers = [];		
-	nonRecievingPlayers = activatedPlayers();
-	nonRecievingPlayers.push(players[curPlayer]);
-	debugging = players[curPlayer].name;
+	nonRecievingPlayers = [players[curPlayer]].concat(activatedPlayers());
+	//nonRecievingPlayers.push(players[curPlayer]);
+	debugging = nonRecievingPlayers[0].name;
 	while(nonRecievingPlayers.length > 0 && bankType(coinType)){
 		var cur = nonRecievingPlayers.pop();
 		if(coinType == "silver"){
@@ -796,7 +796,7 @@ function drawLandedTile(tile){
 			
 			// body
 			if(player.gold >= 5){
-				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + "for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + "sips and a Whore Coin is granted to you","body");
+				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + " for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + "sips and a Whore Coin is granted to you","body");
 			}else if(player.silver > 0 || player.gold > 0){
 				var lastPart = coinsToSipsString(player.gold,player.silver,directly);
 				drawTextInBox("You have plunder to buy rum for your mates! You give away " + lastPart,"body");
