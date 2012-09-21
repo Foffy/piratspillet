@@ -360,7 +360,7 @@ function Player(name){
 		
 		// Draw skeletons next to portrait
 		var skeletonPosY = y-playerRadius-skeletonSmallSize*0.75;
-		for (var i = 0; i < this.whore; i++){
+		for (var i = 0; i < this.skeleton; i++){
 			drawImage(imgSkeletonSmall,x+playerRadius-skeletonSmallSize/2,skeletonPosY,skeletonSmallSize);
 			skeletonPosY += skeletonSmallSize*skeletonDisplacement;
 		}
@@ -434,7 +434,7 @@ function drawState(){
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			movePlayer(newField);
 			
-			if(newField == players[curPlayer].pos){
+			if(newField == players[curPlayer].pos || players[curPlayer].pos == 0){
 				curState = State.DRINK_DIGGED;
 			}
 			break;
@@ -765,12 +765,13 @@ function drawCoinStack(gold,silver,pos){
 // moves the current player to the specified field, one step at the time
 function movePlayer(){
 	players[curPlayer].pos += players[curPlayer].pos < 13 ? 1 : -13;
-	if(players[curPlayer].pos == 0) newField = 0;
+	//if(players[curPlayer].pos == 0) newField = 0;
 }
 
 function coinsToSipsString(gold,silver,double){
-	var goldsips = treasureToSips([gold,0,double]);
-	var silversips = treasureToSips([0,silver,double]);
+	var goldsips = coinsToSips(gold,0,double);
+	var silversips = coinsToSips(0,silver,double);
+	debugging = gold + "," + silver;
 	var result = "";
 	if(gold > 0) result = (goldsips + " sips for your Gold Coins");
 	if(gold > 0 && silver > 0) result += " and ";
@@ -785,18 +786,17 @@ function drawLandedTile(tile){
 			var player = players[curPlayer];
 			var directly = (newField == 14);
 			
+			
 			// header
-			if(directly){
-				drawTextInBox("Directly in Harbour","header");
-			}else{
-				drawTextInBox("Indirectly in Harbour","header");
-			}
+			drawTextInBox("Harbour","header");
+			drawTextInBox((directly ? "Directly in " : "Indirectly in ") + "harbour!","flavor");
 			
 			// body
 			if(player.gold >= 5){
-				drawTextInBox("Arr! You have enough gold for a " + directly ? "LUXURY WHORE" : "whore" + "for everyone to enjoy! Everyone takes " + directly ? 10 : 5 + "sips and a Whore Coin is granted to you","body");
+				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + "for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + "sips and a Whore Coin is granted to you","body");
 			}else if(player.silver > 0 || player.gold > 0){
-				drawTextInBox("You have plunder to buy rum for your mates! You give away "+coinsToSipsString(player.gold,player.silver,directly),"body");
+				var lastPart = coinsToSipsString(player.gold,player.silver,directly);
+				drawTextInBox("You have plunder to buy rum for your mates! You give away " + lastPart,"body");
 			}else{
 				if(player.skeleton < 2){
 					drawTextInBox("You have returned to harbour empty handed! With no money to buy rum for your mates you are a LOSER and recieves a skeleton for your closet","body");
@@ -807,6 +807,7 @@ function drawLandedTile(tile){
 			break;	
 		}
 		case 1:{
+			drawTextInBox("Fucked by Parrot","header");
 			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 2 sips.");
 			break;
 		}
@@ -832,6 +833,7 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 5:{
+			drawTextInBox("Fucked by Parrot","header");
 			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 3 sips.");
 			break;
 		}
@@ -847,6 +849,7 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 10:{
+			drawTextInBox("Fucked by Parrot","header");
 			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 4 sips.");
 			break;
 		}
@@ -876,17 +879,25 @@ function inputForTile(tile){
 	switch(tile){
 		case 0:{
 			var player = players[curPlayer];
+			if((player.gold > 0 || player.silver > 0) && player.skeleton > 0) player.skeleton--; // lose a skeleton if you have coins
 
-			if(player.gold >= 5){
+			if(player.gold >= 5){ // Whore
 				player.gold -= 5;
+				goldbank += 5;
+				
+				player.whore++;
+				whorebank--;
+				
 				curState = State.LANDED;	
-			}else if(player.gold > 0 || player.silver > 0){
+			}else if(player.gold > 0 || player.silver > 0){ // regular give away
+				goldbank += player.gold;
+				silverbank += player.silver;
 				player.gold = 0;
 				player.silver = 0;
 				
 				nextPlayer();
-				curState = State.ROLL;	
-			}else{
+				curState = State.ROLL;
+			}else{ // You're a loser!
 				if(player.skeleton < 2){
 					player.skeleton++;
 				}else{
