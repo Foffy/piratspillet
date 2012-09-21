@@ -633,10 +633,10 @@ function printCoinRecieved(coinType){
 		drawTextInBox(onTileActivatedString(nonRecievingPlayers)+" receives nothing 'cus the treasure chest was empty!");
 		drawTextInBox("T' Davy Jones wit it!","flavor");
 		}else if(nonRecievingPlayers.length == 0){
-			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest.");
+			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " chest.");
 			drawTextInBox("Dead man tell no tale.","flavor");
 		}else{
-			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest."+nonRecievingText);
+			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " treasure chest."+nonRecievingText);
 			drawTextInBox("Dead man tell no tale.","flavor");
 			}
 }
