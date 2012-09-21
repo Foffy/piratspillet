@@ -624,10 +624,6 @@ function bankType(coinType){
 
 // writes who gets a coin (silver or gold) from the field and who doesn't.
 function printCoinRecieved(coinType){
-	// first the basics
-	drawTextInBox("The Open Chest","header");
-	
-	// then the body
 	var nonRecievingText = " "+onTileActivatedString(nonRecievingPlayers)
 						   +" receives nothing 'cus the treasure chest was empty!";
 	
@@ -636,10 +632,10 @@ function printCoinRecieved(coinType){
 		drawTextInBox("T' Davy Jones wit it!","flavor");
 		}else if(nonRecievingPlayers.length == 0){
 			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest.");
-			drawTextInBox("Dead men don't tell tales.","flavor");
+			drawTextInBox("Dead man tell no tale.","flavor");
 		}else{
 			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the open treasure chest."+nonRecievingText);
-			drawTextInBox("Dead men don't tell tales.","flavor");
+			drawTextInBox("Dead man tell no tale.","flavor");
 			}
 }
 
@@ -772,11 +768,44 @@ function movePlayer(){
 	if(players[curPlayer].pos == 0) newField = 0;
 }
 
+function coinsToSipsString(gold,silver,double){
+	var goldsips = treasureToSips([gold,0,double]);
+	var silversips = treasureToSips([0,silver,double]);
+	var result = "";
+	if(gold > 0) result = (goldsips + " sips for your Gold Coins");
+	if(gold > 0 && silver > 0) result += " and ";
+	if(silver > 0) result += (silversips + " sips for your Silver Coins");
+	
+	return result;
+}
+
 function drawLandedTile(tile){
 	switch(tile){
-		/*case 0:{
+		case 0:{
+			var player = players[curPlayer];
+			var directly = (newField == 14);
+			
+			// header
+			if(directly){
+				drawTextInBox("Directly in Harbour","header");
+			}else{
+				drawTextInBox("Indirectly in Harbour","header");
+			}
+			
+			// body
+			if(player.gold >= 5){
+				drawTextInBox("Arr! You have enough gold for a " + directly ? "LUXURY WHORE" : "whore" + "for everyone to enjoy! Everyone takes " + directly ? 10 : 5 + "sips and a Whore Coin is granted to you","body");
+			}else if(player.silver > 0 || player.gold > 0){
+				drawTextInBox("You have plunder to buy rum for your mates! You give away "+coinsToSipsString(player.gold,player.silver,directly),"body");
+			}else{
+				if(player.skeleton < 2){
+					drawTextInBox("You have returned to harbour empty handed! With no money to buy rum for your mates you are a LOSER and recieves a skeleton for your closet","body");
+				}else{
+					drawTextInBox("You have returned to harbour empty handed THREE years in a row! You are degraded one rank in dishonor!","body");
+				}
+			}
 			break;	
-		}*/
+		}
 		case 1:{
 			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 2 sips.");
 			break;
@@ -813,6 +842,7 @@ function drawLandedTile(tile){
 				giveCoinFromField("silver");
 				fieldUsed = true;
 			}
+			drawTextInBox("The Open Chest","header");
 			printCoinRecieved("silver");
 			break;
 		}
@@ -831,6 +861,7 @@ function drawLandedTile(tile){
 				}
 				fieldUsed = true;
 			}
+			drawTextInBox("The Closed Chest","header");
 			if(diceToShow == 6){
 				printCoinRecieved("gold")
 			}else{
@@ -838,15 +869,34 @@ function drawLandedTile(tile){
 			}
 			break;
 		}
-		// ...
 	}
 }
 
 function inputForTile(tile){
 	switch(tile){
-		/*case 0:{
+		case 0:{
+			var player = players[curPlayer];
+
+			if(player.gold >= 5){
+				player.gold -= 5;
+				curState = State.LANDED;	
+			}else if(player.gold > 0 || player.silver > 0){
+				player.gold = 0;
+				player.silver = 0;
+				
+				nextPlayer();
+				curState = State.ROLL;	
+			}else{
+				if(player.skeleton < 2){
+					player.skeleton++;
+				}else{
+					player.skeleton = 0;	
+				}
+				nextPlayer();
+				curState = State.ROLL;
+			}
 			break;	
-		}*/
+		}
 		case 3:
 		case 7:
 		case 13:{
