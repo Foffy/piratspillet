@@ -424,7 +424,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 6;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -562,7 +562,8 @@ function activatedPlayers(){
 	var matches = [];
 
 	// gather players
-	for(var i = 0; i < players.length; i++){
+	var start = curPlayer+1 == players.length ? 0 : (curPlayer+1);
+	for(var i = start; i != curPlayer; i = i < (players.length-1) ? i+1 : 0){
 		if(i != curPlayer && players[i].pos == players[curPlayer].pos){
 			matches.push(players[i]);
 		}
@@ -591,7 +592,8 @@ function onTileActivatedString(playerArray){
 // Gives a string listing all the players
 // on the current tile
 function onTileString(){
-	var matches = activatedPlayers().concat([players[curPlayer]]);	
+	var matches = activatedPlayers()
+	matches.push(players[curPlayer]);//.concat([players[curPlayer]]);	
 	return onTileActivatedString(matches);
 }
 
@@ -645,6 +647,7 @@ function giveCoinFromField(coinType){
 	recievingPlayers = [];		
 	nonRecievingPlayers = activatedPlayers();
 	nonRecievingPlayers.push(players[curPlayer]);
+	debugging = players[curPlayer].name;
 	while(nonRecievingPlayers.length > 0 && bankType(coinType)){
 		var cur = nonRecievingPlayers.pop();
 		if(coinType == "silver"){
