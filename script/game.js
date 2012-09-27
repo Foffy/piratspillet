@@ -276,6 +276,7 @@ var newField = 0;
 var newTimeout = 20;
 var curTreasure = null;
 var curSips = 0;
+var sipsChosen = 0;
 
 var imgBg = new Image();
 imgBg.src = "images/background.png";
@@ -424,7 +425,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 8;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -462,6 +463,20 @@ function drawState(){
 			drawLandedTile(players[curPlayer].pos);
 			break;
 		}
+		case State.ACTIVATED:{
+			switch(players[curPlayer].pos){ // activated where? Note: Many tiles incorporate the activation in the text.
+				case 3:
+				case 7:
+				case 13: {
+					drawBox(leftToActivate[0]);
+					drawTextInBox("Activated","header");
+					drawTextInBox(leftToActivate[0].name + " must also drink "+sipsChosen+" sips and recieves: ","center");
+					drawCoinsByValue(sipsChosen,50-coinLargeSize/2,50-2,coinLargeSize,largeCoinDisplacement);
+					break;		
+				}
+			}
+
+		}
 	}
 }
 
@@ -474,9 +489,10 @@ function takeInput(){
 			break;
 		}
 		case State.ROLLING:{
+			//diceToShow = rollDice();
 			curState = State.MOVING;
 			newTimeout = 350;
-			//diceToShow = rollDice();
+			
 			break;
 		}
 		case State.DRINK_DIGGED:{
@@ -485,6 +501,19 @@ function takeInput(){
 		}
 		case State.LANDED:{
 			inputForTile(players[curPlayer].pos);
+			break;
+		}
+		case State.ACTIVATED:{
+			var cur = leftToActivate.shift();
+			giveCoinsByValue(sipsChosen,cur);
+			
+			if(leftToActivate.length > 0){
+				curState = State.ACTIVATED;	
+			}else{
+				nextPlayer();
+				curState = State.ROLL;
+				sipsChosen = 0;	
+			}
 			break;
 		}
 	}
@@ -577,13 +606,13 @@ function onTileActivatedString(playerArray){
 	if(playerArray.length == 0) return "";
 
 	var matches = playerArray.slice();
-	var result = matches.pop().name;
+	var result = matches.shift().name;
 
 	while(matches.length > 0){
 		if(matches.length > 1){
-			result += ", "+matches.pop().name;
+			result += ", "+matches.shift().name;
 		}else{
-			result += " and "+matches.pop().name;
+			result += " and "+matches.shift().name;
 		}
 	}
 	return result;
@@ -592,8 +621,8 @@ function onTileActivatedString(playerArray){
 // Gives a string listing all the players
 // on the current tile
 function onTileString(){
-	var matches = activatedPlayers()
-	matches.push(players[curPlayer]);//.concat([players[curPlayer]]);	
+	var matches = activatedPlayers();
+	matches.unshift(players[curPlayer]);
 	return onTileActivatedString(matches);
 }
 
@@ -645,11 +674,11 @@ function printCoinRecieved(coinType){
 // field, provided the bank can afford it
 function giveCoinFromField(coinType){
 	recievingPlayers = [];		
-	nonRecievingPlayers = [players[curPlayer]].concat(activatedPlayers());
-	//nonRecievingPlayers.push(players[curPlayer]);
-	debugging = nonRecievingPlayers[0].name;
+	nonRecievingPlayers = activatedPlayers();
+	nonRecievingPlayers.unshift(players[curPlayer]);
+	
 	while(nonRecievingPlayers.length > 0 && bankType(coinType)){
-		var cur = nonRecievingPlayers.pop();
+		var cur = nonRecievingPlayers.shift();
 		if(coinType == "silver"){
 			cur.silver++;
 			silverbank--; // For economical integrity, Jimmy
@@ -783,6 +812,33 @@ function coinsToSipsString(gold,silver,double){
 	return result;
 }
 
+function playerDisplayPositions(pNum){
+	var pSpace = 2*playerRadius + 1;
+	var xMin = 32;
+	var xMax = 68;
+	var yMin = 47;
+	var yMax = 70;
+	
+	var perRow = Math.floor((xMax-xMin)/pSpace);
+	var rows = Math.ceil(pNum/perRow);
+	var positions = [];
+	
+	var ySpace = (yMax - yMin - rows*pSpace)/(rows + 1);
+	for(var i = 0; i < rows; i++){
+		// y position
+		var y = yMin + (i + 1)*(yMax - yMin)/(rows + 1);
+		var limit = pNum < perRow ? pNum : perRow;
+		var xSpace = (xMax - xMin - limit*pSpace)/(limit + 1);
+		
+		// individual positions
+		for(var j = 0; j < limit; j++){
+			positions.push([xMin + xSpace + j*(pSpace+xSpace) + pSpace/2,yMin + ySpace + i*(pSpace+ySpace) + pSpace/2]);	
+		}
+		pNum -= limit;
+	}
+	return positions;
+}
+
 function drawLandedTile(tile){
 	switch(tile){
 		case 0:{
@@ -810,18 +866,20 @@ function drawLandedTile(tile){
 			break;	
 		}
 		case 1:{
-			drawTextInBox("Fucked by Parrot","header");
-			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 2 sips.");
+			drawTextInBox("Fucked by Parrot!","header");
+			drawTextInBox("You have been fucked twice by the parrot. "+onTileString()+" must drink 2 sips!");
 			break;
 		}
 		case 2:{
-			drawTextInBox("Ye landed on the skull and bones! One half cup 'o mead for "+onTileString()+".");
+			drawTextInBox("Skull n' Bones","header");
+			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" landed on the skull and bones and must empty a new beer, unless you have a Skull n' Bones on you, then it's only half.");
 			break;
 		}
 		case 3: 
 		case 7:
 		case 13:{
 			drawTextInBox("Plunderin'","header");
+			drawTextInBox("You can plunder up to a maximum value of two Gold Coins for sips, how many sips would you like to drink?","body");
 			for(i = 4; i >=1; i--){
 				drawCoinsByValue(i,68.75-i*9,55,7,0.8);
 				drawRect(69.75-i*9,62,5,4,"white",true);
@@ -832,12 +890,12 @@ function drawLandedTile(tile){
 		case 4:{
 			drawTextInBox("Mouth full","header");
 			drawTextInBox("You must fill your mouth with beer before swallowing it, "+onTileString()+".");
-			drawTextInBox("Arrr! Bring more grog!","flavor");
+			drawTextInBox("Arrr! Bring more beer!","flavor");
 			break;
 		}
 		case 5:{
-			drawTextInBox("Fucked by Parrot","header");
-			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 3 sips.");
+			drawTextInBox("Fucked by Parrot!","header");
+			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" been fucked three times by the parrot. Drink 3 sips to ease the pain.");
 			break;
 		}
 		case 6:{
@@ -851,9 +909,21 @@ function drawLandedTile(tile){
 			printCoinRecieved("silver");
 			break;
 		}
+		case 8:{
+			// text
+			drawTextInBox("Greedy Scullywag!","header");
+			drawTextInBox("You are with greed and must exchange coins with another player. Who should it be?","body");
+			
+			// players
+			var positions = playerDisplayPositions(players.length);
+			for(var i = 0; i < positions.length; i++){
+				players[i].drawXY(positions[i][0],positions[i][1]);	
+			}
+			break;
+		}
 		case 10:{
-			drawTextInBox("Fucked by Parrot","header");
-			drawTextInBox(players[curPlayer].name+", ye be fucked by the parrot! Drink 4 sips.");
+			drawTextInBox("Fucked by Parrot!","header");
+			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" been fucked four times by the parrot. Drink 4 sips to douse the pain.");
 			break;
 		}
 		case 11:{
@@ -916,23 +986,29 @@ function inputForTile(tile){
 		case 13:{
 			if(getMouseClick(34,63,5,4)){
 				var coins = giveCoinsByValue(4,players[curPlayer]);
-				nextPlayer();
-				curState = State.ROLL;
+				sipsChosen = 4;
 			}
 			if(getMouseClick(43,62,5,4)){
 				var coins = giveCoinsByValue(3,players[curPlayer]);
-				nextPlayer();
-				curState = State.ROLL;
+				sipsChosen = 3;
 			}
 			if(getMouseClick(52,62,5,4)){
 				var coins = giveCoinsByValue(2,players[curPlayer]);
-				nextPlayer();
-				curState = State.ROLL;
+				sipsChosen = 2;
 			}
 			if(getMouseClick(61,62,5,4)){
 				var coins = giveCoinsByValue(1,players[curPlayer]);
-				nextPlayer();
-				curState = State.ROLL;
+				sipsChosen = 1;
+			}
+			
+			// move on?
+			if(sipsChosen != 0){
+				curState = State.ACTIVATED;
+				leftToActivate = activatedPlayers();
+				if(leftToActivate.length == 0){
+					nextPlayer();
+					curState = State.ROLL;	
+				}
 			}
 			break;
 		}
