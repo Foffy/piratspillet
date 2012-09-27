@@ -425,7 +425,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = 8;//rollDice();
+			diceToShow = 9;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -913,6 +913,18 @@ function drawLandedTile(tile){
 			// text
 			drawTextInBox("Greedy Scullywag!","header");
 			drawTextInBox("You are with greed and must exchange coins with another player. Who should it be?","body");
+			
+			// players
+			var positions = playerDisplayPositions(players.length);
+			for(var i = 0; i < positions.length; i++){
+				players[i].drawXY(positions[i][0],positions[i][1]);	
+			}
+			break;
+		}
+		case 9:{
+			// text
+			drawTextInBox("The Cannon","header");
+			drawTextInBox("You can steal a coin at random from another player. Who should it be?","body");
 			
 			// players
 			var positions = playerDisplayPositions(players.length);
