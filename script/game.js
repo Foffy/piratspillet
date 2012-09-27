@@ -253,7 +253,7 @@ var nonRecievingPlayers = [];
 
 var whorebank = 5;
 var goldbank = 10;
-var silverbank = 10;
+var silverbank = 0;
 
 var fieldUsed = false;
 
@@ -263,13 +263,13 @@ var islandPositions = [[45,39],[59,39],[70,39],[70,51.6],[70,63.8],[70,75.5],[59
 var tilePct = 13;
 var playerRadius = 3.5;
 var coinSmallSize = 2;
-var smallCoinDisplacement = 0.35;
+var smallCoinDisplacement = 0.5;
 var largeCoinDisplacement = 1;
 var coinLargeSize = 8;
 var whoreSmallSize = 2;
 var whoreDisplacement = 0.35;
 var skeletonSmallSize = 2;
-var skeletonDisplacement = 0.35;
+var skeletonDisplacement = 2;
 var diceSize = 5;
 var diceToShow = 0;
 var newField = 0;
@@ -339,30 +339,27 @@ function Player(name){
 		drawCircle(x,y,playerRadius,this.color,true);
 		drawText(this.name,x-playerRadius/2,y-textsize*0.75,playerRadius,textsize,"center",false);
 		
-		// Draw coins next to portrait
-		var coinPosY = y+playerRadius-coinSmallSize*0.75;
-		
-		for (var i = 0;i < this.gold;i++){
-			drawImage(imgGoldSmall,x-playerRadius-coinSmallSize/2,coinPosY,coinSmallSize);
-			coinPosY -= coinSmallSize*smallCoinDisplacement;
-		}
-		for (var i = 0; i < this.silver; i++){
-			drawImage(imgSilverSmall,x-playerRadius-coinSmallSize/2,coinPosY,coinSmallSize);
-			coinPosY -= coinSmallSize*smallCoinDisplacement;
+		// Draw coins next to portrait, stacked with silver on top of gold
+		if(this.silver+this.gold > 0){
+			var coinPosY = y+playerRadius-coinSmallSize*0.75;
+			drawDisplacedImages(imgGoldSmall, this.gold,x-playerRadius-coinSmallSize/2, coinPosY,coinSmallSize,smallCoinDisplacement,"v");
+			drawDisplacedImages(imgSilverSmall, this.silver,x-playerRadius-coinSmallSize/2,coinPosY-this.gold*smallCoinDisplacement,coinSmallSize,smallCoinDisplacement,"v");
 		}
 		
-		// Draw Whore coins next to portrait
-		var whorePosY = y+playerRadius-whoreSmallSize*0.75;
-		for (var i = 0; i < this.whore; i++){
-			drawImage(imgWhoreSmall,x+playerRadius-whoreSmallSize/2,whorePosY,whoreSmallSize);
-			whorePosY -= whoreSmallSize*whoreDisplacement;
+		// Draw whore coins next to portrait
+		if(this.whore > 0){
+			var whorePosY = y+playerRadius-whoreSmallSize*0.75;
+			drawDisplacedImages(imgWhoreSmall, this.whore, x+playerRadius-whoreSmallSize/2,whorePosY,whoreSmallSize,whoreDisplacement,"v");
 		}
 		
 		// Draw skeletons next to portrait
-		var skeletonPosY = y-playerRadius-skeletonSmallSize*0.75;
-		for (var i = 0; i < this.skeleton; i++){
-			drawImage(imgSkeletonSmall,x+playerRadius-skeletonSmallSize/2,skeletonPosY,skeletonSmallSize);
-			skeletonPosY += skeletonSmallSize*skeletonDisplacement;
+		if(this.skeleton > 0){
+			var skeletonPosX = x+skeletonSmallSize/5-skeletonDisplacement*0.15;
+			if(this.skeleton == 1){
+				skeletonPosX = x-skeletonSmallSize/2;
+			}
+			var skeletonPosY = y-playerRadius-skeletonSmallSize*0.8;
+			drawDisplacedImages(imgSkeletonSmall,this.skeleton, skeletonPosX, skeletonPosY, skeletonSmallSize,skeletonDisplacement,"h");
 		}
 	}
 }
@@ -424,7 +421,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 9;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -508,6 +505,20 @@ c.addEventListener('mousemove',getMousePosition,false);
 c.addEventListener('click',getMouseClick,false);
 
 // GAME METHODS
+
+
+// draw a pile of the wanted image at x,y, displaced in the
+// given direction ("h" or "v") with the specified displacement.
+function drawDisplacedImages(image,amount,x,y,width,displacement,direction){
+	for(var i = 0; i < amount; i++){
+		drawImage(image, x, y, width);
+		if(direction == "v"){
+			y -= displacement;
+		}else if(direction == "h"){
+			x -= displacement;
+		}
+	}
+}
 
 // draw a pile of coins with the combined value
 // as given as first parameter at the coordinates (x,y)
