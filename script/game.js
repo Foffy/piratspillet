@@ -253,7 +253,7 @@ var nonRecievingPlayers = [];
 
 var whorebank = 5;
 var goldbank = 10;
-var silverbank = 0;
+var silverbank = 10;
 
 var fieldUsed = false;
 
@@ -422,7 +422,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 3;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -1007,19 +1007,19 @@ function inputForTile(tile){
 		case 3:
 		case 7:
 		case 13:{
-			if(getMouseClick(34,63,5,4)){
+			if(getMouseClick(34,63,5,4) || getMouseClick(32.75,55-0.55,7,coinLargeSize/2+0.8*2)){
 				var coins = giveCoinsByValue(4,players[curPlayer]);
 				sipsChosen = 4;
 			}
-			if(getMouseClick(43,62,5,4)){
+			if(getMouseClick(43,62,5,4) || getMouseClick(41.75,55-0.55,7,coinLargeSize/2+0.8*2)){
 				var coins = giveCoinsByValue(3,players[curPlayer]);
 				sipsChosen = 3;
 			}
-			if(getMouseClick(52,62,5,4)){
+			if(getMouseClick(52,62,5,4) || getMouseClick(50.75,55-0.55,7,coinLargeSize/2+0.8*2)){
 				var coins = giveCoinsByValue(2,players[curPlayer]);
 				sipsChosen = 2;
 			}
-			if(getMouseClick(61,62,5,4)){
+			if(getMouseClick(61,62,5,4) || getMouseClick(59.75,55-0.55,7,coinLargeSize/2+0.8*2)){
 				var coins = giveCoinsByValue(1,players[curPlayer]);
 				sipsChosen = 1;
 			}
