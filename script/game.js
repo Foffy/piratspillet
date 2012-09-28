@@ -816,7 +816,6 @@ function movePlayer(){
 function coinsToSipsString(gold,silver,double){
 	var goldsips = coinsToSips(gold,0,double);
 	var silversips = coinsToSips(0,silver,double);
-	debugging = gold + "," + silver;
 	var result = "";
 	if(gold > 0) result = (goldsips + " sips for your Gold Coins");
 	if(gold > 0 && silver > 0) result += " and ";
@@ -945,6 +944,7 @@ function drawLandedTile(tile){
 			if(fieldUsed == false){
 				otherPlayers = getNonactivePlayers();
 				otherPlayerPositions = playerDisplayPositions(otherPlayers.length);
+				debugging = playerDisplayPositions.length;
 				fieldUsed = true;
 			}
 			// text
@@ -953,7 +953,7 @@ function drawLandedTile(tile){
 			
 			// players
 			for(var i = 0; i < otherPlayers.length; i++){
-				otherPlayers[i].drawXY(positions[i][0],positions[i][1]);	
+				otherPlayers[i].drawXY(otherPlayerPositions[i][0],otherPlayerPositions[i][1]);	
 			}
 			break;
 		}
