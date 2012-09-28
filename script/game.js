@@ -277,6 +277,8 @@ var newTimeout = 20;
 var curTreasure = null;
 var curSips = 0;
 var sipsChosen = 0;
+var otherPlayers = [];
+var otherPlayerPositions = [];
 
 var imgBg = new Image();
 imgBg.src = "images/background.png";
@@ -850,6 +852,25 @@ function playerDisplayPositions(pNum){
 	return positions;
 }
 
+function getNonactivePlayers(){
+	var result = [];
+	for(var i = 0; i < players.length; i++){
+		if(i != curPlayer){
+			result.push(players[i]);	
+		}
+	}
+	return result;
+}
+
+function otherPlayerClicked(){
+	for(var i = 0; i < otherPlayerPositions.length; i++){
+		if(getMouseClick(otherPlayerPositions[i][0]-playerRadius,otherPlayerPositions[i][1]-playerRadius,2*playerRadius,2*playerRadius)){
+			return i;	
+		}
+	}
+	return -1;
+}
+
 function drawLandedTile(tile){
 	switch(tile){
 		case 0:{
@@ -921,14 +942,18 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 8:{
+			if(fieldUsed == false){
+				otherPlayers = getNonactivePlayers();
+				otherPlayerPositions = playerDisplayPositions(otherPlayers.length);
+				fieldUsed = true;
+			}
 			// text
 			drawTextInBox("Greedy Scullywag!","header");
 			drawTextInBox("You are with greed and must exchange coins with another player. Who should it be?","body");
 			
 			// players
-			var positions = playerDisplayPositions(players.length);
-			for(var i = 0; i < positions.length; i++){
-				players[i].drawXY(positions[i][0],positions[i][1]);	
+			for(var i = 0; i < otherPlayers.length; i++){
+				otherPlayers[i].drawXY(positions[i][0],positions[i][1]);	
 			}
 			break;
 		}
@@ -1002,6 +1027,26 @@ function inputForTile(tile){
 				nextPlayer();
 				curState = State.ROLL;
 			}
+			break;	
+		}
+		case 8:{
+			var pid = otherPlayerClicked();
+			if(pid < 0) return;
+			
+			// switch coins with clicked player
+			var other = otherPlayers[pid];
+			var cur = players[curPlayer];
+			var tempG = other.gold;
+			var tempS = other.silver;
+			
+			other.gold = cur.gold;
+			other.silver = cur.silver;
+			cur.gold = tempG;
+			cur.silver = tempS;
+			
+			nextPlayer();
+			curState = State.ROLL; // TODO SHOULD BE ACTIVATION
+			fieldUsed = false;
 			break;	
 		}
 		case 3:
