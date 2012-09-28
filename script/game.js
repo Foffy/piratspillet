@@ -473,6 +473,12 @@ function drawState(){
 					drawCoinsByValue(sipsChosen,50-coinLargeSize/2,50-2,coinLargeSize,largeCoinDisplacement);
 					break;		
 				}
+				case 8:{
+					debugging = leftToActivate.length;
+					makeOtherPlayers(leftToActivate[0]);
+					drawSwitchTile(leftToActivate[0]);
+					break;
+				}
 			}
 
 		}
@@ -503,16 +509,34 @@ function takeInput(){
 			break;
 		}
 		case State.ACTIVATED:{
-			var cur = leftToActivate.shift();
-			giveCoinsByValue(sipsChosen,cur);
+			switch(players[curPlayer].pos){
+				case 3:
+				case 7:
+				case 13:{
+					var cur = leftToActivate.shift();
+					giveCoinsByValue(sipsChosen,cur);
 			
-			if(leftToActivate.length > 0){
-				curState = State.ACTIVATED;	
-			}else{
-				nextPlayer();
-				curState = State.ROLL;
-				sipsChosen = 0;	
+					if(leftToActivate.length > 0){
+						curState = State.ACTIVATED;	
+					}else{
+						nextPlayer();
+						curState = State.ROLL;
+						sipsChosen = 0;	
+					}
+				}
+				case 8:{
+					if(checkForOtherClicked(leftToActivate[0])){
+						if(leftToActivate.length > 1){
+							leftToActivate.shift();
+						}else{
+							nextPlayer();
+							curState = State.ROLL;
+						}
+						fieldUsed = false;
+					}
+				}
 			}
+
 			break;
 		}
 	}
@@ -851,10 +875,10 @@ function playerDisplayPositions(pNum){
 	return positions;
 }
 
-function getNonactivePlayers(){
+function getOtherPlayers(player){
 	var result = [];
 	for(var i = 0; i < players.length; i++){
-		if(i != curPlayer){
+		if(players[i] !== player){
 			result.push(players[i]);	
 		}
 	}
@@ -868,6 +892,48 @@ function otherPlayerClicked(){
 		}
 	}
 	return -1;
+}
+
+function switchCoins(p1, p2){
+	var tempG = p1.gold;
+	var tempS = p1.silver;
+			
+	p1.gold = p2.gold;
+	p1.silver = p2.silver;
+	p2.gold = tempG;
+	p2.silver = tempS;
+}
+
+function drawSwitchTile(player){
+	// text
+	drawBox(player);
+	drawTextInBox("Greedy Scullywag!","header");
+	drawTextInBox("You are with greed and must exchange coins with another player. Who should it be?","body");
+			
+	// players
+	for(var i = 0; i < otherPlayers.length; i++){
+		otherPlayers[i].drawXY(otherPlayerPositions[i][0],otherPlayerPositions[i][1]);	
+	}
+}
+
+function makeOtherPlayers(player){
+	if(fieldUsed == false){
+		otherPlayers = getOtherPlayers(player);
+		otherPlayerPositions = playerDisplayPositions(otherPlayers.length);
+		fieldUsed = true;
+	}
+}
+
+function checkForOtherClicked(currentPlayer){
+	var pid = otherPlayerClicked();
+	if(pid < 0) return false;
+	
+	// switch coins with clicked player
+	var other = otherPlayers[pid];
+	var cur = currentPlayer;
+	switchCoins(cur,other);
+
+	return true;
 }
 
 function drawLandedTile(tile){
@@ -941,20 +1007,8 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 8:{
-			if(fieldUsed == false){
-				otherPlayers = getNonactivePlayers();
-				otherPlayerPositions = playerDisplayPositions(otherPlayers.length);
-				debugging = playerDisplayPositions.length;
-				fieldUsed = true;
-			}
-			// text
-			drawTextInBox("Greedy Scullywag!","header");
-			drawTextInBox("You are with greed and must exchange coins with another player. Who should it be?","body");
-			
-			// players
-			for(var i = 0; i < otherPlayers.length; i++){
-				otherPlayers[i].drawXY(otherPlayerPositions[i][0],otherPlayerPositions[i][1]);	
-			}
+			makeOtherPlayers(players[curPlayer]);
+			drawSwitchTile(players[curPlayer]);
 			break;
 		}
 		case 9:{
@@ -1030,23 +1084,16 @@ function inputForTile(tile){
 			break;	
 		}
 		case 8:{
-			var pid = otherPlayerClicked();
-			if(pid < 0) return;
-			
-			// switch coins with clicked player
-			var other = otherPlayers[pid];
-			var cur = players[curPlayer];
-			var tempG = other.gold;
-			var tempS = other.silver;
-			
-			other.gold = cur.gold;
-			other.silver = cur.silver;
-			cur.gold = tempG;
-			cur.silver = tempS;
-			
-			nextPlayer();
-			curState = State.ROLL; // TODO SHOULD BE ACTIVATION
-			fieldUsed = false;
+			if(checkForOtherClicked(players[curPlayer])){
+				// any activated should have chance to switch
+				leftToActivate = activatedPlayers();
+				curState = State.ACTIVATED;
+				if(leftToActivate.length == 0){
+					nextPlayer();
+					curState = State.ROLL;	
+				}
+				fieldUsed = false;
+			}
 			break;	
 		}
 		case 3:
