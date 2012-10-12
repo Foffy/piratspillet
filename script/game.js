@@ -279,6 +279,7 @@ var curSips = 0;
 var sipsChosen = 0;
 var otherPlayers = [];
 var otherPlayerPositions = [];
+var stealType = -1;
 
 var imgBg = new Image();
 imgBg.src = "images/background.png";
@@ -314,7 +315,7 @@ imgDiceRolling.src = "images/dice.png";
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 0;
+	this.gold = 2;
 	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
@@ -949,7 +950,7 @@ function drawLandedTile(tile){
 			
 			// body
 			if(player.gold >= 5){
-				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + " for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + "sips and a Whore Coin is granted to you","body");
+				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + " for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + " sips and a Whore Coin is granted to you","body");
 			}else if(player.silver > 0 || player.gold > 0){
 				var lastPart = coinsToSipsString(player.gold,player.silver,directly);
 				drawTextInBox("You have plunder to buy rum for your mates! You give away " + lastPart,"body");
@@ -1012,14 +1013,15 @@ function drawLandedTile(tile){
 			break;
 		}
 		case 9:{
+			makeOtherPlayers(players[curPlayer]);
+			
 			// text
 			drawTextInBox("The Cannon","header");
 			drawTextInBox("You can steal a coin at random from another player. Who should it be?","body");
 			
 			// players
-			var positions = playerDisplayPositions(players.length);
-			for(var i = 0; i < positions.length; i++){
-				players[i].drawXY(positions[i][0],positions[i][1]);	
+			for(var i = 0; i < otherPlayers.length; i++){
+				otherPlayers[i].drawXY(otherPlayerPositions[i][0],otherPlayerPositions[i][1]);	
 			}
 			break;
 		}
@@ -1096,6 +1098,38 @@ function inputForTile(tile){
 			}
 			break;	
 		}
+		case 9:{
+			// what player clicked
+			var pid = otherPlayerClicked();
+			if(pid < 0) break;
+			
+			// add activated players
+			leftToActivate = activatedPlayers();
+			
+			// take one coin
+			var player = otherPlayers[pid];
+			if(player.gold == 0 && player.silver == 0){
+				stealType = -1;
+			}else{
+				var coinNum = parseInt(Math.random()*(player.gold + player.silver)+1);
+				stealType = coinNum > player.gold ? 0 : 1;
+			}
+			
+			// transfer coin
+			if(stealType == 0){
+				players[curPlayer].silver++;
+				player.silver--;	
+			}else if(stealType == 1){
+				players[curPlayer].gold++;
+				player.gold--;
+			}
+			
+			// go to loot state
+			nextPlayer();
+			curState = State.ROLL;
+			fieldUsed = false;
+			break;
+		}
 		case 3:
 		case 7:
 		case 13:{
@@ -1132,6 +1166,5 @@ function inputForTile(tile){
 			nextPlayer();
 			curState = State.ROLL;
 		}
-		// ...
 	}
 }
