@@ -315,7 +315,7 @@ imgDiceRolling.src = "images/dice.png";
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 2;
+	this.gold = 0;
 	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
