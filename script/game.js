@@ -425,7 +425,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 3;// = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -524,6 +524,7 @@ function takeInput(){
 						curState = State.ROLL;
 						sipsChosen = 0;	
 					}
+					break;
 				}
 				case 8:{
 					if(checkForOtherClicked(leftToActivate[0])){
@@ -535,6 +536,7 @@ function takeInput(){
 						}
 						fieldUsed = false;
 					}
+					break;
 				}
 			}
 
