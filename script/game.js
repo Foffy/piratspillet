@@ -426,7 +426,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = 9;//rollDice();
+			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -481,11 +481,25 @@ function drawState(){
 					drawSwitchTile(leftToActivate[0]);
 					break;
 				}
+				case 9:{
+					drawBox(leftToActivate[0]);
+					makeOtherPlayers(leftToActivate[0]);
+			
+					// text
+					drawTextInBox("The Cannon","header");
+					drawTextInBox("You can steal a coin at random from another player. Who should it be?","body");
+					
+					// players
+					for(var i = 0; i < otherPlayers.length; i++){
+						otherPlayers[i].drawXY(otherPlayerPositions[i][0],otherPlayerPositions[i][1]);	
+					}
+					break;
+				}
 			}
-
+			break;
 		}
 		case State.COIN_STOLEN:{
-			drawBox(players[curPlayer]);
+			drawBox(leftToActivate[0]);
 			drawTextInBox("You don't have permission to be aboard there mate!","flavor");
 			var coinImg = null;
 			switch(stealType){
@@ -549,8 +563,7 @@ function takeInput(){
 					}
 					break;
 				}
-				case 8:
-				case 9:{
+				case 8:{
 					if(checkForOtherClicked(leftToActivate[0])){
 						if(leftToActivate.length > 1){
 							leftToActivate.shift();
@@ -562,13 +575,21 @@ function takeInput(){
 					}
 					break;
 				}
+				case 9:{
+					if(checkForClickAndSteal(leftToActivate[0])){
+						curState = State.COIN_STOLEN;
+						fieldUsed = false;
+					}
+					break;
+				}
 			}
 
 			break;
 		}
 		case State.COIN_STOLEN:{
-			if(leftToActivate.length > 0){
+			if(leftToActivate.length > 1){
 				curState = State.ACTIVATED;
+				leftToActivate.shift();
 			}else{
 				nextPlayer();
 				curState = State.ROLL;
@@ -978,9 +999,6 @@ function checkForClickAndSteal(currentPlayer){
 	var pid = otherPlayerClicked();
 	if(pid < 0) return false;
 	
-	// add activated players
-	leftToActivate = activatedPlayers();
-	
 	// take one coin
 	var player = otherPlayers[pid];
 	if(player.gold == 0 && player.silver == 0){
@@ -992,10 +1010,10 @@ function checkForClickAndSteal(currentPlayer){
 	
 	// transfer coin
 	if(stealType == 0){
-		players[curPlayer].silver++;
+		currentPlayer.silver++;
 		player.silver--;	
 	}else if(stealType == 1){
-		players[curPlayer].gold++;
+		currentPlayer.gold++;
 		player.gold--;
 	}
 
@@ -1167,9 +1185,9 @@ function inputForTile(tile){
 			if(checkForClickAndSteal(players[curPlayer])){
 				// go to loot state
 				leftToActivate = activatedPlayers();
+				leftToActivate.unshift(players[curPlayer]);
 				curState = State.COIN_STOLEN;
 				fieldUsed = false;
-				break;
 			}
 			break;
 		}
