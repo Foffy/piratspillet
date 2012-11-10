@@ -311,6 +311,12 @@ imgDiceIdle.src = "images/icon_start.png";
 var imgDiceRolling = new Image();
 imgDiceRolling.src = "images/dice.png";
 
+var imgSitOut = new Image();
+imgSitOut.src = "images/icon_sit_out.png";
+
+var imgAddPlayer = new Image();
+imgAddPlayer.src = "images/icon_add_player.png";
+
 // classes
 function Player(name){
 	this.name = name;
@@ -521,10 +527,23 @@ function drawState(){
 			if(coinImg != null) drawImage(coinImg, 50-coinLargeSize/2,50-coinLargeSize/2, coinLargeSize);
 		}
 	}
+
+	// draw sit-out and add player
+	drawImage(imgSitOut, 80, 1, diceSize);
+	drawImage(imgAddPlayer, 80, 2+diceSize, diceSize);
+	drawText("Sit Out", 80.5+diceSize, 1, 20, 3);
+	drawText("Add Player", 80.5+diceSize, 2.5+diceSize, 20, 3);
 }
 
 function takeInput(){
 	if(mouseClicked == null) return; // no new click waiting
+
+	// icons clicked?
+	if(getMouseClick(80,1,20,diceSize)){ // sit out
+
+	}else if(getMouseClick(80,2+diceSize,20,diceSize)){ // add player
+		players.splice(curPlayer+1, 0, new Player(prompt("What is the name of new player?","")));
+	}
 	
 	switch(curState){
 		case State.ROLL:{
