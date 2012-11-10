@@ -280,6 +280,7 @@ var sipsChosen = 0;
 var otherPlayers = [];
 var otherPlayerPositions = [];
 var stealType = -1;
+var countdown = 5;
 
 var imgBg = new Image();
 imgBg.src = "images/background.png";
@@ -389,7 +390,8 @@ State = {
 	DIG_DOWN : "10: Dig down coins",
 	DIG_AMOUNT : "11: How much to dig down",
 	IN_HARBOUR : "12: Give sips away",
-	GAME_WON : "13: Someone won the game"
+	GAME_WON : "13: Someone won the game",
+	SITTING_OUT : "15: Player sitting out"
 }
 
 // the main gameloop function
@@ -423,11 +425,36 @@ function drawState(){
 	drawText(""+debugging,100,0,20,2.5,"left");
 	switch(curState){
 		case State.ROLL:{
+			newTimeout = 20;
+			if(!players[curPlayer].active){ // player is sitting out
+				curState = State.SITTING_OUT;
+				countdown = 5;
+				
+				break;
+			}
+
 			drawBox(players[curPlayer]);
 			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
 			drawTextInBox(players[curPlayer].name+"'s Turn","header");
 			drawTextInBox("Click the die to start rolling");
 			drawTextInBox("Avast! Pull Me Mast!","flavor");
+			break;
+		}
+		case State.SITTING_OUT:{
+			newTimeout = 1000;
+			drawBox(players[curPlayer]);
+			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
+			drawTextInBox(players[curPlayer].name+"'s Turn","header");
+			drawTextInBox("Click the die to re-enter game");
+			drawTextInBox(""+countdown,"flavor");
+
+			if(countdown == 0){ // last count
+				
+				nextPlayer();
+				curState = State.ROLL;
+			}
+
+			countdown--;
 			break;
 		}
 		case State.ROLLING:{
@@ -529,24 +556,38 @@ function drawState(){
 	}
 
 	// draw sit-out and add player
-	drawImage(imgSitOut, 80, 1, diceSize);
-	drawImage(imgAddPlayer, 80, 2+diceSize, diceSize);
-	drawText("Sit Out", 80.5+diceSize, 1, 20, 3);
-	drawText("Add Player", 80.5+diceSize, 2.5+diceSize, 20, 3);
+	if(curState == State.ROLL){
+		drawImage(imgSitOut, 80, 1, diceSize);
+		drawImage(imgAddPlayer, 80, 2+diceSize, diceSize);
+		drawText("Sit Out", 80.5+diceSize, 1, 20, 3);
+		drawText("Add Player", 80.5+diceSize, 2.5+diceSize, 20, 3);
+	}
 }
 
 function takeInput(){
 	if(mouseClicked == null) return; // no new click waiting
 
 	// icons clicked?
-	if(getMouseClick(80,1,20,diceSize)){ // sit out
+	if(curState == State.ROLL){
+		if(getMouseClick(80,1,20,diceSize)){ // sit out
+			players[curPlayer].active = false;
+			nextPlayer();
+			curState = State.ROLL;
+			mouseClicked = null;
+			return;
 
-	}else if(getMouseClick(80,2+diceSize,20,diceSize)){ // add player
-		players.splice(curPlayer+1, 0, new Player(prompt("What is the name of new player?","")));
+		}else if(getMouseClick(80,2+diceSize,20,diceSize)){ // add player
+			players.splice(curPlayer+1, 0, new Player(prompt("What is the name of new player?","")));
+			mouseClicked = null;
+			return;
+		}
 	}
 	
 	switch(curState){
+		case State.SITTING_OUT:
 		case State.ROLL:{
+			newTimeout = 20;
+			players[curPlayer].active = true;
 			curState = State.ROLLING;
 			break;
 		}
