@@ -325,9 +325,6 @@ imgArrow.src = "images/arrow.png";
 var imgExit = new Image();
 imgExit.src = "images/icon_exit.png";
 
-var imgResume = new Image();
-imgResume.src = "images/icon_resume.png";
-
 var imgCross = new Image();
 imgCross.src = "images/cross.png";
 
@@ -646,6 +643,11 @@ function takeInput(){
 			break;
 		}
 		case State.DRINK_DIGGED:{
+			// decrement
+			var spots = treasureIslandIndexes(players[curPlayer].pos);
+			debugging = spots.join();
+			for(var i = 0; i < spots.length; i++) islandDecrement(i);
+
 			curState = State.LANDED;
 			break;
 		}
@@ -974,27 +976,22 @@ function findTreasure(){
 		coins.push([spot[0],spot[1],spots[i] < 14]);
 	}
 	
-	// decrement
-	for(var i = 0; i < spots.length; i++){
-		islandDecrement(spots[i]);	
-	}
-	
 	// return
 	return coins;
 }
 
-function islandDecrement(coins){
-	if(coins[1] > 0){
-		coins[1] -= 1;
+function islandDecrement(index){
+	if(treasureIsland[index][1] > 0){
+		treasureIsland[index][1] -= 1;
 		silverbank += 1;
-	}else if(coins[0] > 0 && silverbank > 0){
-		coins[0] -= 1;
-		coins[1] += 1;
+	}else if(treasureIsland[index][0] > 0 && silverbank > 0){
+		treasureIsland[index][0] -= 1;
+		treasureIsland[index][1] += 1;
 		silverbank -= 1;
 		goldbank += 1;
-	}else if(coins[0] > 0){
+	}else if(treasureIsland[index][0] > 0){
 		goldbank += 1;
-		coins[0] -= 1;
+		treasureIsland[index][0] -= 1;
 	}
 }
 
@@ -1334,7 +1331,6 @@ function digDownOption(player){
 	}else{
 		drawTextInBox(player.name+" is too poor to dig down treasure on the island!");
 		drawRect(47,50,6,7,"white",true);
-		drawImage(imgResume,48,51,4);
 	}
 	drawTextInBox("X marks the spot!","flavor");
 }
