@@ -1330,7 +1330,6 @@ function digDownOption(player){
 		drawImage(imgExit,53.5,51,4);
 	}else{
 		drawTextInBox(player.name+" is too poor to dig down treasure on the island!");
-		drawRect(47,50,6,7,"white",true);
 	}
 	drawTextInBox("X marks the spot!","flavor");
 }
@@ -1421,15 +1420,15 @@ function inputForTile(tile){
 				var coins = giveCoinsByValue(4,players[curPlayer]);
 				sipsChosen = 4;
 			}
-			if(getMouseClick(43,62,5,4) || getMouseClick(41.75,55-0.55,7,coinLargeSize/2+0.8*2)){
+			else if(getMouseClick(43,62,5,4) || getMouseClick(41.75,55-0.55,7,coinLargeSize/2+0.8*2)){
 				var coins = giveCoinsByValue(3,players[curPlayer]);
 				sipsChosen = 3;
 			}
-			if(getMouseClick(52,62,5,4) || getMouseClick(50.75,55-0.55,7,coinLargeSize/2+0.8*2)){
+			else if(getMouseClick(52,62,5,4) || getMouseClick(50.75,55-0.55,7,coinLargeSize/2+0.8*2)){
 				var coins = giveCoinsByValue(2,players[curPlayer]);
 				sipsChosen = 2;
 			}
-			if(getMouseClick(61,62,5,4) || getMouseClick(59.75,55-0.55,7,coinLargeSize/2+0.8*2)){
+			else if(getMouseClick(61,62,5,4) || getMouseClick(59.75,55-0.55,7,coinLargeSize/2+0.8*2)){
 				var coins = giveCoinsByValue(1,players[curPlayer]);
 				sipsChosen = 1;
 			}
@@ -1441,6 +1440,7 @@ function inputForTile(tile){
 				if(leftToActivate.length == 0){
 					nextPlayer();
 					curState = State.ROLL;
+          sipsChosen = 0;
 				}
 			}
 			break;
