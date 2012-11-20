@@ -3,7 +3,7 @@
 <head>
   <title>Piratspillet </title>
 
-  <link type="text/css" rel="stylesheet" href="/srv/www/piratspillet_beta/assets/style/main.css"/>
+  <link type="text/css" rel="stylesheet" href="/assets/style/main.css"/>
 
   <meta charset="utf-8">
 
@@ -18,7 +18,7 @@
   <canvas id='c'></canvas>
 
   <div class="hidden">
-    <script src="/srv/www/piratspillet_beta/assets/script/game.js"></script>
+    <script src="/assets/script/game.js"></script>
   </div>
 
 </body>
