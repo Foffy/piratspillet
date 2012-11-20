@@ -1,0 +1,24 @@
+spiller kaster terning "1-6"
+spiller lander på et felt "0-13"
+spiller drikker tår(e) fra sølvmønt(er) "1-10"
+spiller drikker tår(e) fra guldmønt(er) "1-10"
+spiller drikker tåre fra papegøje "2-4"
+spiller køber sølvmønt(er) for tår(e) "1-4"
+spiller køber guldmønt(er) for tår(e) "1-2"
+spiller drikker en øl
+spiller fylder munden med øl
+spiller modtager sølvmønt (felt 6)
+spiller bytter skat med anden spiller
+anden spiller bytter skat med spiller
+spiller stjæler tilfældig mønt "sølv" fra anden spiller
+spiller stjæler tilfældig mønt "guld" fra anden spiller
+spiller får stjålet tilfældig mønt "sølv" af anden spiller
+spiller får stjålet tilfældig mønt "guld" af anden spiller
+spiller modtager sølvmønt (felt 11)
+spiller modtager guldmønt (felt 11)
+spiller graver sølvmønt(er) ned "1-10"
+spiller graver guldmønt(er) ned "1-10"
+spiller rammer havn indirekte
+spiller rammer havn direkte
+spiller giver sølvmønt(er) til anden spiller "druk"
+spiller giver guldmønt(er) til anden spiller "druk"
