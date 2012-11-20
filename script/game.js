@@ -432,8 +432,8 @@ function drawboard(){
 // draws extra gui depending on the current game state
 var debugging = "";
 function drawState(){
-	drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
-	drawText(""+debugging,100,0,20,2.5,"left");
+	//drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
+	//drawText(""+debugging,100,0,20,2.5,"left");
 	switch(curState){
 		case State.ROLL:{
 			newTimeout = 20;
