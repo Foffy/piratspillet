@@ -258,7 +258,7 @@ var silverbank = 10;
 var fieldUsed = false;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
-var treasureIsland = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[3,1],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
+var treasureIsland = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
 var islandPositions = [[45,26],[58,26],[69,27],[69,39.6],[69,51.8],[69,64.5],[58,64.5],[45,64.5],[33,64.5],[22,64.5],[21,51.8],[21,39.6],[21,27],[33,26],[33,39.6],[45,39.6],[58,39.6],[58,51.8],[45,51.8],[33,51.8]]; // coordinates for the digable spots on the island
 var tilePct = 13;
 var playerRadius = 3.5;
@@ -335,8 +335,8 @@ imgCross.src = "images/cross.png";
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 3;
-	this.silver = 5;
+	this.gold = 0;
+	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
 	this.pos = 0;
@@ -994,7 +994,7 @@ function islandDecrement(coins){
 		goldbank += 1;
 	}else if(coins[0] > 0){
 		goldbank += 1;
-		coins[0] -= 1;	
+		coins[0] -= 1;
 	}
 }
 
