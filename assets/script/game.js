@@ -284,49 +284,49 @@ var countdown = 5;
 var toDig = [0,0] //[gold, silver]
 
 var imgBg = new Image();
-imgBg.src = "images/background.png";
+imgBg.src = "/assets/images/background.png";
 
 var imgBanner = new Image();
-imgBanner.src = "images/banner.png";
+imgBanner.src = "/assets/images/banner.png";
 
 var imgGoldLarge = new Image();
-imgGoldLarge.src = "images/gold.png";
+imgGoldLarge.src = "/assets/images/gold.png";
 
 var imgSilverLarge = new Image();
-imgSilverLarge.src = "images/silver.png";
+imgSilverLarge.src = "/assets/images/silver.png";
 
 var imgGoldSmall = new Image();
-imgGoldSmall.src = "images/gold_small.png";
+imgGoldSmall.src = "/assets/images/gold_small.png";
 
 var imgSilverSmall = new Image();
-imgSilverSmall.src = "images/silver_small.png";
+imgSilverSmall.src = "/assets/images/silver_small.png";
 
 var imgWhoreSmall = new Image();
-imgWhoreSmall.src = "images/whore_small.png";
+imgWhoreSmall.src = "/assets/images/whore_small.png";
 
 var imgSkeletonSmall = new Image();
-imgSkeletonSmall.src = "images/skeleton_small.png";
+imgSkeletonSmall.src = "/assets/images/skeleton_small.png";
 
 var imgDiceIdle = new Image();
-imgDiceIdle.src = "images/icon_start.png";
+imgDiceIdle.src = "/assets/images/icon_start.png";
 
 var imgDiceRolling = new Image();
-imgDiceRolling.src = "images/dice.png";
+imgDiceRolling.src = "/assets/images/dice.png";
 
 var imgSitOut = new Image();
-imgSitOut.src = "images/icon_sit_out.png";
+imgSitOut.src = "/assets/images/icon_sit_out.png";
 
 var imgAddPlayer = new Image();
-imgAddPlayer.src = "images/icon_add_player.png";
+imgAddPlayer.src = "/assets/images/icon_add_player.png";
 
 var imgArrow = new Image();
-imgArrow.src = "images/arrow.png";
+imgArrow.src = "/assets/images/arrow.png";
 
 var imgExit = new Image();
-imgExit.src = "images/icon_exit.png";
+imgExit.src = "/assets/images/icon_exit.png";
 
 var imgCross = new Image();
-imgCross.src = "images/cross.png";
+imgCross.src = "/assets/images/cross.png";
 
 // classes
 function Player(name){
