@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="da">
 <head>
-  <title>Piratspillet </title>
+  <title><?php echo $title; ?></title>
 
   <link type="text/css" rel="stylesheet" href="/assets/style/main.css"/>
 

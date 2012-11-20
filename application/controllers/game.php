@@ -3,7 +3,9 @@
 class Game extends CI_Controller {
 
   public function index(){
-    $this->load->view('the_game');
+
+    $data['title'] = "Piratspillet - Beta!";
+    $this->load->view('the_game',$data);
   }
 
 
