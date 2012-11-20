@@ -3,7 +3,7 @@
 <head>
   <title>Piratspillet </title>
 
-  <link type="text/css" rel="stylesheet" href="/srv/www/piratspillet_beta//assets/style/main.css"/>
+  <link type="text/css" rel="stylesheet" href="/srv/www/piratspillet_beta/assets/style/main.css"/>
 
   <meta charset="utf-8">
 
