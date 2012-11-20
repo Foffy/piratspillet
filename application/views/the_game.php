@@ -3,7 +3,7 @@
 <head>
   <title>Piratspillet </title>
 
-  <link type="text/css" rel="stylesheet" href="style/main.css"/>
+  <link type="text/css" rel="stylesheet" href="../../style/main.css"/>
 
   <meta charset="utf-8">
 
@@ -18,7 +18,7 @@
   <canvas id='c'></canvas>
 
   <div class="hidden">
-    <script src="script/game.js"></script>
+    <script src="../../script/game.js"></script>
   </div>
 
 </body>
