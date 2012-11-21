@@ -4,7 +4,9 @@ class Rules extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = "Piratspillet - Beta! - Rules";
-		$this->load->view('rules_page', $data);
+		$data['header'] = "default";
+		$data['title'] = "Piratspillet - BETA!";
+		$data['main_content'] = "rules_page";
+		$this->load->view('includes/template', $data);
 	}
 }
