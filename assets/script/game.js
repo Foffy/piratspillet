@@ -241,6 +241,16 @@ function wordWrap(text, maxWidthPct, pctFont){
 	return results;
 }
 
+// Return an image object With the specified file name.
+// If debug == true, the local path will be used, otherwise
+// the file path on the server will be used.
+function addImage(fileName){
+	var imgFile = new Image();
+	var path = (debug == true) ? "images/" : "/assets/images/";
+		imgFile.src = path+fileName;
+	return imgFile;
+}
+
 // THE ACTUAL GAME
 
 // constants and stuff
@@ -256,6 +266,7 @@ var goldbank = 10;
 var silverbank = 10;
 
 var fieldUsed = false;
+var debug = true;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
 var treasureIsland = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
@@ -283,50 +294,20 @@ var stealType = -1;
 var countdown = 5;
 var toDig = [0,0] //[gold, silver]
 
-var imgBg = new Image();
-imgBg.src = "/assets/images/background.png";
-
-var imgBanner = new Image();
-imgBanner.src = "/assets/images/banner.png";
-
-var imgGoldLarge = new Image();
-imgGoldLarge.src = "/assets/images/gold.png";
-
-var imgSilverLarge = new Image();
-imgSilverLarge.src = "/assets/images/silver.png";
-
-var imgGoldSmall = new Image();
-imgGoldSmall.src = "/assets/images/gold_small.png";
-
-var imgSilverSmall = new Image();
-imgSilverSmall.src = "/assets/images/silver_small.png";
-
-var imgWhoreSmall = new Image();
-imgWhoreSmall.src = "/assets/images/whore_small.png";
-
-var imgSkeletonSmall = new Image();
-imgSkeletonSmall.src = "/assets/images/skeleton_small.png";
-
-var imgDiceIdle = new Image();
-imgDiceIdle.src = "/assets/images/icon_start.png";
-
-var imgDiceRolling = new Image();
-imgDiceRolling.src = "/assets/images/dice.png";
-
-var imgSitOut = new Image();
-imgSitOut.src = "/assets/images/icon_sit_out.png";
-
-var imgAddPlayer = new Image();
-imgAddPlayer.src = "/assets/images/icon_add_player.png";
-
-var imgArrow = new Image();
-imgArrow.src = "/assets/images/arrow.png";
-
-var imgExit = new Image();
-imgExit.src = "/assets/images/icon_exit.png";
-
-var imgCross = new Image();
-imgCross.src = "/assets/images/cross.png";
+var imgBg = addImage("background.png");
+var imgBanner = addImage("banner.png");
+var imgGoldLarge = addImage("gold.png");
+var imgSilverLarge = addImage("silver.png");
+var imgGoldSmall = addImage("gold_small.png");
+var imgSilverSmall = addImage("silver_small.png");
+var imgWhoreSmall = addImage("whore_small.png");
+var imgSkeletonSmall = addImage("skeleton_small.png");
+var imgDiceIdle = addImage("icon_start.png");
+var imgDiceRolling = addImage("dice.png");
+var imgSitOut = addImage("icon_sit_out.png");
+var imgAddPlayer = addImage("icon_add_player");
+var imgArrow = addImage("arrow.png");
+var imgCross = addImage("cross.png");
 
 // classes
 function Player(name){
