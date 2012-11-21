@@ -16,7 +16,7 @@
 <body>
 
   <div id="container">
-    <h1><?php echo "<h1>You wrote " . $ _GET["debug"] . "</h1>"; ?></h1>
+    <h1>Piratspillet!</h1>
   </div>
 
 </br>
