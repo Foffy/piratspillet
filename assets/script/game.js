@@ -470,7 +470,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow =12;// rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -1316,9 +1316,9 @@ function drawLandedTile(tile){
 function digDownOption(player){
 	// gives the player an opportunity to dig down treasure on the island
 	// for increased amount of sips required on a given field.
+	drawBox(player);
 	drawTextInBox("Treasure Island!","header");
 	var player = player;
-	drawBox(player);
 
 	if(player.gold+player.silver > 0){
 		drawTextInBox(player.name+" can dig down treasure on the island for other scullywags to find.");
