@@ -22,12 +22,6 @@
 </br>
 
   <div id="box">
-    <?php
-
-  // The value of the variable name is found
-  echo "<h1>You gave " . $ _GET["debug"] . " as a variable. </h1>";
-
-  ?>
     <a href="http://beta.piratspillet.dk/index.php/game" title="Play the game!">PLAY</a>
     </br> 
     <a href="http://beta.piratspillet.dk/index.php/rules" title="Play the game!">READ THE RULES</a>
