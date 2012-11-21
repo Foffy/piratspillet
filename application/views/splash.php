@@ -16,12 +16,12 @@
 <body>
 
   <div id="container">
-    <h1>Piratspillet!</h1>
+    <h1><?php echo "<h1>You wrote " . $ _GET["debug"] . "</h1>"; ?></h1>
   </div>
 
 </br>
 
-  <div id="box">
+  <div id="box">    
     <a href="http://beta.piratspillet.dk/index.php/game" title="Play the game!">PLAY</a>
     </br> 
     <a href="http://beta.piratspillet.dk/index.php/rules" title="Play the game!">READ THE RULES</a>
