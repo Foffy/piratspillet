@@ -248,7 +248,7 @@ function wordWrap(text, maxWidthPct, pctFont){
 // the file path on the server will be used.
 function addImage(fileName){
 	var imgFile = new Image();
-	var path = (debug == true) ? "images/" : "/assets/images/";
+	var path = (local == true) ? "images/" : "/assets/images/";
 	imgFile.src = path+fileName;
 	return imgFile;
 }
@@ -268,6 +268,7 @@ var goldbank = 10;
 var silverbank = 10;
 
 var fieldUsed = false;
+var local = false;
 var debug = false;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
