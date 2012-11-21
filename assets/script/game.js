@@ -500,6 +500,7 @@ function drawState(){
 				}
 			}
 			drawBox(players[curPlayer]);
+			drawTextInBox("Hidden Treasure!","header");
 			drawTextInBox("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString()+".");
 			break;
 		}
