@@ -16,7 +16,7 @@
 <body>
 
   <div id="container">
-    <h1>Piratspillet!</h1>
+    <h2>Piratspillet!</h2>
   </div>
 
 </br>
