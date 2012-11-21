@@ -1,3 +1,6 @@
+var local = false;
+var debug = false;
+
 // global variables
 var c = document.getElementById('c');
 ctx = c.getContext('2d');
@@ -268,8 +271,6 @@ var goldbank = 10;
 var silverbank = 10;
 
 var fieldUsed = false;
-var local = false;
-var debug = false;
 
 var boardPositions = [[50,16],[65,17],[81,24],[88,44],[88,63],[82,82],[65,89],[50,91],[34,89],[19,84],[11,63],[11,43],[18,21],[34,16]]; // in percentages
 var treasureIsland = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]; // with [gold,silver] on each index
@@ -419,7 +420,7 @@ function drawboard(){
 var debugging = "";
 function drawState(){
 	//drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
-	//drawText(""+debugging,100,0,20,2.5,"left");
+	//drawText(""+debugging,1,1,0,2.5,"left");
 	switch(curState){
 		case State.ROLL:{
 			newTimeout = 20;
@@ -481,13 +482,13 @@ function drawState(){
 				// if nothing go
 				if(curSips == 0){
 					curState = State.LANDED;
-					curTreasure = null;
 					break;
 				}
 			}
 			drawBox(players[curPlayer]);
 			drawTextInBox("Hidden Treasure!","header");
 			drawTextInBox("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString()+".");
+			drawTextInBox("Flavurrrrrrr text!","flavor");
 			break;
 		}
 		case State.LANDED:{
@@ -632,8 +633,9 @@ function takeInput(){
 		case State.DRINK_DIGGED:{
 			// decrement
 			var spots = treasureIslandIndexes(players[curPlayer].pos);
-			debugging = spots.join();
-			for(var i = 0; i < spots.length; i++) islandDecrement(i);
+			for(var i = 0; i < spots.length; i++) islandDecrement(spots[i]);
+			curSips = 0;
+			curTreasure = null;
 
 			curState = State.LANDED;
 			break;
