@@ -6,7 +6,7 @@ class Game extends CI_Controller {
 
   	$data['header'] = "includes/header_no_right_click";
   	$data['title'] = "Piratspillet - BETA!";
-  	$data['main_content'] = "rules_page";
+  	$data['main_content'] = "the_game";
   	$this->load->view('includes/template', $data);
   }
 }
