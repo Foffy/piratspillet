@@ -108,6 +108,8 @@ function drawImage(img, pctX, pctY, pctW, cropX, cropY, cropXWidth, cropYHeight,
 	//drawText("X="+pctToX(pctX)+" Y="+pctToY(pctY),5,5,0,2.5);
 	var ratio = img.height/img.width;
 	var width = pctToX(pctW)-xDisp;
+	var alphaIE = 100;
+	var alphaNS = 1;
 	if(typeof(cropX)==='undefined'){
 		ctx.drawImage(img, pctToX(pctX), pctToY(pctY),width,width*ratio);
 	}
@@ -247,7 +249,7 @@ function wordWrap(text, maxWidthPct, pctFont){
 function addImage(fileName){
 	var imgFile = new Image();
 	var path = (debug == true) ? "images/" : "/assets/images/";
-		imgFile.src = path+fileName;
+	imgFile.src = path+fileName;
 	return imgFile;
 }
 
@@ -294,6 +296,7 @@ var stealType = -1;
 var countdown = 5;
 var toDig = [0,0] //[gold, silver]
 
+// Image objects
 var imgBg = addImage("background.png");
 var imgBanner = addImage("banner.png");
 var imgGoldLarge = addImage("gold.png");
@@ -305,7 +308,8 @@ var imgSkeletonSmall = addImage("skeleton_small.png");
 var imgDiceIdle = addImage("icon_start.png");
 var imgDiceRolling = addImage("dice.png");
 var imgSitOut = addImage("icon_sit_out.png");
-var imgAddPlayer = addImage("icon_add_player");
+var imgAddPlayer = addImage("icon_add_player.png");
+var imgExit = addImage("icon_exit.png");
 var imgArrow = addImage("arrow.png");
 var imgCross = addImage("cross.png");
 
@@ -313,8 +317,8 @@ var imgCross = addImage("cross.png");
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 0;
-	this.silver = 0;
+	this.gold = 3;
+	this.silver = 5;
 	this.whore = 0;
 	this.skeleton = 0;
 	this.pos = 0;
@@ -574,7 +578,7 @@ function drawState(){
 
 			for(var i=0; i<islandPositions.length; i++){
 				if(mouseP[0] > islandPositions[i][0] && mouseP[0] < islandPositions[i][0]+10 && mouseP[1] < islandPositions[i][1]+10 && mouseP[1] > islandPositions[i][1]){
-					drawImage(imgCross,islandPositions[i][0],islandPositions[i][1],9);
+					drawImage(imgCross,islandPositions[i][0],islandPositions[i][1],9); // Cross
 				}
 			}
 			break;
@@ -699,32 +703,43 @@ function takeInput(){
 			var playerSilverHeight = largeCoinDisplacement*(player.silver-toDig[1])+coinLargeSize*0.5;
 			var stackGoldHeight = largeCoinDisplacement*toDig[0];
 			var stackSilverHeight = largeCoinDisplacement*toDig[1]+coinLargeSize*0.5;
+
+			// Move gold coin from the player pile to dig pile
 			if(player.gold-toDig[0] > 0){
 				if(getMouseClick(40,60-playerGoldHeight+largeCoinDisplacement,coinLargeSize,playerGoldHeight)){
 					toDig[0]++;
 				}
+
+				// If there is only gold coins left, make the hit box larger
 				if(player.silver-toDig[1] == 0){
 					if(getMouseClick(40,60-playerGoldHeight+largeCoinDisplacement-coinLargeSize,coinLargeSize,coinLargeSize)){
 						toDig[0]++;
 					}
 				}
 			}
+
+			// Move a silver coin from the player pile to the dig pile
 			if(player.silver-toDig[1] > 0){
 				if(getMouseClick(40,60-playerGoldHeight-playerSilverHeight+largeCoinDisplacement,coinLargeSize,playerSilverHeight)){
 					toDig[1]++;
 				}
 			}
 
+			// Move a gold coin from the dig pile to the player pile
 			if(toDig[0] > 0){
 				if(getMouseClick(50,60-stackGoldHeight+largeCoinDisplacement,coinLargeSize,stackGoldHeight)){
 					toDig[0]--;
 				}
+
+				// If there is only gold coins left, make the hit box larger
 				if(toDig[1] == 0){
 					if(getMouseClick(50,60-stackGoldHeight+largeCoinDisplacement-coinLargeSize,coinLargeSize,coinLargeSize)){
 						toDig[0]--;
 					}
 				}
 			}
+
+			// Move a silver coin from the dig pile to the player pile
 			if(toDig[1] > 0){
 				if(getMouseClick(50,60-stackGoldHeight-stackSilverHeight+largeCoinDisplacement,coinLargeSize,stackSilverHeight)){
 					toDig[1]--;
@@ -1305,11 +1320,11 @@ function digDownOption(player){
 	if(player.gold+player.silver > 0){
 		drawTextInBox(player.name+" can dig down treasure on the island for other scullywags to find.");
 		
-		drawRect(41,50,7,7,"white",true);
-		drawRect(52,50,7,7,"white",true);
+		drawRect(41,50,7,7,"white",true); // yes
+		drawRect(52,50,7,7,"white",true); // no
 
-		drawImage(imgArrow,42,52,5);
-		drawImage(imgExit,53.5,51,4);
+		drawImage(imgArrow,42,52,5); 	  // yes
+		drawImage(imgExit,53.5,51,4); 	  // no
 	}else{
 		drawTextInBox(player.name+" is too poor to dig down treasure on the island!");
 	}
@@ -1317,10 +1332,13 @@ function digDownOption(player){
 }
 
 function digDownOptionInput(player){
+	// Check if player can afford digging down treasure
 	if(player.gold+player.silver > 0){
+		// Yes, I want to dig down stuff!
 		if(getMouseClick(41,50,7,7)){
 			curState = State.DIG_AMOUNT;
 		}
+		// Nope, don't want to dig down stuff.
 		else if(getMouseClick(52,50,7,7)){
 			leftToActivate.shift();
 			curState = State.ACTIVATED;
@@ -1329,6 +1347,7 @@ function digDownOptionInput(player){
 				curState = State.ROLL;
 			}
 		}
+		// Can't afford it
 	}else{
 		leftToActivate.shift();
 		curState = State.ACTIVATED;
