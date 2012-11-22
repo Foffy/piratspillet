@@ -6,11 +6,11 @@
 		Content
 	</div>
 	<div class="slideshow">
-		<img src="http://cloud.github.com/downloads/malsup/cycle/beach1.jpg" width="450" height="450"/>
-		<img src="http://cloud.github.com/downloads/malsup/cycle/beach2.jpg" width="450" height="450"/>
-		<img src="http://cloud.github.com/downloads/malsup/cycle/beach3.jpg" width="450" height="450"/>
-		<img src="http://cloud.github.com/downloads/malsup/cycle/beach4.jpg" width="450" height="450"/>
-		<img src="http://cloud.github.com/downloads/malsup/cycle/beach5.jpg" width="450" height="450"/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach1.jpg" width="450" height="450" id=1/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach2.jpg" width="450" height="450" id=2/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach3.jpg" width="450" height="450" id=3/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach4.jpg" width="450" height="450" id=4/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach5.jpg" width="450" height="450" id=5/>
 	</div>
 </div>
 <div id="contentBox">

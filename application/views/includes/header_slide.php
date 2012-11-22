@@ -29,8 +29,8 @@ $(document).ready(function(){
 
 function onAfter() {
   $.getScript("http://beta.piratspillet.dk/application/views/includes/ruleTexts.js", function(){
-      $('#output').html(fText)
-          .append('<h3>' + this.alt + '</h3>');
+    var text = getRuleText(1);
+      $('#output').html(text);
   });
 }
 
