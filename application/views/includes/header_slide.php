@@ -28,12 +28,10 @@ $(document).ready(function(){
 });
 
 function onAfter() {
-  var toHTML = "kl";
-  $.getScript("http://piratspillet.dk/js/ruleTexts.js", function(){
-      
+  $.getScript("http://beta.piratspillet.dk/application/views/includes/ruleTexts.js", function(){
+      $('#output').html(fText)
+          .append('<h3>' + this.alt + '</h3>');
   });
-    $('#output').html(toHTML)
-        .append('<h3>' + this.alt + '</h3>');
 }
 
 </script>
