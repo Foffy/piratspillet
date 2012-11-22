@@ -32,7 +32,6 @@ function onAfter() {
     //var text = getRuleText("/assets/images/rule1.png");
       $('#output').html("rly")
         .append('<h3>' + this.alt + '</h3>');
-;
   });
 }
 

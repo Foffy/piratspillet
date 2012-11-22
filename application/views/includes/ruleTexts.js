@@ -1,4 +1,4 @@
-function getRuleText(ruleSrc){
+/*function getRuleText(ruleSrc){
 	var textToHTML = "";
 	switch(ruleSrc{
 		case "/assets/images/rule1.png":{
@@ -7,5 +7,5 @@ function getRuleText(ruleSrc){
 		}
 	}
 	return textToHTML;
-}
+}*/
 alert("bah");
