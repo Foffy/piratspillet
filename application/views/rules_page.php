@@ -1,11 +1,21 @@
 <div id="topBox">
-  <h1>Rules</h1>
 </div>
 
 <div id="box">
-  First rule of piratspillet: yadda yadda (also, please don't talk about it).
-</br>
-</br>
-<a href="http://beta.piratspillet.dk/index.php/game" title="Play the game!">PLAY</a> | 
-<a href="http://beta.piratspillet.dk/" title="Back to front page">BACK</a>
- </div>
+	<div id="output" align="left">
+		Content
+	</div>
+	<div class="slideshow">
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach1.jpg" width="450" height="450"/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach2.jpg" width="450" height="450"/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach3.jpg" width="450" height="450"/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach4.jpg" width="450" height="450"/>
+		<img src="http://cloud.github.com/downloads/malsup/cycle/beach5.jpg" width="450" height="450"/>
+	</div>
+</div>
+<div id="contentBox">
+	<div class ="rape" align="right">
+		<a id="prev" href="#">&lt;</a>
+		<a id="next" href="#">&gt;</a>
+	</div>
+</div>

@@ -19,6 +19,9 @@
 	/* font-family: 'Yesteryear', cursive; */
 	@import url(http://fonts.googleapis.com/css?family=Yesteryear);
 
+	/* font-family: 'IM fell Great Primer', serif;*/
+	@import url(http://fonts.googleapis.com/css?family=IM+Fell+Great+Primer);
+
 /* DEFAULT STYLE */
 	html {
 		font:13px tahoma, sans-serif;
@@ -29,6 +32,7 @@
 		color: #355D00;
 		background-color: transparent;
 		font-weight: normal;
+		text-decoration: none;
 
 	}
 	a:hover {}
@@ -62,6 +66,10 @@
 		color:inherit;
 	}
 
+	table{
+		width: 100%;
+	}
+
 
 /* LAYOUT STYLE */
 	html, body {
@@ -73,10 +81,23 @@
 		text-align:center;
 	}
 
-	#box {		
-		margin: 0;
+	#box {
+		width: 70%;
+		height: 455px;
+		margin: auto;
 		font: 16px/23px normal Helvetica, Arial, sans-serif;
 		color: #4F5155;
+		position:relative;
+	}
+
+	#contentBox{
+		width: 70%;
+		margin: auto;
+	}
+
+	#output{
+		margin: auto;
+		position:absolute;top:10%;left:0;
 	}
 
 	canvas{
@@ -110,6 +131,7 @@
 		width: 60%;
 		margin: 15% auto 5% auto;
 	}
+
 	
 	/* fonts */
 	@font-face {
@@ -121,6 +143,8 @@
 	
 	.rape {
 		font-family:'Creepster', serif;
+		font-size:28px;
+		line-height:28px;
 	}
 	
 	.speak {
@@ -131,6 +155,24 @@
 	}
 	.speak3 {
 		font-family:'IM Fell DW Pica', serif;
+	}
+
+	.speak4 {
+		width: 70%;
+		margin:auto;
+		font-family: 'IM fell Great Primer', serif;
+		font-size:22px;
+		line-height:28px;
+	}
+
+	.slideshow { 
+		margin: auto;
+		position:absolute;top:0;right:0;
+	}
+	.slideshow img { 
+		padding: 0px;
+		border: 2px solid #aaa; 
+		background-color: #eee;
 	}
 	
 	
