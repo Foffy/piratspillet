@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 function onAfter() {
   $.getScript("/application/views/includes/ruleTexts.js", function(){
-    var text = this.src;
+    var text = ""+this.src;
     alert(this.src);
       $('#output').html(text);
   });
