@@ -1,7 +1,7 @@
-function getRuleText(ruleID){
+function getRuleText(ruleSrt){
 	var textToHTML = "";
-	switch(ruleID){
-		case 1:{
+	switch(ruleSrt){
+		case "http://cloud.github.com/downloads/malsup/cycle/beach1.jpg":{
 			textToHTML = "<h1>nummer 1</h1>";
 			break;
 		}
