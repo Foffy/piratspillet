@@ -1,7 +1,7 @@
 function getRuleText(ruleSrc){
 	var textToHTML = "";
 	switch(ruleSrc){
-		case "/assets/images/rule1.png":{
+		case "1":{
 			textToHTML = "<h1>nummer 1</h1>";
 			break;
 		}

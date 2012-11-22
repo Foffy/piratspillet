@@ -5,8 +5,8 @@
 	<div id="output" align="left">
 	</div>
 	<div class="slideshow">
-		<img src="/assets/images/rule1.png" width="200" height="200" alt="1" />
-		<img src="/assets/images/logo.png" width="200" height="200" alt="2" />
+		<img src="/assets/images/rule1.png" width="450" height="450" alt="1" />
+		<img src="/assets/images/logo.png" width="450" height="450" alt="2" />
 	</div>
 </div>
 <div id="contentBox">

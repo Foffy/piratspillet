@@ -28,8 +28,9 @@ $(document).ready(function(){
 });
 
 function onAfter() {
+  var text = "";
   $.getScript("/application/views/includes/ruleTexts.js", function(){
-
+    text = getRuleText(this.alt);
   });
   $('#output').html("Scroll complete for:<br>" + this.src)
       .append('<h3>' + this.alt + '</h3>');
