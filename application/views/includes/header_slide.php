@@ -29,9 +29,10 @@ $(document).ready(function(){
 
 function onAfter() {
   $.getScript("/application/views/includes/ruleTexts.js", function(){
-    $('#output').html("Scroll complete for:<br>" + this.src)
-        .append('<h3>' + this.alt + '</h3>');
+
   });
+  $('#output').html("Scroll complete for:<br>" + this.src)
+      .append('<h3>' + this.alt + '</h3>');
 }
 
 /*function onAfter() {
