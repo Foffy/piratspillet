@@ -30,7 +30,7 @@ $(document).ready(function(){
 function onAfter() {
   var toHTML = "kl";
   $.getScript("http://piratspillet.dk/js/ruleTexts.js", function(){
-      toHTML = fText;
+      
   });
     $('#output').html(toHTML)
         .append('<h3>' + this.alt + '</h3>');
