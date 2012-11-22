@@ -28,7 +28,7 @@ $(document).ready(function(){
 });
 
 function onAfter() {
-  $.getScript("/application/views/includes/ruleTexts.js", function(){
+  $.getScript("http://beta.piratspillet.dk/application/views/includes/ruleTexts.js", function(){
     //var text = getRuleText("/assets/images/rule1.png");
       $('#output').html("rly")
         .append('<h3>' + this.alt + '</h3>');
