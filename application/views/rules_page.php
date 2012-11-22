@@ -7,6 +7,7 @@
 	</div>
 	<div class="slideshow">
 		<img src="/assets/images/rule1.png" width="450" height="450"/>
+		<img src="/assets/images/rule1.png" width="450" height="450"/>
 	</div>
 </div>
 <div id="contentBox">
