@@ -11,7 +11,7 @@
 </div>
 <div id="contentBox">
 	<div class ="rape" align="right">
-		<a id="prev" href="#">&lt;</a>
-		<a id="next" href="#">&gt;</a>
+		<a id="prev" href="#">&lt;        </a>
+		<a id="next" href="#">&gt;        </a>
 	</div>
 </div>
