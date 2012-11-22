@@ -30,7 +30,7 @@ $(document).ready(function(){
 function onAfter() {
   var text = "lol" + this.alt;
   $.getScript("/application/views/includes/ruleTexts.js", function(){
-    alert(text);
+    
   });
   $('#output').html(text)
       .append('<h3>' + this.alt + '</h3>');
