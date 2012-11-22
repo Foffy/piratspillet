@@ -29,7 +29,8 @@ $(document).ready(function(){
 
 function onAfter() {
   $.getScript("/application/views/includes/ruleTexts.js", function(){
-    var text = getRuleText("/assets/images/rule1.png");
+    var text = this.src;
+    alert(this.src);
       $('#output').html(text);
   });
 }
