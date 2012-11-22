@@ -28,10 +28,15 @@ $(document).ready(function(){
 });
 
 function onAfter() {
+    $('#output').html("Scroll complete for:<br>" + this.src)
+        .append('<h3>' + this.alt + '</h3>');
+}
+
+/*function onAfter() {
   $.getScript("/application/views/includes/ruleTexts.js", function(){
       $('#output').html("Scroll complete for:<br>" + this.src).append('<h3>' + this.alt + '</h3>');
   });
-}
+}*/
 
 </script>
 
