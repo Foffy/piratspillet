@@ -28,20 +28,13 @@ $(document).ready(function(){
 });
 
 function onAfter() {
-  var text = "";
+  var text = this.alt;
   $.getScript("/application/views/includes/ruleTexts.js", function(){
-    text = getRuleText(this.alt);
     alert(text);
   });
   $('#output').html(text)
       .append('<h3>' + this.alt + '</h3>');
 }
-
-/*function onAfter() {
-  $.getScript("/application/views/includes/ruleTexts.js", function(){
-      $('#output').html("Scroll complete for:<br>" + this.src).append('<h3>' + this.alt + '</h3>');
-  });
-}*/
 
 </script>
 
