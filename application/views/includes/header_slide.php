@@ -32,7 +32,7 @@ function onAfter() {
   $.getScript("/application/views/includes/ruleTexts.js", function(){
     text = getRuleText(this.alt);
   });
-  $('#output').html("Scroll complete for:<br>" + this.src)
+  $('#output').html(text)
       .append('<h3>' + this.alt + '</h3>');
 }
 
