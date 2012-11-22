@@ -8,4 +8,4 @@ function getRuleText(ruleSrc){
 	}
 	return textToHTML;
 }
-var lol = "bah";
+alert("bah");
