@@ -29,7 +29,8 @@ $(document).ready(function(){
 
 function onAfter() {
   $.getScript("http://beta.piratspillet.dk/application/views/includes/ruleTexts.js", function(){
-    var text = getRuleText("http://cloud.github.com/downloads/malsup/cycle/beach1.jpg");
+    var imgSrt = "id:" + this.srt;
+    var text = getRuleText(imgSrt);
       $('#output').html(text);
   });
 }
