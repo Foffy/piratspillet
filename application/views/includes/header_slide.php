@@ -31,6 +31,7 @@ function onAfter() {
   var text = "";
   $.getScript("/application/views/includes/ruleTexts.js", function(){
     text = getRuleText(this.alt);
+    alert(text);
   });
   $('#output').html(text)
       .append('<h3>' + this.alt + '</h3>');
