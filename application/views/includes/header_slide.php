@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 function onAfter() {
   var toHTML = "kl";
-  $.getScript("ruleTexts.js", function(){
+  $.getScript("http://piratspillet.dk/js/ruleTexts.js", function(){
       toHTML = fText;
   });
     $('#output').html(toHTML)
