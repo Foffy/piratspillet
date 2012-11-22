@@ -28,7 +28,7 @@ $(document).ready(function(){
 });
 
 function onAfter() {
-  var text = this.alt;
+  var text = "lol" + this.alt;
   $.getScript("/application/views/includes/ruleTexts.js", function(){
     alert(text);
   });
