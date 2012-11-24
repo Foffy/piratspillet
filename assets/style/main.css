@@ -74,7 +74,7 @@
 /* LAYOUT STYLE */
 	html, body {
 		overflow:hidden;
-		background-color: #CAEEFF;
+		background-color: #ebebeb;
 		border:0px;
 		margin:0;
 		padding:0;
@@ -141,7 +141,7 @@
     	font-style: normal;
 	}
 	
-	.rape {
+ 	.rape {
 		font-family:'Creepster', serif;
 		font-size:28px;
 		line-height:28px;
@@ -165,15 +165,23 @@
 		line-height:28px;
 	}
 
-	.slideshow { 
-		margin: auto;
-		position:absolute;top:0;right:0;
+	.slideshow{
+		position:relative;
 	}
-	.slideshow img { 
-		padding: 0px;
-		border: 2px solid #aaa; 
-		background-color: #eee;
+	.slideshow .slide{
+		display:none;
+		width:450px;
+		height:450px;
+		overflow:hidden;
 	}
-	
-	
-	
+
+	.slideshow .container{
+		position:absolute;
+		width:900px;
+	}
+
+	.slideshow.control{
+		width:450px;
+		height:25px;
+		margin:0 auto 0 auto;
+	}
