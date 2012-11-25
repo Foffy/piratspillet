@@ -164,8 +164,6 @@
 		height: 450px;
 		width: 450px;
 		margin:auto;
-		position:absolute;
-		bottom:0px;
 	}
 
 	.slideshow .img{
@@ -179,6 +177,4 @@
 		width: 800px;
 		margin: auto;
 		text-align: left;
-		position:absolute;
-		top:0px;
 	}
