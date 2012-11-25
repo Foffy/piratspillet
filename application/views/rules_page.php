@@ -1,4 +1,5 @@
 <div class="slideOutput">
+	lol
 </div>
 <div class="slideshow">
 		<img src="/assets/images/rule1.png" width="450" height="450" alt="rule 1"/>
