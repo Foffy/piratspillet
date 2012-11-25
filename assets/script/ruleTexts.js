@@ -12,6 +12,7 @@ $(document).ready(function() {
 function onAfter() {
     $('#slideOutput').html("Scroll complete for:&lt;br&gt;" + this.src)
         .append('&lt;h3&gt;' + this.alt + '&lt;/h3&gt;');
+}
 
 
 function getRuleText(ruleIndex){
