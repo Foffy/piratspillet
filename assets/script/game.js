@@ -319,8 +319,8 @@ var imgCross = addImage("cross.png");
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 0;
-	this.silver = 0;
+	this.gold = 1;
+	this.silver = 1;
 	this.whore = 0;
 	this.skeleton = 0;
 	this.pos = 0;
@@ -419,8 +419,9 @@ function drawboard(){
 // draws extra gui depending on the current game state
 var debugging = "";
 function drawState(){
-	//drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
-	//drawText(""+debugging,1,1,0,2.5,"left");
+	if(debug) drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
+	if(debug) drawText(""+debugging,1,4,0,2.5,"left");
+
 	switch(curState){
 		case State.ROLL:{
 			newTimeout = 20;
@@ -457,7 +458,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
+			diceToShow = 12;//rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
@@ -482,6 +483,7 @@ function drawState(){
 				// if nothing go
 				if(curSips == 0){
 					curState = State.LANDED;
+					curTreasure = null;
 					break;
 				}
 			}
@@ -580,7 +582,7 @@ function drawState(){
 
 			for(var i=0; i<islandPositions.length; i++){
 				if(mouseP[0] > islandPositions[i][0] && mouseP[0] < islandPositions[i][0]+10 && mouseP[1] < islandPositions[i][1]+10 && mouseP[1] > islandPositions[i][1]){
-					drawImage(imgCross,islandPositions[i][0],islandPositions[i][1],9); // Cross
+					drawCoinStack(toDig[0]+treasureIsland[i][0],toDig[1]+treasureIsland[i][1],[islandPositions[i][0],islandPositions[i][1]+10],true);
 				}
 			}
 			break;
@@ -1043,10 +1045,12 @@ function rollDice(){
 }
 
 // draws a stack of coins at a given position. Pos = [x,y]
-function drawCoinStack(gold,silver,pos){
-	pos = [pos[0],pos[1]]; // For referential integrity, Jimmy.
+function drawCoinStack(gold,silver,pos,transparent){
 	var ratio = imgGoldLarge.height/imgGoldLarge.width;
 	pos[1] -= ratio*coinLargeSize;
+
+	if(transparent) ctx.globalAlpha = 0.5;
+
 	if(gold > 0){
 		for(var i = 0; i < gold; i++){
 			drawImage(imgGoldLarge,pos[0],pos[1],coinLargeSize);
@@ -1054,11 +1058,13 @@ function drawCoinStack(gold,silver,pos){
 		}
 	}
 	if(silver > 0){
-		for(var i = 0; i < silver; i++){
+		for(var j = 0; j < silver; j++){
 			drawImage(imgSilverLarge,pos[0],pos[1],coinLargeSize);
 			pos[1] -= largeCoinDisplacement;
 		}
 	}
+
+	if(transparent) ctx.globalAlpha = 1.0;
 }
 
 // moves the current player to the specified field, one step at the time
