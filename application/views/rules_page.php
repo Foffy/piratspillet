@@ -1,5 +1,5 @@
 <div class="slideshow">
-	<div class="slide">
 		<img src="/assets/images/rule1.png" />
-	</div>
+		<img src="/assets/images/rule2.png" />
 </div>
+<a id="prev" href="#">Left</a>|<a id="next" href="#">Right</a>

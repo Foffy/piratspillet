@@ -166,22 +166,14 @@
 	}
 
 	.slideshow{
-		position:relative;
-	}
-	.slideshow .slide{
-		display:none;
-		width:450px;
-		height:450px;
-		overflow:hidden;
+		height: 450px;
+		width: 450px;
+		margin:auto;
 	}
 
-	.slideshow .container{
-		position:absolute;
-		width:900px;
+	.slideshow .img{
+		padding: 15px;
+		border: 1px solid #ccc;
+		background-color: #eee;
 	}
 
-	.slideshow.control{
-		width:450px;
-		height:25px;
-		margin:0 auto 0 auto;
-	}
