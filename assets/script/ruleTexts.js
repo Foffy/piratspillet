@@ -10,20 +10,20 @@ $(document).ready(function() {
 });
 
 function onAfter() {
-    $('.slideOutput').html("Scroll complete for:&lt;br&gt;" + this.src)
-        .append('&lt;h3&gt;' + this.alt + '&lt;/h3&gt;');
+	var toHTML = getRuleText(this.alt)
+    $('.slideOutput').html(toHTML);
 }
 
 
 function getRuleText(ruleIndex){
 	var textToHTML = "";
 	switch(ruleSrc){
-		case "1":{
-			textToHTML = "<h1>nummer 1</h1>";
+		case "rule 1":{
+			textToHTML = "<h1>Rule 1</h1><\br> <p>This is rule number 1.</p>";
 			break;
 		}
-		case "2":{
-			textToHTML = "<h1>nummer 2</h1>";
+		case "rule 2":{
+			textToHTML = "<h1>Rule 2</h1><\br> <p>This is rule number 2.</p>";
 		}
 	}
 	return textToHTML;
