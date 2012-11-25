@@ -1,5 +1,5 @@
-var local = true;
-var debug = true;
+var local = false;
+var debug = false;
 
 // global variables
 var c = document.getElementById('c');
@@ -319,9 +319,9 @@ var imgCross = addImage("cross.png");
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 5;
+	this.gold = 0;
 	this.silver = 0;
-	this.whore = 2;
+	this.whore = 0;
 	this.skeleton = 0;
 	this.pos = 0;
 	this.color = [Math.random()*200+55,Math.random()*200+55,Math.random()*200+55]; // Only non-dark colors
