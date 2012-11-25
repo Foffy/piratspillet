@@ -10,14 +10,14 @@ $(document).ready(function() {
 });
 
 function onAfter() {
-	var toHTML = getRuleText(this.alt)
+	var toHTML = getRuleText(this.alt);
     $('.slideOutput').html(toHTML);
 }
 
 
 function getRuleText(ruleIndex){
 	var textToHTML = "";
-	switch(ruleSrc){
+	switch(ruleIndex){
 		case "rule 1":{
 			textToHTML = "<h1>Rule 1</h1><\br> <p>This is rule number 1.</p>";
 			break;
