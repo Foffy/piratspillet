@@ -319,8 +319,8 @@ var imgCross = addImage("cross.png");
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 1;
-	this.silver = 1;
+	this.gold = 0;
+	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
 	this.pos = 0;
@@ -458,7 +458,7 @@ function drawState(){
 		}
 		case State.ROLLING:{
 			drawBox(players[curPlayer]);
-			diceToShow = 12;//rollDice();
+			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			newField = players[curPlayer].pos + diceToShow;
 			break;
