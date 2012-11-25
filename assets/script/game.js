@@ -419,8 +419,9 @@ function drawboard(){
 // draws extra gui depending on the current game state
 var debugging = "";
 function drawState(){
-	//drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
-	//drawText(""+debugging,1,1,0,2.5,"left");
+	if(debug) drawText("State: "+curState+" - Timeout: "+newTimeout,1,1,0,2.5);
+	if(debug) drawText(""+debugging,1,4,0,2.5,"left");
+
 	switch(curState){
 		case State.ROLL:{
 			newTimeout = 20;
@@ -436,6 +437,13 @@ function drawState(){
 			drawTextInBox(players[curPlayer].name+"'s Turn","header");
 			drawTextInBox("Click the die to start rolling");
 			drawTextInBox("Avast! Pull Me Mast!","flavor");
+			break;
+		}
+		case State.GAME_WON:{
+			var winners = whoWon();
+			drawBox(null);
+			drawTextInBox("Game Won!","header");
+			drawTextInBox(onTileActivatedString(winners)+(winners.length > 1 ? " have" : " has")+" won the game and "+(winners.length > 1 ? "are" : "is")+" now promoted to Über Pirate Captain"+(winners.length > 1 ? "s!" : "!"));
 			break;
 		}
 		case State.SITTING_OUT:{
@@ -482,6 +490,7 @@ function drawState(){
 				// if nothing go
 				if(curSips == 0){
 					curState = State.LANDED;
+					curTreasure = null;
 					break;
 				}
 			}
@@ -580,7 +589,7 @@ function drawState(){
 
 			for(var i=0; i<islandPositions.length; i++){
 				if(mouseP[0] > islandPositions[i][0] && mouseP[0] < islandPositions[i][0]+10 && mouseP[1] < islandPositions[i][1]+10 && mouseP[1] > islandPositions[i][1]){
-					drawImage(imgCross,islandPositions[i][0],islandPositions[i][1],9); // Cross
+					drawCoinStack(toDig[0]+treasureIsland[i][0],toDig[1]+treasureIsland[i][1],[islandPositions[i][0],islandPositions[i][1]+10],true);
 				}
 			}
 			break;
@@ -913,7 +922,7 @@ function drawBox(player){
 	var b = getBorderWidth();
 	ctx.fillRect(rectX+b, rectY+b, rectW-2*b,rectH-2*b);
 	
-	player.drawXY(30,30);
+	if(player != null) player.drawXY(30,30);
 }
 
 function getBorderWidth(){
@@ -1043,10 +1052,12 @@ function rollDice(){
 }
 
 // draws a stack of coins at a given position. Pos = [x,y]
-function drawCoinStack(gold,silver,pos){
-	pos = [pos[0],pos[1]]; // For referential integrity, Jimmy.
+function drawCoinStack(gold,silver,pos,transparent){
 	var ratio = imgGoldLarge.height/imgGoldLarge.width;
 	pos[1] -= ratio*coinLargeSize;
+
+	if(transparent) ctx.globalAlpha = 0.5;
+
 	if(gold > 0){
 		for(var i = 0; i < gold; i++){
 			drawImage(imgGoldLarge,pos[0],pos[1],coinLargeSize);
@@ -1054,11 +1065,13 @@ function drawCoinStack(gold,silver,pos){
 		}
 	}
 	if(silver > 0){
-		for(var i = 0; i < silver; i++){
+		for(var j = 0; j < silver; j++){
 			drawImage(imgSilverLarge,pos[0],pos[1],coinLargeSize);
 			pos[1] -= largeCoinDisplacement;
 		}
 	}
+
+	if(transparent) ctx.globalAlpha = 1.0;
 }
 
 // moves the current player to the specified field, one step at the time
@@ -1361,6 +1374,44 @@ function digDownOptionInput(player){
 	}
 }
 
+function whoWon(){
+	var max = 0;
+	for(var i = 0; i < players.length; i++){
+		var cur = players[i].whore;
+		if(cur > max) max = cur;
+	}
+
+	var winners = [];
+	for(var i = 0; i < players.length; i++){
+		if(players[i].whore == max) winners.push(players[i]);
+	}
+
+	return winners;
+}
+
+function finishedGame(){
+	var whores = [];
+	for(var i = 0; i < players.length; i++){
+		whores.push(players[i].whore);
+	}
+	whores.sort();
+	whores.reverse();
+
+	var count = 0;
+	for(var i = 0; i < whores.length; i++){
+		count += whores[i];
+	}
+
+	if(count < 3) return false;
+
+	if(count >= 5) return true;
+
+	if(count < 5){
+		if(whores[0] == 3) return true;
+		return false;
+	}
+}
+
 function inputForTile(tile){
 	switch(tile){
 		case 0:{
@@ -1374,7 +1425,9 @@ function inputForTile(tile){
 				player.whore++;
 				whorebank--;
 				
-				curState = State.LANDED;
+				curState = (player.gold > 5 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
+
+				if(finishedGame()) curState = State.GAME_WON;
 			}else if(player.gold > 0 || player.silver > 0){ // regular give away
 				goldbank += player.gold;
 				silverbank += player.silver;
