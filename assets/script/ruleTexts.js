@@ -19,11 +19,11 @@ function getRuleText(ruleIndex){
 	var textToHTML = "";
 	switch(ruleIndex){
 		case "rule 1":{
-			textToHTML = "<h1>Rule 1</h1><\br> <p>This is rule number 1.</p>";
+			textToHTML = "<center><h1>Rule 1</h1></center></br> <p>This is rule number 1.</p>";
 			break;
 		}
 		case "rule 2":{
-			textToHTML = "<h1>Rule 2</h1><\br> <p>This is rule number 2.</p>";
+			textToHTML = "<h1>Rule 2</h1></br> <p>This is rule number 2.</p>";
 		}
 	}
 	return textToHTML;
