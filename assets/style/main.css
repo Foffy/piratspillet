@@ -95,11 +95,6 @@
 		margin: auto;
 	}
 
-	#output{
-		margin: auto;
-		position:absolute;top:10%;left:0;
-	}
-
 	canvas{
 		display:block;
 		outline:0;
@@ -179,4 +174,5 @@
 
 	.slideOutput{
 		text-align: left;
+		position:absolute;top:10%;left:0;
 	}
