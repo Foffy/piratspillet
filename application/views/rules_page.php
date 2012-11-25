@@ -1,4 +1,3 @@
-<div id="box">
 	<div class="slideOutput">
 	</div>
 	<div class="slideshow">
@@ -8,4 +7,3 @@
 	<div class="nav">
 		<a id="prev" href="#">Left</a>|<a id="next" href="#">Right</a>
 	</div>
-</div>
