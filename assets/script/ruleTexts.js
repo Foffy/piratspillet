@@ -23,7 +23,7 @@ function getRuleText(ruleIndex){
 			break;
 		}
 		case "rule 2":{
-			textToHTML = "<h1>Rule 2</h1></br> <p>This is rule number 2.</p>";
+			textToHTML = "<center><h1>Rule 2</h1></center></br> <p>This is rule number 2.</p>";
 		}
 	}
 	return textToHTML;
