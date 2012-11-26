@@ -21,6 +21,11 @@
 		<img src="/assets/images/rules/rule_13.png" width="800" height="150" alt="13"/>
 		<img src="/assets/images/rules/rule_14.png" width="800" height="150" alt="14"/>
 		<img src="/assets/images/rules/rule_15.png" width="800" height="150" alt="15"/>
+		<img src="/assets/images/rules/rule_16.png" width="800" height="150" alt="16"/>
+		<img src="/assets/images/rules/rule_17.png" width="800" height="150" alt="17"/>
+		<img src="/assets/images/rules/rule_18.png" width="800" height="150" alt="18"/>
+		<img src="/assets/images/rules/rule_19.png" width="800" height="150" alt="19"/>
+		<img src="/assets/images/rules/rule_20.png" width="800" height="150" alt="20"/>
 	</div>
 	</div>
 	<div class="nav" align="center">
