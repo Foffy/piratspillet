@@ -99,22 +99,22 @@ function getRuleText(ruleIndex){
 		}
 
 		case "17":{
-			textToHTML ="<center><h1>Advanced Rules: Antiperspirant</h1></center></br><div class=\"speak4\">The first rank applies to players who are playing for the first time. When doing so you start out on a Pirate's or a Pirate Captain's ship (doing the same as they do and they will teach you the basic rules).</div>";
+			textToHTML ="<center><h1>Antiperspirant</h1></center></br><div class=\"speak4\">The first rank applies to players who are playing for the first time. When doing so you start out on a Pirate's or a Pirate Captain's ship (doing the same as they do and they will teach you the basic rules).</div>";
 			break;
 		}
 
 		case "18":{
-			textToHTML ="<center><h1>Advanced Rules: Pirate &amp Pirate Captain</h1></center></br><div class=\"speak4\">When an Antiperspirant has been with the Pirate or Pirate Captain for one year (one trip around the board) they receive their own ship and are promoted to Pirate. When a player plays the game a second time and was promoted to Pirate in the first game, he ro she is promoted to Pirate Captain.</div>";
+			textToHTML ="<center><h1>Pirate &amp Pirate Captain</h1></center></br><div class=\"speak4\">When an Antiperspirant has been with the Pirate or Pirate Captain for one year (one trip around the board) they receive their own ship and are promoted to Pirate. When a player plays the game a second time and was promoted to Pirate in the first game, he ro she is promoted to Pirate Captain.</div>";
 			break;
 		}
 
 		case "19":{
-			textToHTML ="<center><h1>Advanced Rules: Adressing Others</h1></center></br><div class=\"speak4\">When adressing another player you must say their rank before their name. Failure to do so results in a penalty sip if you're caught An Antiperspirant may only speak to their assigned Pirate or Pirate Captain. An example: \"Hey Pirate Captain Roger, can you pass me a beer?\"</div>";
+			textToHTML ="<center><h1>Adressing Others</h1></center></br><div class=\"speak4\">When adressing another player you must say their rank before their name. Failure to do so results in a penalty sip if you're caught An Antiperspirant may only speak to their assigned Pirate or Pirate Captain. An example: \"Hey Pirate Captain Roger, can you pass me a beer?\"</div>";
 			break;
 		}
 
 		case "20":{
-			textToHTML ="<center><h1>Advanced Rules: Duel</h1></center></br><div class=\"speak4\">Any disagreements (regarding the game or anything else) is settled with a Duel. A duel between to parties consists of both of them opening and drinking a full beer at the same time. The one who finishes first is right.</div>";
+			textToHTML ="<center><h1>Duel</h1></center></br><div class=\"speak4\">Any disagreements (regarding the game or anything else) is settled with a Duel. A duel between to parties consists of both of them opening and drinking a full beer at the same time. The one who finishes first is right.</div>";
 			break;
 		}
 
