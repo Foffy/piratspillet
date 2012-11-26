@@ -14,10 +14,10 @@ function onAfter() {
 	var counter;
 	switch(this.alt){
 		case "rule 1":
-			counter = "<div class=\"speak4\">1/20</div>"
+			counter = "<div class=\"speak4\"><b>1/20</b></div>"
 			break;
 		case "rule 2":
-			counter = "<div class=\"speak4\">2/20</div>"
+			counter = "<div class=\"speak4\"><b>2/20</b></div>"
 			break;
 	}
     $('.slideOutput').html(toHTML);
@@ -33,7 +33,10 @@ function getRuleText(ruleIndex){
 			break;
 		}
 		case "rule 2":{
-			textToHTML = "<center><h1>Rule 2</h1></center></br> <p>This is rule number 2.</p>";
+			textToHTML = "<center><h1>General</h1></center></br> <div class=\"speak4\">The board is divided into 14 fields and everyone starts at The Harbour. During a yeah (one trip around the board) the players can find, steal and earn Gold Coins and Silver Coins which will be spend on whores and alcohol for your mates when you return to The Harbour</div>";
+		}
+		case "rule 3":{
+			textToHTML = "<center><h1>TITLE</h1></center></br> <div class=\"speak4\">TEXT.</div>";
 		}
 	}
 	return textToHTML;
