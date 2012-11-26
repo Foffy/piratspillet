@@ -91,10 +91,10 @@
 	}
 
 	.counterBox{
+		text-align: left;
 		width:800px;
 		height: 25px;
 		color: #0000FF;
-		margin: 0 auto auto 0;
 	}
 
 	#contentBox{
