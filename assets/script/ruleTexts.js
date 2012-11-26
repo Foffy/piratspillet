@@ -34,7 +34,7 @@ function getRuleText(ruleIndex){
 		}
 
 		case "Rule 4":{
-			textToHTML = "<center><h1>The Island</h1><div class=\"speak4\">The middle of the board is the Treasure Island. When you land on a field adjacent to a treassure (either in the outer or inner spaces on the island) you drink for it and remove one silver worth of coins. The spaces on the outer rim counts double since they are more specific.</div>"
+			textToHTML = "<center><h1>The Island</h1></center><div class=\"speak4\">The middle of the board is the Treasure Island. When you land on a field adjacent to a treassure (either in the outer or inner spaces on the island) you drink for it and remove one silver worth of coins. The spaces on the outer rim counts double since they are more specific.</div>"
 			break;
 		}
 
