@@ -158,6 +158,13 @@
 		font-size:22px;
 		line-height:28px;
 	}
+	p {
+		width: 70%;
+		margin:auto;
+		font-family: 'IM fell Great Primer', serif;
+		font-size:22px;
+		line-height:28px;
+	}
 
 	.slideshow{
 		width: 800px;
