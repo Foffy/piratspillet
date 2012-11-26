@@ -33,6 +33,6 @@
 	</div>
 	<div class="bottomBox">
 		<div class="speak4">
-			<a href="http://www.beta.piratspillet.dk">Back</a>|<a href="http://www.beta.piratspillet.dk/index.php/game">Play</a>
+			<a href="http://beta.piratspillet.dk">Back</a>|<a href="http://beta.piratspillet.dk/index.php/game">Play</a>
 		</div>
 	</div>
