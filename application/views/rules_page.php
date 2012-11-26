@@ -32,5 +32,7 @@
 	<a id="prev" href="#"><left><img src="/assets/images/arrowLeft.png" width="100"/></left></a><a id="next" href="#"><right><img src="/assets/images/arrow.png" width="100"/></right></a>
 	</div>
 	<div class="bottomBox">
-		<a href="http://www.beta.piratspillet.dk">Back</a>|<a href="http://www.beta.piratspillet.dk/index.php/game">Play</a>
+		<div class="speak4">
+			<a href="http://www.beta.piratspillet.dk">Back</a>|<a href="http://www.beta.piratspillet.dk/index.php/game">Play</a>
+		</div>
 	</div>
