@@ -44,52 +44,52 @@ function getRuleText(ruleIndex){
 		}
 
 		case "6":{
-			textToHTML = "<center><h1>The Board: The Harbour</h1></center></br><div class=\"speak4\">When you return to The Harbour you spend your treasure on your mates and yourself. If you have 5 Gold Coins you automatically buy a whore for everyone and you receive a Whore Coin. Remaining Coins is spent on rum for your mates and yourself. You can't split your Coins into smaller values, i.e. you can't give two players sips for one Gold Coin.</div>";
+			textToHTML = "<center><h1>The Harbour</h1></center></br><div class=\"speak4\">When you return to The Harbour you spend your treasure on your mates and yourself. If you have 5 Gold Coins you automatically buy a whore for everyone and you receive a Whore Coin. Remaining Coins is spent on rum for your mates and yourself. You can't split your Coins into smaller values, i.e. you can't give two players sips for one Gold Coin.</div>";
 			break;
 		}
 
 		case "7":{
-			textToHTML = "<center><h1>The Board: The Harbour</h1></center></br><div class=\"speak4\">If you land on The Harbour directly all sips are doubled. When you return to The Harbour without any treasures you are a LOSER and will receive a Skeleton for your closet. For every round you return to The Harbour with treasure you lose one Skeleton. When you accumulate three Skeletons you go down one rank (this only applies</div>";
+			textToHTML = "<center><h1>The Harbour</h1></center></br><div class=\"speak4\">If you land on The Harbour directly all sips are doubled. When you return to The Harbour without any treasures you are a LOSER and will receive a Skeleton for your closet. For every round you return to The Harbour with treasure you lose one Skeleton. When you accumulate three Skeletons you go down one rank (this only applies</div>";
 			break;
 		}
 
 		case "8":{
-			textToHTML ="<center><h1>The Board: Skull n' Bones</h1></center></br><div class=\"speak4\">This field is a nasty one! When you land you have to empty half a beverage (regular beer size). Simple and easy.</div>";
+			textToHTML ="<center><h1>Skull n' Bones</h1></center></br><div class=\"speak4\">This field is a nasty one! When you land you have to empty half a beverage (regular beer size). Simple and easy.</div>";
 			break;
 		}
 
 		case "9":{
-			textToHTML = "<center><h1>The Board: Parrots!</h1></center></br><div class=\"speak4\">When you land on a field with a Parrot you have been fucked by the Parrot. This is soar business and you drink the amount of sips written on the field.</div>";
+			textToHTML = "<center><h1>Parrots!</h1></center></br><div class=\"speak4\">When you land on a field with a Parrot you have been fucked by the Parrot. This is soar business and you drink the amount of sips written on the field.</div>";
 			break;
 		}
 
 		case "10":{
-			textToHTML ="<center><h1>The Board: Plunderin'</h1></center></br><div class=\"speak4\">This is probably the best place to land. There are three of these fields and when you land here you can drink between one and four sips. Each sip is converted to a Silver Coin and for every two sips you can take a Gold Coin instead. The amount you select also applies to the players already there.</div>";
+			textToHTML ="<center><h1>Plunderin'</h1></center></br><div class=\"speak4\">This is probably the best place to land. There are three of these fields and when you land here you can drink between one and four sips. Each sip is converted to a Silver Coin and for every two sips you can take a Gold Coin instead. The amount you select also applies to the players already there.</div>";
 			break;
 		}
 
 		case "11":{
-			textToHTML ="<center><h1>The Board: Mouth Full'</h1></center></br><div class=\"speak4\">When landing here you must first fill your mouth with whatever beverage you have and not swallow it untill your mouth is filled to the brim!</div>";
+			textToHTML ="<center><h1>Mouth Full'</h1></center></br><div class=\"speak4\">When landing here you must first fill your mouth with whatever beverage you have and not swallow it untill your mouth is filled to the brim!</div>";
 			break;
 		}
 
 		case "12":{
-			textToHTML ="<center><h1>The Board: The Chests</h1></center></br><div class=\"speak4\">When landing on the chests you receive one Silver Coin, unless you land on The Closed Chest with a die roll of six. Then you are lucky and receives a Gold Coin instead.</div>";
+			textToHTML ="<center><h1>The Chests</h1></center></br><div class=\"speak4\">When landing on the chests you receive one Silver Coin, unless you land on The Closed Chest with a die roll of six. Then you are lucky and receives a Gold Coin instead.</div>";
 			break;
 		}
 
 		case "13":{
-			textToHTML ="<center><h1>The Board: Greedy Scullywag</h1></center></br><div class=\"speak4\">Here you must switch treasures with another player. Whore Coins are not counted as treasure.</div>";
+			textToHTML ="<center><h1>Greedy Scullywag</h1></center></br><div class=\"speak4\">Here you must switch treasures with another player. Whore Coins are not counted as treasure.</div>";
 			break;
 		}
 
 		case "14":{
-			textToHTML ="<center><h1>The Board: The Cannon</h1></center></br><div class=\"speak4\">You board another player and steals a random Coin from his or her treasure (Whore Coins not included).</div>";
+			textToHTML ="<center><h1>The Cannon</h1></center></br><div class=\"speak4\">You board another player and steals a random Coin from his or her treasure (Whore Coins not included).</div>";
 			break;
 		}
 
 		case "15":{
-			textToHTML ="<center><h1>The Board: Treasure Island</h1></center></br><div class=\"speak4\">Here you may dig down some of your treasure for others to drink for (including maybe yourself). You can dig down as many as you want, but only on one space on the island.</div>";
+			textToHTML ="<center><h1>Treasure Island</h1></center></br><div class=\"speak4\">Here you may dig down some of your treasure for others to drink for (including maybe yourself). You can dig down as many as you want, but only on one space on the island.</div>";
 			break;
 		}
 
