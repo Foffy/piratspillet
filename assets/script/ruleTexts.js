@@ -13,14 +13,12 @@ function onAfter() {
 	var toHTML = getRuleText(this.alt);
 	var counter;
 	switch(this.alt){
-		case "rule 1"{
+		case "rule 1":
 			counter = "1/20"
 			break;
-		}
-		case "rule 2"{
+		case "rule 2":
 			counter = "2/20"
 			break;
-		}
 	}
     $('.slideOutput').html(toHTML);
     $('.counterBox').html(counter);
