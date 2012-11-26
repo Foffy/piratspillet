@@ -144,7 +144,7 @@
 	.bottomBox{
 		width:800px;
 		height:200px;
-		margin-top:150px;
+		margin-top:150px auto auto auto;
 		text-align: center;
 	}
 
