@@ -94,12 +94,13 @@
 		width:800px;
 		height: 25px;
 		color: #0000FF;
-		margin:auto;
+		margin: 0 auto auto 0;
 	}
 
 	#contentBox{
 		text-align: left;
 		width: 70%;
+		margin: auto;
 	}
 
 	canvas{
