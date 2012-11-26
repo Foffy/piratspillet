@@ -14,10 +14,10 @@ function onAfter() {
 	var counter;
 	switch(this.alt){
 		case "rule 1":
-			counter = "1/20"
+			counter = "<div class=\"speak4\">1/20</div>"
 			break;
 		case "rule 2":
-			counter = "2/20"
+			counter = "<div class=\"speak4\">2/20</div>"
 			break;
 	}
     $('.slideOutput').html(toHTML);
