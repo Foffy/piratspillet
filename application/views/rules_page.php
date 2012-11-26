@@ -1,6 +1,8 @@
 <div id="topBox">
 </div>
 <div class="box">
+	<div class="counterBox">
+	</div>
 	<div class="slideOutput">
 	</div></br>
 	<div class="slideshow" align="center">
