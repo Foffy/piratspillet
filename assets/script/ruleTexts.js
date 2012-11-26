@@ -14,7 +14,7 @@ function onAfter() {
 	var counter;
 	switch(this.alt){
 		case "rule 1":
-			counter = "<div class=\"speak4\">1/20</div>"
+			counter = "<div class=\"speak4\" align\"left\">1/20</div>"
 			break;
 		case "rule 2":
 			counter = "<div class=\"speak4\">2/20</div>"
