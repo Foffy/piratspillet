@@ -1,4 +1,5 @@
 <div id="topBox">
+	<center><h1>Piratspillet!</h1></center>
 </div>
 <div class="box">
 	<div class="counterBox">
