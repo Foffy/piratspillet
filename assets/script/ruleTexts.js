@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 function onAfter() {
 	var toHTML = getRuleText(this.alt);
-	var counter = this.alt+"/20";
+	var counter = "<div class=\"speak3\">"+this.alt+"/20</div>";
     $('.slideOutput').html(toHTML);
     $('.counterBox').html(counter);
 }
