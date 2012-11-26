@@ -37,7 +37,7 @@ function getRuleText(ruleIndex){
 			break;
 		}
 		case "rule 3":{
-			textToHTML = "<center><h1>TITLE</h1></center></br> <div class=\"speak4\">TEXT.</div>";
+			textToHTML = "<center><h1>General</h1></center></br> <div class=\"speak4\">The \"bank\" has a total of 10 Gold Coins and 10 Silver Coins. Is the banks reserves depleted it's just too bad. It is illegal to exchange Coins with the bank. I.E. you can't exchange two Silver Coins for a Gold Coin.</div>";
 		}
 	}
 	return textToHTML;
