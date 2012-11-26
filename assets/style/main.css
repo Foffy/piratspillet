@@ -100,7 +100,7 @@
 	#contentBox{
 		text-align: left;
 		width: 70%;
-		margin: auto;
+		margin: auto auto auto 0;
 	}
 
 	canvas{
