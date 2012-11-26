@@ -31,3 +31,6 @@
 	<div class="nav" align="center">
 	<a id="prev" href="#"><left><img src="/assets/images/arrowLeft.png" width="100"/></left></a><a id="next" href="#"><right><img src="/assets/images/arrow.png" width="100"/></right></a>
 	</div>
+	<div class="bottomBox" align="right">
+		<a href="http://www.beta.piratspillet.dk">Back</a>|<a href="http://www.beta.piratspillet.dk/index.php/game">Play</a>
+	</div>

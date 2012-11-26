@@ -141,6 +141,12 @@
 		margin: 15% auto 5% auto;
 	}
 
+	.bottomBox{
+		width:800px;
+		height:200px;
+		margin-top:150px;
+	}
+
 	
 	/* fonts */
 	@font-face {
