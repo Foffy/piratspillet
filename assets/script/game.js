@@ -1,5 +1,5 @@
-var local = false;
-var debug = false;
+var local = true;
+var debug = true;
 
 // global variables
 var c = document.getElementById('c');
@@ -380,16 +380,12 @@ State = {
 	LANDED : "4: Landed on a tile",
 	ACTIVATED : "5: Players tile activated",
 	DRINK_DIGGED : "6: Drink for digged down coins",
-	COINS_BOUGHT : "7: Coins for sips",
-	COIN_STOLEN : "14: Display stolen coin",
-	SELECT_SWITCH : "8: Switch coins",
-	SELECT_CANNON : "9: Take randomly",
-	DIG_DOWN : "10: Dig down coins",
-	DIG_AMOUNT : "11: How much to dig down",
-	IN_HARBOUR : "12: Give sips away",
-	GAME_WON : "13: Someone won the game",
-	SITTING_OUT : "15: Player sitting out",
-	FIND_TREASURE_SPOT : "17: Finding spot to dig down treasure",
+	COIN_STOLEN : "7: Display stolen coin",
+	DIG_DOWN : "8: Dig down coins",
+	DIG_AMOUNT : "9: How much to dig down",
+	GAME_WON : "10: Someone won the game",
+	SITTING_OUT : "11: Player sitting out",
+	DRINK_TOGETHER : "12: Everybody drinks together"
 }
 
 // the main gameloop function
@@ -1205,11 +1201,21 @@ function checkForClickAndSteal(currentPlayer){
 	return true;
 }
 
+function everyoneIn(){
+	return true;
+}
+
 function drawLandedTile(tile){
 	switch(tile){
 		case 0:{
 			var player = players[curPlayer];
 			var directly = (newField == 14);
+
+			//fælles skål
+			if(everyoneIn()){
+				curState = State.DRINK_TOGETHER;
+				break;
+			}
 			
 			
 			// header
