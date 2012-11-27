@@ -120,7 +120,7 @@ function getRuleText(ruleIndex){
 		}
 
 		case "18":{
-			textToHTML ="<center><h1>Pirate &amp Pirate Captain</h1></center></br><div class=\"speak4\">When an Antiperspirant has been with the Pirate or Pirate Captain for one year (one trip around the board) they receive their own ship and are promoted to Pirate. When a player plays the game a second time and was promoted to Pirate in the first game, he ro she is promoted to Pirate Captain.</div>";
+			textToHTML ="<center><h1>Pirate &amp Pirate Captain</h1></center></br><div class=\"speak4\">When an Antiperspirant has been with the Pirate or Pirate Captain for one year (one trip around the board) they receive their own ship and are promoted to Pirate. When a player plays the game a second time and was promoted to Pirate in the first game, he or she is promoted to Pirate Captain. When winning the game one is promoted to Über Pirate Captain</div>";
 			break;
 		}
 
