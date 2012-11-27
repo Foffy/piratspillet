@@ -636,7 +636,7 @@ function takeInput(){
 			break;
 		}
 		case State.ROLLING:{
-			diceToShow = rollDice();
+			diceToShow = rollDice(); // real dice roll
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
@@ -1256,7 +1256,7 @@ function drawLandedTile(tile){
 		}
 		case 2:{
 			drawTextInBox("Skull n' Bones","header");
-			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" landed on the skull and bones and must empty a new beer, unless you have a Skull n' Bones on you, then it's only half.");
+			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" landed on the skull and bones and must empty half a beer, unless you have a Skull n' Bones on you, then it's only half of that.");
 			break;
 		}
 		case 3:
