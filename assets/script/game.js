@@ -1,5 +1,5 @@
-var local = true;
-var debug = true;
+var local = false;
+var debug = false;
 
 // global variables
 var c = document.getElementById('c');
@@ -463,7 +463,6 @@ function drawState(){
 			drawBox(players[curPlayer]);
 			diceToShow = rollDice();
 			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
-			newField = players[curPlayer].pos + diceToShow;
 			break;
 		}
 		case State.MOVING:{
@@ -476,6 +475,13 @@ function drawState(){
 			}
 			break;
 		}
+		case State.DRINK_TOGETHER:{
+			drawBox(null);
+			drawTextInBox("Toast!","header");
+			drawTextInBox("You're all in harbour! Take a drink together to celebrate the occation.","body");
+			drawTextInBox("'To wives and sweethearts - may they never meet!","flavor");
+			break;
+		}
 		case State.DRINK_DIGGED:{
 			newTimeout = 20; // back from moving
 			
@@ -485,8 +491,9 @@ function drawState(){
 				
 				// if nothing go
 				if(curSips == 0){
-					curState = State.LANDED;
 					curTreasure = null;
+					curState = State.LANDED;
+					if(everyoneIn()) curState = State.DRINK_TOGETHER;
 					break;
 				}
 			}
@@ -629,7 +636,8 @@ function takeInput(){
 			break;
 		}
 		case State.ROLLING:{
-			//diceToShow = rollDice();
+			diceToShow = rollDice();
+			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
 			
@@ -642,6 +650,12 @@ function takeInput(){
 			curSips = 0;
 			curTreasure = null;
 
+			curState = State.LANDED;
+			if(everyoneIn()) curState = State.DRINK_TOGETHER;
+
+			break;
+		}
+		case State.DRINK_TOGETHER:{
 			curState = State.LANDED;
 			break;
 		}
@@ -1202,6 +1216,11 @@ function checkForClickAndSteal(currentPlayer){
 }
 
 function everyoneIn(){
+	for (var i = 0; i < players.length; i++) {
+		if(players[i].pos != 0){
+			return false;
+		}
+	}
 	return true;
 }
 
@@ -1209,14 +1228,7 @@ function drawLandedTile(tile){
 	switch(tile){
 		case 0:{
 			var player = players[curPlayer];
-			var directly = (newField == 14);
-
-			//fælles skål
-			if(everyoneIn()){
-				curState = State.DRINK_TOGETHER;
-				break;
-			}
-			
+			var directly = (newField == 14);	
 			
 			// header
 			drawTextInBox("Harbour","header");
