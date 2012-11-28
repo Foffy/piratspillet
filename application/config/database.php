@@ -45,13 +45,36 @@
 | the active record class
 */
 
+
+/* Debugging */
+$active_group = 'debug';
+$active_record = TRUE;
+
+$db['debug']['hostname'] = 'localhost';
+$db['debug']['username'] = 'root';
+$db['debug']['password'] = 'FOFFi1986';
+$db['debug']['database'] = 'debug_piratspillet';
+$db['debug']['dbdriver'] = 'mysql';
+$db['debug']['dbprefix'] = '';
+$db['debug']['pconnect'] = TRUE;
+$db['debug']['db_debug'] = TRUE;
+$db['debug']['cache_on'] = FALSE;
+$db['debug']['cachedir'] = '';
+$db['debug']['char_set'] = 'utf8';
+$db['debug']['dbcollat'] = 'utf8_general_ci';
+$db['debug']['swap_pre'] = '';
+$db['debug']['autoinit'] = TRUE;
+$db['debug']['stricton'] = FALSE;
+
+
+/* Live site */
 $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'FOFFi1986';
-$db['default']['database'] = 'debug_piratspillet';
+$db['default']['database'] = 'piratspillet';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
@@ -63,7 +86,6 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

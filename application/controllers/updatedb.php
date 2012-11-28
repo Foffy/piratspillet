@@ -5,8 +5,16 @@ class Updatedb extends CI_Controller {
 	public function index()
 	{
 		$data = $this->input->post('data');
+		$curDB = $this->db;
+		if($data[0]=='debug'){
+			$this->db_debug = $this->CI->load->database('debug',TRUE);
+			$curDB = $this->db_debug;
+		}
 
-		switch($data[0]){
+		switch($data[1]){
+			case 'games':
+				$this->insertGame($data);
+				break;
 			case 'rolls':
 				$this->updateRolls($data);
 				break;
@@ -23,118 +31,126 @@ class Updatedb extends CI_Controller {
 				$this->updateSips($data);
 				break;
 		}
-
+	}
+	private function insertGame($data){
+		# $data = ['games']
+		$dbData = array(
+			'ip' => $_SERVER['REMOTE_ADDR'],
+			'browser' => 'prolly Chrome',
+			'started' => 'NOW()'
+			);
+		$id = $curDB->insert($data[1],$dbData);
 	}
 
 	private function updateRolls($data){
 		# $data = ['rolls', gameID, player, dice]
 		$dbData = array(
-			$data[3] => $data[3]+"+1",
+			$data[4] => $data[4]+"+1",
 			'last' => "NOW()"
 			);
 
-		$this->db->where('gameID',$data[1]);
-		$this->db->where('player',$data[2]);
-		$this->db->update($data[0],$dbData);
-		$check = $this->db->affected_rows();
+		$curDB->where('gameID',$data[2]);
+		$curDB->where('player',$data[3]);
+		$curDB->update($data[1],$dbData);
+		$check = $curDB->affected_rows();
 
 		if($check==0){
 			$dbData = array(
-				'gameID' => $data[1],
-				'player' => $data[2],
-				$data[3] => $data[3]+"+1",
+				'gameID' => $data[2],
+				'player' => $data[3],
+				$data[4] => $data[4]+"+1",
 				'first' => "NOW()",
 				'last' => "NOW()"
 				);
-			$this->db->insert($data[0],$dbData);
+			$curDB->insert($data[1],$dbData);
 		}
 	}
 
 	private function updateLanded($data){
 		# $data = ['landed', gameID, player, field]
 		$dbData = array(
-			$data[3] => $data[3]+"+1",
+			$data[4] => $data[4]+"+1",
 			);
 
-		$this->db->where('gameID',$data[1]);
-		$this->db->where('player',$data[2]);
-		$this->db->update($data[0],$dbData);
-		$check = $this->db->affected_rows();
+		$curDB->where('gameID',$data[2]);
+		$curDB->where('player',$data[3]);
+		$curDB->update($data[1],$dbData);
+		$check = $curDB->affected_rows();
 
 		if($check ==0){
 			$dbData = array(
-				'gameId' => $data[1],
-				'player' => $data[2],
-				$data[3] => $data[3]+"+1"
+				'gameId' => $data[2],
+				'player' => $data[3],
+				$data[4] => $data[4]+"+1"
 				);
-			$this->db->insert($data[0],$dbData);
+			$curDB->insert($data[1],$dbData);
 		}
 	}
 
 	private function updateActivated($data){
 		# $data = ['activated', gameID, player, field]
 		$dbData = array(
-			$data[3] => $data[3]+"+1",
+			$data[4] => $data[4]+"+1",
 			);
 
-		$this->db->where('gameID',$data[1]);
-		$this->db->where('player',$data[2]);
-		$this->db->update($data[0],$dbData);
-		$check = $this->db->affected_rows();
+		$curDB->where('gameID',$data[2]);
+		$curDB->where('player',$data[3]);
+		$curDB->update($data[1],$dbData);
+		$check = $curDB->affected_rows();
 
 		if($check ==0){
 			$dbData = array(
-				'gameId' => $data[1],
-				'player' => $data[2],
-				$data[3] => $data[3]+"+1"
+				'gameId' => $data[2],
+				'player' => $data[3],
+				$data[4] => $data[4]+"+1"
 				);
-			$this->db->insert($data[0],$dbData);
+			$curDB->insert($data[1],$dbData);
 		}
 	}
 
 	private function updateCoins($data){
 		# $data = ['coins', gameID, player, gold, silver, whore]
 		$dbData = array(
-			'gold' => 'gold'+$data[3],
-			'silver' => 'silver'+$data[4],
-			'whore' => 'whore'+$data[5]
+			'gold' => 'gold'+$data[4],
+			'silver' => 'silver'+$data[5],
+			'whore' => 'whore'+$data[6]
 			);
-		$this->db->where('gameID',$data[1]);
-		$this->db->where('player',$data[2]);
-		$this->db->update($data[0],$dbData);
-		$check = $this->db->affected_rows();
+		$curDB->where('gameID',$data[2]);
+		$curDB->where('player',$data[3]);
+		$curDB->update($data[1],$dbData);
+		$check = $curDB->affected_rows();
 
 		if($check==0){
 			$dbData = array(
-				'gameID' => $data[1],
-				'player' => $data[2],
-				'gold' => $data[3],
-				'silver' => $data[4],
-				'whore' => $data[5]
+				'gameID' => $data[2],
+				'player' => $data[3],
+				'gold' => $data[4],
+				'silver' => $data[5],
+				'whore' => $data[6]
 				);
-			$this->db->insert($data[0],$dbData);
+			$curDB->insert($data[1],$dbData);
 		}
 	}
 
 	private function updateSips($data){
 		# $data = ['sips', gameID, player, taken, given]
 		$dbData = array(
-			'taken' => $data[3],
-			'given' => $data[4]
+			'taken' => $data[4],
+			'given' => $data[5]
 			);
-		$this->db->where('gameID',$data[1]);
-		$this->db->where('player',$data[2]);
-		$this->db->update($data[0],$dbData);
-		$check = $this->db->affected_rows();
+		$curDB->where('gameID',$data[2]);
+		$curDB->where('player',$data[3]);
+		$curDB->update($data[1],$dbData);
+		$check = $curDB->affected_rows();
 
 		if($check==0){
 			$dbData = array(
-				'gameID' => $data[1],
-				'player' => $data[2],
-				'taken' => $data[3],
-				'given' => $data[4]
+				'gameID' => $data[2],
+				'player' => $data[3],
+				'taken' => $data[4],
+				'given' => $data[5]
 				);
-			$this->db->insert($data[0],$dbData);
+			$curDB->insert($data[1],$dbData);
 		}
 	}
 }
