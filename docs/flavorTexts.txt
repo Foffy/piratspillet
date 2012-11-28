@@ -1,0 +1,22 @@
+//PIRATSPILLET FLAVOR TEXTS
+Message					Current text
+-----------------------+----------------------------------------------------
+Player's Turn (rolling)	"Avast! Pull Me Mast!"
+Game Won!				-
+Toast! (fællesskål)		"To wives and sweethearts - may they never meet!"
+Hidden Treasure!		"Flavurrrrrrr text!" (må meget gerne skiftes)
+Activated (får mønter)	-
+Activated (The Cannon)	-
+Steal (nothing to steal)"You don't have permission to be aboard there mate!"
+Steal (silver)			"You don't have permission to be aboard there mate!"
+Steal (gold)			"You don't have permission to be aboard there mate!"
+Fucked by Parrot! (2)	-
+Fucked by Parrot! (3)	-
+Fucked by Parrot! (4)	-
+Skull n' Bones			-
+Mouth full				"Arrr! Bring more beer!"
+Open Chest (silver)		"Dead man tell no tale."
+Open Chest (nothing)	"T' Davy Jones wit it!"
+Closed Chest (gold)		"Dead man tell no tale."
+Closed Chest (silver)	"Dead man tell no tale."
+Closed Chest (nothing)	"Dead man tell no tale."
