@@ -5,11 +5,10 @@ class Updatedb extends CI_Controller {
 	public function index()
 	{
 		$data = $this->input->post('data');
-		$curDB = $this->db;
-		if($data[0]=='debug'){
-			$this->db_debug = $this->CI->load->database('debug',TRUE);
-			$curDB = $this->db_debug;
+		if(data[0]=='debug'){
+			$this->db_debug = $this->CI->load->database('debug', TRUE); 
 		}
+
 
 		switch($data[1]){
 			case 'games':
@@ -32,14 +31,37 @@ class Updatedb extends CI_Controller {
 				break;
 		}
 	}
+
+	private function updateDatabase($data){
+		$check = 0;
+		if($data[0] != 'debug'){
+			$this->db->where('gameID',$data[2]);
+			$this->db->where('player',$data[3]);
+			$this->db->update($data[1],$dbData);
+			$check = $this->db->affected_rows();
+		}else{
+			$this->db_debug->where('gameID',$data[2]);
+			$this->db_debug->where('player',$data[3]);
+			$this->db_debug->update($data[1],$dbData);
+			$check = $this->db_debug->affected_rows();
+		}
+
+		return $check;
+	}
+
 	private function insertGame($data){
 		# $data = ['games']
+		$id = 0;
 		$dbData = array(
-			'ip' => $_SERVER['REMOTE_ADDR'],
+			'ip' => 'IP',
 			'browser' => 'prolly Chrome',
 			'started' => 'NOW()'
 			);
-		$id = $curDB->insert($data[1],$dbData);
+		if($data[0] != 'debug'){
+			$id = $this->db->insert($data[1],$dbData);
+		}else{
+			$id = $this->db_debug->insert($data[1],$dbData);
+		}
 	}
 
 	private function updateRolls($data){
@@ -49,10 +71,7 @@ class Updatedb extends CI_Controller {
 			'last' => "NOW()"
 			);
 
-		$curDB->where('gameID',$data[2]);
-		$curDB->where('player',$data[3]);
-		$curDB->update($data[1],$dbData);
-		$check = $curDB->affected_rows();
+		$check = $this->updateDatabase($data);
 
 		if($check==0){
 			$dbData = array(
@@ -62,7 +81,11 @@ class Updatedb extends CI_Controller {
 				'first' => "NOW()",
 				'last' => "NOW()"
 				);
-			$curDB->insert($data[1],$dbData);
+			if($data[0]!='debug'){
+				$this->db->insert($data[1],$dbData);
+			}else{
+				$this->db_debug->insert($data[1],$dbData);
+			}
 		}
 	}
 
@@ -72,10 +95,7 @@ class Updatedb extends CI_Controller {
 			$data[4] => $data[4]+"+1",
 			);
 
-		$curDB->where('gameID',$data[2]);
-		$curDB->where('player',$data[3]);
-		$curDB->update($data[1],$dbData);
-		$check = $curDB->affected_rows();
+		$check = $this->updateDatabase($data);
 
 		if($check ==0){
 			$dbData = array(
@@ -83,7 +103,11 @@ class Updatedb extends CI_Controller {
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1"
 				);
-			$curDB->insert($data[1],$dbData);
+			if($data[0]!='debug'){
+				$this->db->insert($data[1],$dbData);
+			}else{
+				$this->db_debug->insert($data[1],$dbData);
+			}
 		}
 	}
 
@@ -93,10 +117,7 @@ class Updatedb extends CI_Controller {
 			$data[4] => $data[4]+"+1",
 			);
 
-		$curDB->where('gameID',$data[2]);
-		$curDB->where('player',$data[3]);
-		$curDB->update($data[1],$dbData);
-		$check = $curDB->affected_rows();
+		$check = $this->updateDatabase($data);
 
 		if($check ==0){
 			$dbData = array(
@@ -104,7 +125,11 @@ class Updatedb extends CI_Controller {
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1"
 				);
-			$curDB->insert($data[1],$dbData);
+			if($data[0]!='debug'){
+				$this->db->insert($data[1],$dbData);
+			}else{
+				$this->db_debug->insert($data[1],$dbData);
+			}
 		}
 	}
 
@@ -115,10 +140,8 @@ class Updatedb extends CI_Controller {
 			'silver' => 'silver'+$data[5],
 			'whore' => 'whore'+$data[6]
 			);
-		$curDB->where('gameID',$data[2]);
-		$curDB->where('player',$data[3]);
-		$curDB->update($data[1],$dbData);
-		$check = $curDB->affected_rows();
+
+		$check = $this->updateDatabase($data);
 
 		if($check==0){
 			$dbData = array(
@@ -128,7 +151,11 @@ class Updatedb extends CI_Controller {
 				'silver' => $data[5],
 				'whore' => $data[6]
 				);
-			$curDB->insert($data[1],$dbData);
+			if($data[0]!='debug'){
+				$this->db->insert($data[1],$dbData);
+			}else{
+				$this->db_debug->insert($data[1],$dbData);
+			}
 		}
 	}
 
@@ -138,10 +165,8 @@ class Updatedb extends CI_Controller {
 			'taken' => $data[4],
 			'given' => $data[5]
 			);
-		$curDB->where('gameID',$data[2]);
-		$curDB->where('player',$data[3]);
-		$curDB->update($data[1],$dbData);
-		$check = $curDB->affected_rows();
+
+		$check = $this->updateDatabase($data);
 
 		if($check==0){
 			$dbData = array(
@@ -150,7 +175,11 @@ class Updatedb extends CI_Controller {
 				'taken' => $data[4],
 				'given' => $data[5]
 				);
-			$curDB->insert($data[1],$dbData);
+			if($data[0]!='debug'){
+				$this->db->insert($data[1],$dbData);
+			}else{
+				$this->db_debug->insert($data[1],$dbData);
+			}
 		}
 	}
 }
