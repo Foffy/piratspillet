@@ -3,12 +3,14 @@ $(document).keydown(function (e) {
           arrow = {left: 37, right: 39};
 
       switch (keyCode) {
+      	case 65:
         case arrow.left:
           $('.slideshow').cycle('prev');
-        break;
+        	break;
+        case 68:
         case arrow.right:
           $('.slideshow').cycle('next');
-        break;
+        	break;
       }
     });
 
