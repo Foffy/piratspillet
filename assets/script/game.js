@@ -1,5 +1,5 @@
-var local = false;
-var debug = false;
+var local = true;
+var debug = true;
 
 // global variables
 var c = document.getElementById('c');
@@ -319,7 +319,7 @@ var imgCross = addImage("cross.png");
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 0;
+	this.gold = 6;
 	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
@@ -1443,7 +1443,7 @@ function inputForTile(tile){
 				player.whore++;
 				whorebank--;
 				
-				curState = (player.gold > 5 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
+				curState = (player.gold > 0 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
 
 				if(finishedGame()) curState = State.GAME_WON;
 			}else if(player.gold > 0 || player.silver > 0){ // regular give away
@@ -1452,7 +1452,6 @@ function inputForTile(tile){
 				player.gold = 0;
 				player.silver = 0;
 				
-				nextPlayer();
 				curState = State.ROLL;
 			}else{ // You're a loser!
 				if(player.skeleton < 2){
@@ -1460,9 +1459,10 @@ function inputForTile(tile){
 				}else{
 					player.skeleton = 0;	
 				}
-				nextPlayer();
 				curState = State.ROLL;
 			}
+
+			if(curState == State.ROLL) nextPlayer();
 			break;	
 		}
 		case 8:{
