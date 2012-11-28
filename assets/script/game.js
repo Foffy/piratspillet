@@ -1,5 +1,5 @@
-var local = true;
-var debug = true;
+var local = false;
+var debug = false;
 
 // global variables
 var c = document.getElementById('c');
@@ -319,7 +319,7 @@ var imgCross = addImage("cross.png");
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 6;
+	this.gold = 0;
 	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
