@@ -73,7 +73,6 @@
 
 /* LAYOUT STYLE */
 	html, body {
-		overflow:hidden;
 		background-color: #ebebeb;
 		border:0px;
 		margin:0;
@@ -138,7 +137,7 @@
 
 	#topBox{
 		width: 60%;
-		margin: 150px auto 5% auto;
+		height: 150px;
 	}
 
 	.bottomBox{
