@@ -25,5 +25,6 @@
   else{document.onmouseup=clickNS;document.oncontextmenu=clickIE;} 
   document.oncontextmenu=new Function("return false") 
   // --> 
-  </SCRIPT> 
+  </SCRIPT>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.js"></script>
 </head>

@@ -41,7 +41,7 @@ function getRuleText(ruleIndex){
 			break;
 		}
 		case "2":{
-			textToHTML = "<center><h1>General</h1></center></br> <div class=\"speak4\">The board is divided into 14 fields and everyone starts at The Harbour. During a year (one trip around the board) the players can find, steal and earn Gold Coins and Silver Coins which will be spend on whores and alcohol for your mates when you return to The Harbour</div>";
+			textToHTML = "<center><h1>General</h1></center></br> <div class=\"speak4\">The board is divided into 14 fields and everyone starts at The Harbour. During a season (one trip around the board) the players can find, steal and earn Gold Coins and Silver Coins which will be spend on whores and alcohol for your mates when you return to The Harbour</div>";
 			break;
 		}
 		case "3":{
@@ -75,7 +75,7 @@ function getRuleText(ruleIndex){
 		}
 
 		case "9":{
-			textToHTML = "<center><h1>Parrots!</h1></center></br><div class=\"speak4\">When you land on a field with a Parrot you have been fucked by the Parrot. This is soar business and you drink the amount of sips written on the field.</div>";
+			textToHTML = "<center><h1>Parrots!</h1></center></br><div class=\"speak4\">When you land on a field with a Parrot you have been fucked by the Parrot. This is sore business and you drink the amount of sips written on the field.</div>";
 			break;
 		}
 
@@ -120,7 +120,7 @@ function getRuleText(ruleIndex){
 		}
 
 		case "18":{
-			textToHTML ="<center><h1>Pirate &amp Pirate Captain</h1></center></br><div class=\"speak4\">When an Antiperspirant has been with the Pirate or Pirate Captain for one year (one trip around the board) they receive their own ship and are promoted to Pirate. When a player plays the game a second time and was promoted to Pirate in the first game, he or she is promoted to Pirate Captain. When winning the game one is promoted to Über Pirate Captain</div>";
+			textToHTML ="<center><h1>Pirate &amp Pirate Captain</h1></center></br><div class=\"speak4\">When an Antiperspirant has been with the Pirate or Pirate Captain for one season (one trip around the board) they receive their own ship and are promoted to Pirate. When a player plays the game a second time and was promoted to Pirate in the first game, he or she is promoted to Pirate Captain. When winning the game one is promoted to Über Pirate Captain</div>";
 			break;
 		}
 
