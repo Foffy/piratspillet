@@ -1,3 +1,17 @@
+$(document).keydown(function (e) {
+      var keyCode = e.keyCode || e.which,
+          arrow = {left: 37, right: 39};
+
+      switch (keyCode) {
+        case arrow.left:
+          $('.slideshow'),cycle('left');
+        break;
+        case arrow.right:
+          $('.slideshow').cycle('right');
+        break;
+      }
+    });
+
 $(document).ready(function() {
     $('.slideshow').cycle({
 		fx: 'fade',
