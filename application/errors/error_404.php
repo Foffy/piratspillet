@@ -55,7 +55,7 @@ p {
 </head>
 <body>
 	<div id="container">
-		<h1>Lol! n00b.</h1>
+		<h1>Can't do.</h1>
 	</div>
 </body>
 </html>
