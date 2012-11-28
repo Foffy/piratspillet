@@ -82,6 +82,7 @@
 
 	.box {
 		background-color: #fff;
+		vertical-align: middle;
 		width: 800px;
 		height: 500px;
 		border:2px solid #000;
