@@ -27,7 +27,6 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.js"></script>
 <!-- include Cycle plugin -->
 <script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
-<!--<script type="text/javascript" src="/assets/script/game.js"></script>-->
 <script type="text/javascript" src="/assets/script/ruleTexts.js"></script>
 
 
