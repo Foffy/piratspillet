@@ -312,8 +312,6 @@ var imgDiceRolling = addImage("dice.png");
 var imgSitOut = addImage("icon_sit_out.png");
 var imgAddPlayer = addImage("icon_add_player.png");
 var imgExit = addImage("icon_exit.png");
-var imgArrow = addImage("arrow.png");
-var imgCross = addImage("cross.png");
 
 // classes
 function Player(name){
@@ -375,17 +373,16 @@ function Player(name){
 // all the possible states in the game
 State = {
 	ROLL : "1: To Roll",
-	ROLLING: "2: Rolling the dice",
-	MOVING: "3: Moving one space",
-	LANDED : "4: Landed on a tile",
-	ACTIVATED : "5: Players tile activated",
-	DRINK_DIGGED : "6: Drink for digged down coins",
-	COIN_STOLEN : "7: Display stolen coin",
-	DIG_DOWN : "8: Dig down coins",
-	DIG_AMOUNT : "9: How much to dig down",
-	GAME_WON : "10: Someone won the game",
-	SITTING_OUT : "11: Player sitting out",
-	DRINK_TOGETHER : "12: Everybody drinks together"
+	MOVING: "2: Moving one space",
+	LANDED : "3: Landed on a tile",
+	ACTIVATED : "4: Players tile activated",
+	DRINK_DIGGED : "5: Drink for digged down coins",
+	COIN_STOLEN : "6: Display stolen coin",
+	DIG_DOWN : "7: Dig down coins",
+	DIG_AMOUNT : "8: How much to dig down",
+	GAME_WON : "9: Someone won the game",
+	SITTING_OUT : "10: Player sitting out",
+	DRINK_TOGETHER : "11: Everybody drinks together"
 }
 
 // the main gameloop function
@@ -429,9 +426,12 @@ function drawState(){
 			}
 
 			drawBox(players[curPlayer]);
-			drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
+			//drawImage(imgDiceIdle,50-diceSize/2,50-diceSize*0.75,diceSize,0,0,50,50,1);
+			diceToShow = rollDice();
+			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
+
 			drawTextInBox(players[curPlayer].name+"'s Turn","header");
-			drawTextInBox("Click the die to start rolling");
+			drawTextInBox("Click the die to determine your roll");
 			drawTextInBox("Avast! Pull Me Mast!","flavor");
 			break;
 		}
@@ -457,12 +457,6 @@ function drawState(){
 			}
 
 			countdown--;
-			break;
-		}
-		case State.ROLLING:{
-			drawBox(players[curPlayer]);
-			diceToShow = rollDice();
-			drawImage(imgDiceRolling,50-diceSize/2,50-diceSize*0.75,diceSize,50*diceToShow-50,0,50,50,1);
 			break;
 		}
 		case State.MOVING:{
@@ -630,17 +624,10 @@ function takeInput(){
 	switch(curState){
 		case State.SITTING_OUT:
 		case State.ROLL:{
-			newTimeout = 20;
-			players[curPlayer].active = true;
-			curState = State.ROLLING;
-			break;
-		}
-		case State.ROLLING:{
 			diceToShow = rollDice(); // real dice roll
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
-			
 			break;
 		}
 		case State.DRINK_DIGGED:{
@@ -1354,15 +1341,15 @@ function digDownOption(player){
 	if(player.gold+player.silver > 0){
 		drawTextInBox(player.name+" can dig down treasure on the island for other scullywags to find.");
 		
-		drawRect(41,50,7,7,"white",true); // yes
-		drawRect(52,50,7,7,"white",true); // no
+		drawRect(41,51.5,7,6,"white",true); // yes
+		drawRect(52,51.5,7,6,"white",true); // no
 
-		drawImage(imgArrow,42,52,5); 	  // yes
-		drawImage(imgExit,53.5,51,4); 	  // no
+		drawText("Arrr!",42,52,10,2.5,"left");
+		drawText("Nay!",53.5,52,10,2.5,"left");
 	}else{
 		drawTextInBox(player.name+" is too poor to dig down treasure on the island!");
 	}
-	drawTextInBox("X marks the spot!","flavor");
+	drawTextInBox("X marks the spot","flavor");
 }
 
 function digDownOptionInput(player){
