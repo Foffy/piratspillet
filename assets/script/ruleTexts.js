@@ -4,10 +4,10 @@ $(document).keydown(function (e) {
 
       switch (keyCode) {
         case arrow.left:
-          $('.slideshow'),cycle('left');
+          $('.slideshow'),cycle('prev');
         break;
         case arrow.right:
-          $('.slideshow').cycle('right');
+          $('.slideshow').cycle('next');
         break;
       }
     });
