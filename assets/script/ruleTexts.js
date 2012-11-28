@@ -83,7 +83,7 @@ function getRuleText(ruleIndex){
 		}
 
 		case "11":{
-			textToHTML ="<center><h1>Mouth Full'</h1></center></br><div class=\"speak4\">When landing here you must first fill your mouth with whatever beverage you have and not swallow it untill your mouth is filled to the brim!</div>";
+			textToHTML ="<center><h1>Mouth Full</h1></center></br><div class=\"speak4\">When landing here you must first fill your mouth with whatever beverage you have and not swallow it untill your mouth is filled to the brim!</div>";
 			break;
 		}
 
