@@ -4,7 +4,7 @@ $(document).keydown(function (e) {
 
       switch (keyCode) {
         case arrow.left:
-          $('.slideshow'),cycle('prev');
+          $('.slideshow').cycle('prev');
         break;
         case arrow.right:
           $('.slideshow').cycle('next');
