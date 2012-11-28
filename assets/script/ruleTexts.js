@@ -48,12 +48,12 @@ function getRuleText(ruleIndex){
 		}
 
 		case "4":{
-			textToHTML = "<center><h1>The Island</h1></center></br><div class=\"speak4\">The middle of the board is the Treasure Island. When you land on a field adjacent to a treassure (either in the outer or inner spaces on the island) you drink for it and remove one silver worth of coins. The spaces on the outer rim counts double since they are more specific.</div>";
+			textToHTML = "<center><h1>The Island</h1></center></br><div class=\"speak4\">The middle of the board is the Treasure Island. When you land on a field adjacent to a treasure (either in the outer or inner spaces on the island) you drink for it and remove one silver worth of coins. The spaces on the outer rim counts double since they are more specific.</div>";
 			break;
 		}
 
 		case "5":{
-			textToHTML = "<center><h1>A Turn</h1></center></br><div class=\"speak4\">When it is your turn, you roll the die and you're moved that many spaces forward. If you pass The harbour you automatically stop there, if you land on it directly your Coins count double! WHen you land on a field the special rule for it applies to you and everyone else currently there.</div>";
+			textToHTML = "<center><h1>A Turn</h1></center></br><div class=\"speak4\">When it is your turn, you roll the die and you're moved that many spaces forward. If you pass The harbour you automatically stop there, if you land on it directly your Coins count double! When you land on a field the special rule for it applies to you and everyone else currently there.</div>";
 			break;
 		}
 
