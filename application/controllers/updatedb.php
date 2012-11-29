@@ -9,7 +9,6 @@ class Updatedb extends CI_Controller {
 			$this->db_debug = $this->CI->load->database('debug', TRUE); 
 		}
 
-
 		switch($data[1]){
 			case 'games':
 				$this->insertGame($data);
