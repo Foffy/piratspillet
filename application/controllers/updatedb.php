@@ -43,7 +43,7 @@ class Updatedb extends CI_Controller {
 		# $data = [debug, 'games']
 		$id = 0;
 		$dbData = array(
-			'ip' => 'IP',
+			'ip' => ""+$_SERVER['REMOTE_ADDR'],
 			'browser' => 'prolly Chrome',
 			'started' => 'NOW()'
 			);
