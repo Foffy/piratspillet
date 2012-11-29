@@ -475,7 +475,7 @@ function drawState(){
 			drawBox(null);
 			drawTextInBox("Toast!","header");
 			drawTextInBox("You're all in harbour! Take a drink together to celebrate the occation.","body");
-			drawTextInBox("'To wives and sweethearts - may they never meet!","flavor");
+			drawTextInBox("To wives and sweethearts - may they never meet!","flavor");
 			break;
 		}
 		case State.DRINK_DIGGED:{
@@ -953,13 +953,13 @@ function printCoinRecieved(coinType){
 	if(recievingPlayers.length == 0){
 		drawTextInBox(onTileActivatedString(nonRecievingPlayers)+" receives nothing 'cus the treasure chest was empty!");
 		drawTextInBox("T' Davy Jones wit it!","flavor");
-		}else if(nonRecievingPlayers.length == 0){
-			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " chest.");
-			drawTextInBox("Dead man tell no tale.","flavor");
-		}else{
-			drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " treasure chest."+nonRecievingText);
-			drawTextInBox("Dead man tell no tale.","flavor");
-			}
+	}else if(nonRecievingPlayers.length == 0){
+		drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " chest.");
+		drawTextInBox("Dead man tell no tale.","flavor");
+	}else{
+		drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " treasure chest."+nonRecievingText);
+		drawTextInBox("Dead man tell no tale.","flavor");
+	}
 }
 
 // gives a silver or gold coin to the current player and all else on the
