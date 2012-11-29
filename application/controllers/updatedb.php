@@ -11,10 +11,21 @@ class Updatedb extends CI_Controller {
 
 	private function updateRolls($data){
 		$dbData = array(
-			'gameId' => $data[0],
 			'player' => $data[1],
+			$data[2] => $data[2]+"+1"
 			);
 
-		$this->db->insert('rolls',$dbData);
+		$this->db->where('gameID',$data[0]);
+		$this->db->update('rolls',$dbData);
+		$check = $this->db->affected_rows();
+		
+		if($check==0){
+			$dbData = array(
+				'gameID' => $data[0],
+				'player' => $data[1],
+				$data[2] => $data[2]+"+1"
+				);
+			$this->db->insert('rolls',$dbData);
+		}
 	}
 }
