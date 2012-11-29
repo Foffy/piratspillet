@@ -44,8 +44,8 @@ class Updatedb extends CI_Controller {
 		$id = 0;
 		$browser = get_browser(null,true);
 		$dbData = array(
-			'ip' => ""+$_SERVER['REMOTE_ADDR'],
-			'browser' => $browser['parent'],
+			'ip' => $_SERVER['REMOTE_ADDR'],
+			'browser' => 'Chrome',
 			'started' => 'NOW()'
 			);
 		$this->db->insert($data[1],$dbData);
