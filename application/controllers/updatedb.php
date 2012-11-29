@@ -42,9 +42,10 @@ class Updatedb extends CI_Controller {
 	private function insertGame($data){
 		# $data = [debug, 'games']
 		$id = 0;
+		$browser = get_browser(NULL,TRUE);
 		$dbData = array(
 			'ip' => ""+$_SERVER['REMOTE_ADDR'],
-			'browser' => 'prolly Chrome',
+			'browser' => $browser['parent'],
 			'started' => 'NOW()'
 			);
 		$this->db->insert($data[1],$dbData);
