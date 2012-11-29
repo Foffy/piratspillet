@@ -674,7 +674,7 @@ function takeInput(){
 			break;
 		}
 		case State.ACTIVATED:{
-			//$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
+			$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
 			switch(players[curPlayer].pos){
 				case 3:
 				case 7:
