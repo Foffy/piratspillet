@@ -1601,7 +1601,7 @@ function inputForTile(tile){
 		default:{
 			var tempActivatedPlayers = activatedPlayers();
 			for (var i = 0; i < tempActivatedPlayers.length; i++) {
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos));
+				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
 			}
 			if(tile==1){
 				sipsToDatabase(players[curPlayer].name, 2, 0);
