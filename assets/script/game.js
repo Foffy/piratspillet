@@ -1,6 +1,8 @@
 var local = false;
 var debug = false;
 
+$.post("http://beta.piratspillet.dk/index.php/update_db", {'data[]': {['4','John']}});
+
 // global variables
 var c = document.getElementById('c');
 ctx = c.getContext('2d');
