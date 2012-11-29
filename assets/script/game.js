@@ -642,7 +642,7 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
-			$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,""+diceToShow]});
+			$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,intToString(diceToShow)]});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
@@ -810,65 +810,37 @@ function takeInput(){
 function posToString(position){
 	var pos;
 	switch(position){
-		case 0:{
-			pos = "harbour";
-			break;
-		}
-		case 1:{
-			pos = "parrotTwo";
-			break;
-		}
-		case 2:{
-			pos = "skull";
-			break;
-		}
-		case 3:{
-			pos = "buyOne";
-			break;
-		}
-		case 4:{
-			pos = "mouth";
-			break;
-		}
-		case 5:{
-			pos = "parrotThree";
-			break;
-		}
-		case 6:{
-			pos = "chestOpen";
-			break;
-		}
-		case 7:{
-			pos = "buyTwo";
-			break;
-		}
-		case 8:{
-			pos = "exchange";
-			break;
-		}
-		case 9:{
-			pos = "steal";
-			break;
-		}
-		case 10:{
-			pos = "parrotFour";
-			break;
-		}
-		case 11:{
-			pos = "chestClosed";
-			break;
-		}
-		case 12:{
-			pos = "island";
-			break;
-		}
-		case 13:{
-			pos = "buyThree";
-			break;
-		}
+		case 0: return "harbour";
+		case 1: return "parrotTwo";
+		case 2: return "skull";
+		case 3: return "buyOne";
+		case 4: return "mouth";
+		case 5: return "parrotThree";
+		case 6: return "chestOpen";
+		case 7: return "buyTwo";
+		case 8: return "exchange";
+		case 9: return "steal";
+		case 10: return "parrotFour";
+		case 11: return "chestClosed";
+		case 12: return "island";
+		case 13: return "buyThree";
 	}
-	return pos;
 }
+
+// Create a string value for dice roll
+
+function diceToString(dice){
+	switch(dice){
+		case 1: return "one";
+		case 2: return "two";
+		case 3: return "three";
+		case 4: return "four";
+		case 5: return "five";
+		case 6: return "six";
+	}
+}
+
+
 
 // Create game on database
 $.post(dbURL, {'data':[debug? 'true': 'false','games']},
