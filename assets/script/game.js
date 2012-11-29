@@ -642,9 +642,9 @@ function takeInput(){
 			break;
 		}
 		case State.ROLL:{
-			diceToShow = 6;//rollDice(); // real dice roll
+			diceToShow = rollDice(); // real dice roll
 			$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
-			newField = 11;//players[curPlayer].pos + diceToShow;
+			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
 			break;
