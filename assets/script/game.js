@@ -487,7 +487,7 @@ function drawState(){
 			if(curTreasure == null){
 				curTreasure = findTreasure();
 				curSips = treasureToSips(curTreasure);
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, ""+curSips, "0"]});
+				sipsToDatabase(players[curPlayer].name, curSips, 0);
 				
 				// if nothing go
 				if(curSips == 0){
@@ -663,7 +663,7 @@ function takeInput(){
 		}
 		case State.DRINK_TOGETHER:{
 			for (var i = 0; i < players.length; i++) {
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[i].name, "1", "0"]});
+				sipsToDatabase(players[i].name, 1, 0);
 			}
 			curState = State.LANDED;
 			break;
@@ -844,6 +844,10 @@ function diceToString(dice){
 	}
 }
 
+// Update sips table on database
+function sipsToDatabase(player, taken, given){
+	$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
+}
 
 // Update coins table on database
 function coinsToDatabase(player, fromPlayer, gold, silver, whore){
@@ -930,7 +934,7 @@ function giveCoinsByValue(value, player){
 			silverbank--;
 			value -= 1;
 		}
-		$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, ""+value, "0"]});
+		sipsToDatabase(players[curPlayer].name, value, 0);
 		coinsToDatabase(player.name,"",goldCoins,silverCoins,0);
 		return[goldCoins, silverCoins];
 }
@@ -1305,10 +1309,10 @@ function drawLandedTile(tile){
 			// body
 			if(player.gold >= 5){
 				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + " for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + " sips and a Whore Coin is granted to you","body");
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, "0", directly ? "10" : "5"]});
+				sipsToDatabase(players[curPlayer].name, 0, directly ? 10 : 5]});
 			}else if(player.silver > 0 || player.gold > 0){
 				var lastPart = coinsToSipsString(player.gold,player.silver,directly);
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, "0", ""+lastPart]});
+				sipsToDatabase(players[curPlayer].name, 0, lastPart);
 				drawTextInBox("You have plunder to buy rum for your mates! You give away " + lastPart,"body");
 			}else{
 				if(player.skeleton < 2){
@@ -1600,33 +1604,33 @@ function inputForTile(tile){
 				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
 			}
 			if(tile==1){
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, "2", "0"]});
+				sipsToDatabase(players[curPlayer].name, 2, 0]});
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, tempActivatedPlayers[i].name, "2", "0"]});
+					sipsToDatabase(tempActivatedPlayers[i].name, 2, 0]});
 				}
 			}
 			if(tile==2){
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, "5", "0"]});
+				sipsToDatabase(players[curPlayer].name, 5, 0]});
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, tempActivatedPlayers[i].name, "5", "0"]});
+					sipsToDatabase(tempActivatedPlayers[i].name, 5, 0]});
 				}
 			}
 			if(tile==4){
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, "3", "0"]});
+				sipsToDatabase(players[curPlayer].name, 3, 0]});
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, tempActivatedPlayers[i].name, "3", "0"]});
+					sipsToDatabase(tempActivatedPlayers[i].name, 3, 0]});
 				}
 			}
 			if(tile==5){
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, "3", "0"]});
+				sipsToDatabase(players[curPlayer].name, 3, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, tempActivatedPlayers[i].name, "3", "0"]});
+					sipsToDatabase(tempActivatedPlayers[i].name, 3, 0);
 				}
 			}
 			if(tile==10){
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, players[curPlayer].name, "4", "0"]});
+				sipsToDatabase(players[curPlayer].name, 4, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, tempActivatedPlayers[i].name, "4", "0"]});
+					sipsToDatabasetempActivatedPlayers[i].name, 4, 0);
 				}
 			}
 			fieldUsed = false;
