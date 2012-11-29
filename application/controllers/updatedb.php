@@ -25,8 +25,8 @@ class Updatedb extends CI_Controller {
 				break;
 			case 'coins':
 				$this->updateCoins($data);
-				break
-fa;			case 'sips':
+				break;
+			case 'sips':
 				$this->updateSips($data);
 				break;
 		}
