@@ -12,7 +12,7 @@ class Updatedb extends CI_Controller {
 		switch($data[1]){
 			case 'games':
 				$id = $this->insertGame($data);
-				echo $id;
+				echo this->db->mysqli_insert_id()
 				break;
 			case 'rolls':
 				$this->updateRolls($data);
@@ -25,8 +25,8 @@ class Updatedb extends CI_Controller {
 				break;
 			case 'coins':
 				$this->updateCoins($data);
-				break;
-			case 'sips':
+				break
+fa;			case 'sips':
 				$this->updateSips($data);
 				break;
 		}
@@ -38,7 +38,6 @@ class Updatedb extends CI_Controller {
 		$this->db->where('player',$data[3]);
 		$this->db->update($data[1],$dbData);
 		$check = $this->db->affected_rows();
-		echo $check;
 	}
 
 	private function insertGame($data){
