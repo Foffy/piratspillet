@@ -643,7 +643,7 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = 6;//rollDice(); // real dice roll
-			$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
+			//$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
 			newField = 11;//players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
@@ -669,12 +669,12 @@ function takeInput(){
 			break;
 		}
 		case State.LANDED:{
-			$.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
+			//$.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
 			inputForTile(players[curPlayer].pos);
 			break;
 		}
 		case State.ACTIVATED:{
-			$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
+			//$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
 			switch(players[curPlayer].pos){
 				case 3:
 				case 7:
@@ -846,12 +846,12 @@ function diceToString(dice){
 
 // Update sips table on database
 function sipsToDatabase(player, taken, given){
-	$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
+	//$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
 }
 
 // Update coins table on database
 function coinsToDatabase(player, fromPlayer, gold, silver, whore){
-	$.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
+	//$.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
 }
 
 
@@ -1599,7 +1599,7 @@ function inputForTile(tile){
 			break;
 		}
 		default:{
-			var tempActivatedPlayers = activatedPlayers();
+			/*var tempActivatedPlayers = activatedPlayers();
 			for (var i = 0; i < tempActivatedPlayers.length; i++) {
 				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
 			}
@@ -1632,7 +1632,7 @@ function inputForTile(tile){
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
 					sipsToDatabase(tempActivatedPlayers[i].name, 4, 0);
 				}
-			}
+			}*/
 			fieldUsed = false;
 			nextPlayer();
 			curState = State.ROLL;
