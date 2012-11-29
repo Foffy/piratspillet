@@ -516,7 +516,7 @@ function drawState(){
 					drawTextInBox("Activated","header");
 					drawTextInBox(leftToActivate[0].name + " must also drink "+sipsChosen+" sips and recieves: ","center");
 					drawCoinsByValue(sipsChosen,50-coinLargeSize/2,50-2,coinLargeSize,largeCoinDisplacement);
-					break;		
+					break;
 				}
 				case 8:{
 					makeOtherPlayers(leftToActivate[0]);
@@ -841,6 +841,11 @@ function diceToString(dice){
 }
 
 
+// Update coins table on database
+function coinsToDatabase(player, fromPlayer, gold, silver, whore){
+	$.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore});
+}
+
 
 // Create game on database
 $.post(dbURL, {'data':[debug? 'true': 'false','games']},
@@ -921,6 +926,7 @@ function giveCoinsByValue(value, player){
 			silverbank--;
 			value -= 1;
 		}
+		coinsToDatabase(player.name,"",goldCoins,silverCoins,0);
 		return[goldCoins, silverCoins];
 }
 
@@ -1014,7 +1020,7 @@ function printCoinRecieved(coinType){
 // gives a silver or gold coin to the current player and all else on the
 // field, provided the bank can afford it
 function giveCoinFromField(coinType){
-	recievingPlayers = [];		
+	recievingPlayers = [];
 	nonRecievingPlayers = activatedPlayers();
 	nonRecievingPlayers.unshift(players[curPlayer]);
 	
@@ -1023,9 +1029,11 @@ function giveCoinFromField(coinType){
 		if(coinType == "silver"){
 			cur.silver++;
 			silverbank--; // For economical integrity, Jimmy
+			coinsToDatabase(cur, "", 0, 1, 0);
 		}else{
 			cur.gold++;
 			goldbank--; // For economical integrity, Jimmy
+			coinsToDatabase(cur, "", 1, 0, 0);
 		}
 		recievingPlayers.push(cur);
 	}
@@ -1205,6 +1213,9 @@ function switchCoins(p1, p2){
 	p1.silver = p2.silver;
 	p2.gold = tempG;
 	p2.silver = tempS;
+
+	coinsToDatabase(p1.name, p2.name, p1.gold, p1.silver,0);
+	coinsToDatabase(p2.name, p1.name, p2.gold, p2.silver,0);
 }
 
 function drawSwitchTile(player){
@@ -1235,7 +1246,6 @@ function checkForOtherClicked(currentPlayer){
 	var other = otherPlayers[pid];
 	var cur = currentPlayer;
 	switchCoins(cur,other);
-
 	return true;
 }
 
@@ -1256,10 +1266,13 @@ function checkForClickAndSteal(currentPlayer){
 	// transfer coin
 	if(stealType == 0){
 		currentPlayer.silver++;
-		player.silver--;	
+		player.silver--;
+		//player, other, gold, silver, whore
+		coinsToDatabase(currentPlayer.name, player.name, 0, 1, 0);
 	}else if(stealType == 1){
 		currentPlayer.gold++;
 		player.gold--;
+		coinsToDatabase(currentPlayer.name, player.name, 1, 0, 0);
 	}
 
 	return true;
@@ -1565,7 +1578,7 @@ function inputForTile(tile){
 				if(leftToActivate.length == 0){
 					nextPlayer();
 					curState = State.ROLL;
-          sipsChosen = 0;
+            sipsChosen = 0;
 				}
 			}
 			break;
