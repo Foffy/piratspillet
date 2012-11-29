@@ -4,9 +4,11 @@ class Update_db extends CI_Controller {
 
 	public function index(){
 		$data = $this->input->post('data');
+		updateRolls($data);
+
 	}
 
-	public function updateRolls($data){
+	private function updateRolls($data){
 		$dbData = array(
 			'gameId' => $data[0],
 			'player' => $data[1],
