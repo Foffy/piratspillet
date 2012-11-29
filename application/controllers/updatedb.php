@@ -36,8 +36,7 @@ class Updatedb extends CI_Controller {
 		$check = 0;
 		$this->db->where('gameID',$data[2]);
 		$this->db->where('player',$data[3]);
-		$this->db->update($data[1],$dbData);
-		$check = $this->db->affected_rows();
+		$check = $this->db->update($data[1],$dbData);
 	}
 
 	private function insertGame($data){
