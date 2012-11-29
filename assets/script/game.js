@@ -669,7 +669,7 @@ function takeInput(){
 			break;
 		}
 		case State.LANDED:{
-			//$.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
+			$.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
 			inputForTile(players[curPlayer].pos);
 			break;
 		}
