@@ -1,4 +1,7 @@
-$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['debug','games']});
+$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['debug','games']},
+	function(data) {
+		alert("Data loaded: "+data);
+	});
 //$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['debug','rolls','1', 'Foffy', 'two']});
 //$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['debug','landed','1', 'Foffy', 'buyOne']});
 //$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['debug','activated','1', 'Emil', 'chestOpen']});

@@ -49,6 +49,7 @@ class Updatedb extends CI_Controller {
 			'started' => 'NOW()'
 			);
 			$id = $this->db->insert($data[1],$dbData);
+		return id;
 
 	}
 
