@@ -260,7 +260,7 @@ function addImage(fileName){
 
 // constants and stuff
 var gameID;
-var dbURL = 'http://beta.piratspillet.dk/index.php/updatedb'
+var dbURL = 'http://beta.piratspillet.dk/index.php/updatedb';
 var players = [];
 var curPlayer = 0;
 var curState = null;
@@ -642,7 +642,7 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
-			$.post(dbURL, { 'data[]': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,""+diceToShow]});
+			$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,""+diceToShow]});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
@@ -665,12 +665,12 @@ function takeInput(){
 			break;
 		}
 		case State.LANDED:{
-			$.post(dbURL, { 'data[]': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
+			$.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
 			inputForTile(players[curPlayer].pos);
 			break;
 		}
 		case State.ACTIVATED:{
-			$.post(dbURL, {'data[]':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
+			$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
 			switch(players[curPlayer].pos){
 				case 3:
 				case 7:
@@ -871,11 +871,12 @@ function posToString(position){
 }
 
 // Create game on database
-$.post(dbURL, {'data[]':[debug? 'true': 'false','games']},
+$.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	function(data) {
 		gameID = data;
 	});
 
+alert(gameID);
 // INITIALISATION
 GameLoop();
 
@@ -1605,7 +1606,7 @@ function inputForTile(tile){
 		default:{
 			var tempActivatedPlayers = activatedPlayers();
 			for (var i = 0; i < tempActivatedPlayers.length; i++) {
-				$.post(dbURL, {'data[]':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
+				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
 			}
 			fieldUsed = false;
 			nextPlayer();
