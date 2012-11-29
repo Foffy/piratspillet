@@ -1309,7 +1309,7 @@ function drawLandedTile(tile){
 			// body
 			if(player.gold >= 5){
 				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + " for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + " sips and a Whore Coin is granted to you","body");
-				sipsToDatabase(players[curPlayer].name, 0, directly ? 10 : 5]});
+				sipsToDatabase(players[curPlayer].name, 0, directly ? 10 : 5);
 			}else if(player.silver > 0 || player.gold > 0){
 				var lastPart = coinsToSipsString(player.gold,player.silver,directly);
 				sipsToDatabase(players[curPlayer].name, 0, lastPart);
