@@ -46,7 +46,7 @@ class Updatedb extends CI_Controller {
 		$dbData = array(
 			'ip' => $_SERVER['REMOTE_ADDR'],
 			'browser' => 'TODO',
-			'started' => 'NOW()'
+			'started' => 'GETDATE()'
 			);
 		$this->db->insert($data[1],$dbData);
 		$id = $this->db->insert_id();
