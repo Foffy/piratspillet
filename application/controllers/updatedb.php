@@ -6,7 +6,7 @@ class Updatedb extends CI_Controller {
 	{
 		$data = $this->input->post('data');
 		if($data[0]=='debug'){
-			$this->db_debug = $this->CI->load->database('debug', TRUE); 
+			$this->load->database('debug', TRUE); 
 		}
 
 		switch($data[1]){
@@ -33,18 +33,10 @@ class Updatedb extends CI_Controller {
 
 	private function updateDatabase($data){
 		$check = 0;
-		if($data[0] != 'debug'){
-			$this->db->where('gameID',$data[2]);
-			$this->db->where('player',$data[3]);
-			$this->db->update($data[1],$dbData);
-			$check = $this->db->affected_rows();
-		}else{
-			$this->db_debug->where('gameID',$data[2]);
-			$this->db_debug->where('player',$data[3]);
-			$this->db_debug->update($data[1],$dbData);
-			$check = $this->db_debug->affected_rows();
-		}
-
+		$this->db->where('gameID',$data[2]);
+		$this->db->where('player',$data[3]);
+		$this->db->update($data[1],$dbData);
+		$check = $this->db->affected_rows();
 		return $check;
 	}
 
@@ -56,11 +48,8 @@ class Updatedb extends CI_Controller {
 			'browser' => 'prolly Chrome',
 			'started' => 'NOW()'
 			);
-		if($data[0] != 'debug'){
 			$id = $this->db->insert($data[1],$dbData);
-		}else{
-			$id = $this->db_debug->insert($data[1],$dbData);
-		}
+
 	}
 
 	private function updateRolls($data){
@@ -80,11 +69,8 @@ class Updatedb extends CI_Controller {
 				'first' => "NOW()",
 				'last' => "NOW()"
 				);
-			if($data[0]!='debug'){
-				$this->db->insert($data[1],$dbData);
-			}else{
-				$this->db_debug->insert($data[1],$dbData);
-			}
+			$this->db->insert($data[1],$dbData);
+
 		}
 	}
 
@@ -102,11 +88,9 @@ class Updatedb extends CI_Controller {
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1"
 				);
-			if($data[0]!='debug'){
-				$this->db->insert($data[1],$dbData);
-			}else{
-				$this->db_debug->insert($data[1],$dbData);
-			}
+
+			$this->db->insert($data[1],$dbData);
+
 		}
 	}
 
@@ -124,11 +108,8 @@ class Updatedb extends CI_Controller {
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1"
 				);
-			if($data[0]!='debug'){
-				$this->db->insert($data[1],$dbData);
-			}else{
-				$this->db_debug->insert($data[1],$dbData);
-			}
+			$this->db->insert($data[1],$dbData);
+
 		}
 	}
 
@@ -150,11 +131,7 @@ class Updatedb extends CI_Controller {
 				'silver' => $data[5],
 				'whore' => $data[6]
 				);
-			if($data[0]!='debug'){
-				$this->db->insert($data[1],$dbData);
-			}else{
-				$this->db_debug->insert($data[1],$dbData);
-			}
+			$this->db->insert($data[1],$dbData);
 		}
 	}
 
@@ -174,11 +151,7 @@ class Updatedb extends CI_Controller {
 				'taken' => $data[4],
 				'given' => $data[5]
 				);
-			if($data[0]!='debug'){
-				$this->db->insert($data[1],$dbData);
-			}else{
-				$this->db_debug->insert($data[1],$dbData);
-			}
+			$this->db->insert($data[1],$dbData);
 		}
 	}
 }
