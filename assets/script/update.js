@@ -1,1 +1,1 @@
-$.post("http://beta.piratspillet.dk/index.php/update_db", {'data':['4','John']});
+$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['4','John']});
