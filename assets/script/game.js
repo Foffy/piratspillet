@@ -851,7 +851,7 @@ function sipsToDatabase(player, taken, given){
 
 // Update coins table on database
 function coinsToDatabase(player, fromPlayer, gold, silver, whore){
-	//$.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
+	$.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
 }
 
 
