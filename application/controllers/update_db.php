@@ -6,10 +6,10 @@ class Update_db extends CI_Controller {
 		$data = $this->input->post('data');
 	}
 
-	private function updateRolls($dataInput){
+	private function updateRolls($data){
 		$dbData = array(
-			'gameId' => $dataInput[0],
-			'player' => $dataInput[1],
+			'gameId' => $data[0],
+			'player' => $data[1],
 			);
 
 		$this->db->insert('rolls',$dbData);
