@@ -642,7 +642,6 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
-			alert(gameID);
 			$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
@@ -846,7 +845,8 @@ function diceToString(dice){
 // Create game on database
 $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	function(data) {
-		gameID = ""+data;
+		alert(data);
+		gameID = data;
 	});
 
 // INITIALISATION
