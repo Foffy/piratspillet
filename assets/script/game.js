@@ -1,5 +1,5 @@
 var local = false;
-var debug = false;
+var debug = true;
 
 // global variables
 var c = document.getElementById('c');
@@ -388,12 +388,6 @@ State = {
 	SITTING_OUT : "10: Player sitting out",
 	DRINK_TOGETHER : "11: Everybody drinks together"
 }
-
-
-$.post(dbURL, {'data[]':[debug? 'true': 'false','games']},
-	function(data) {
-		gameID = data;
-	});
 
 
 // the main gameloop function
@@ -875,6 +869,12 @@ function posToString(position){
 	}
 	return pos;
 }
+
+// Create game on database
+$.post(dbURL, {'data[]':[debug? 'true': 'false','games']},
+	function(data) {
+		gameID = data;
+	});
 
 // INITIALISATION
 GameLoop();
