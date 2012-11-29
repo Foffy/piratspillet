@@ -335,6 +335,8 @@ function Player(name){
 	}
 	
 	this.draw = function(){
+		if(!this.active) return;
+
 		var coords = boardPositions[this.pos];
 		var center = [coords[0]+this.offset[0],coords[1]+this.offset[1]];
 		this.drawXY(center[0],center[1]);
@@ -608,10 +610,17 @@ function takeInput(){
 	// icons clicked?
 	if(curState == State.ROLL){
 		if(getMouseClick(80,1,20,diceSize)){ // sit out
-			players[curPlayer].active = false;
+			var player = players[curPlayer]
+			player.active = false;
 			nextPlayer();
 			curState = State.ROLL;
 			mouseClicked = null;
+
+			// remove coins
+			goldbank += player.gold;
+			silverbank += player.silver;
+			player.gold = 0;
+			player.silver = 0;
 			return;
 
 		}else if(getMouseClick(80,2+diceSize,20,diceSize)){ // add player
@@ -622,7 +631,12 @@ function takeInput(){
 	}
 	
 	switch(curState){
-		case State.SITTING_OUT:
+		case State.SITTING_OUT:{
+			players[curPlayer].active = true;
+			curState = State.ROLL;
+			newTimeout = 20;
+			break;
+		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
 			newField = players[curPlayer].pos + diceToShow;
@@ -871,7 +885,7 @@ function activatedPlayers(){
 	// gather players
 	var start = curPlayer+1 == players.length ? 0 : (curPlayer+1);
 	for(var i = start; i != curPlayer; i = i < (players.length-1) ? i+1 : 0){
-		if(i != curPlayer && players[i].pos == players[curPlayer].pos){
+		if(i != curPlayer && players[i].pos == players[curPlayer].pos && players[i].active){
 			matches.push(players[i]);
 		}
 	}
