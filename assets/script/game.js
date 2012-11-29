@@ -1630,7 +1630,7 @@ function inputForTile(tile){
 			if(tile==10){
 				sipsToDatabase(players[curPlayer].name, 4, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					sipsToDatabasetempActivatedPlayers[i].name, 4, 0);
+					sipsToDatabase(tempActivatedPlayers[i].name, 4, 0);
 				}
 			}
 			fieldUsed = false;
