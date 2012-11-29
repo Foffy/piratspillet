@@ -1042,7 +1042,7 @@ function giveCoinFromField(coinType){
 		}else{
 			cur.gold++;
 			goldbank--; // For economical integrity, Jimmy
-			//coinsToDatabase(cur, "", 1, 0, 0);
+			coinsToDatabase(cur, "", 1, 0, 0);
 		}
 		recievingPlayers.push(cur);
 	}
