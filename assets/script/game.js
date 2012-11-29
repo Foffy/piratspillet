@@ -876,7 +876,6 @@ $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 		gameID = data;
 	});
 
-alert(gameID);
 // INITIALISATION
 GameLoop();
 

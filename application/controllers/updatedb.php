@@ -12,7 +12,7 @@ class Updatedb extends CI_Controller {
 		switch($data[1]){
 			case 'games':
 				$id = $this->insertGame($data);
-				echo $id;
+				return $id;
 				break;
 			case 'rolls':
 				$this->updateRolls($data);
