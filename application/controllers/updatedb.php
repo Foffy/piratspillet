@@ -48,8 +48,9 @@ fa;			case 'sips':
 			'browser' => 'prolly Chrome',
 			'started' => 'NOW()'
 			);
-			$id = $this->db->insert($data[1],$dbData);
-		echo $this->db->mysql_insert_id();
+		$this->db->insert($data[1],$dbData);
+		$id = $this->db->insert_id();
+		return $id;
 	}
 
 	private function updateRolls($data){
