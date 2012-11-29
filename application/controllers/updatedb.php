@@ -40,7 +40,7 @@ class Updatedb extends CI_Controller {
 	}
 
 	private function insertGame($data){
-		# $data = ['games']
+		# $data = [debug, 'games']
 		$id = 0;
 		$dbData = array(
 			'ip' => 'IP',
@@ -53,7 +53,7 @@ class Updatedb extends CI_Controller {
 	}
 
 	private function updateRolls($data){
-		# $data = ['rolls', gameID, player, dice]
+		# $data = [debug, 'rolls', gameID, player, dice]
 		$dbData = array(
 			$data[4] => $data[4]+"+1",
 			'last' => "NOW()"
@@ -75,7 +75,7 @@ class Updatedb extends CI_Controller {
 	}
 
 	private function updateLanded($data){
-		# $data = ['landed', gameID, player, field]
+		# $data = [debug, 'landed', gameID, player, field]
 		$dbData = array(
 			$data[4] => $data[4]+"+1",
 			);
@@ -95,7 +95,7 @@ class Updatedb extends CI_Controller {
 	}
 
 	private function updateActivated($data){
-		# $data = ['activated', gameID, player, field]
+		# $data = [debug, 'activated', gameID, player, field]
 		$dbData = array(
 			$data[4] => $data[4]+"+1",
 			);
@@ -114,7 +114,7 @@ class Updatedb extends CI_Controller {
 	}
 
 	private function updateCoins($data){
-		# $data = ['coins', gameID, player, fromPlayer, gold, silver, whore]
+		# $data = [debug, 'coins', gameID, player, fromPlayer, gold, silver, whore]
 		$dbData = array(
 			'gameId' => $data[2],
 			'player' => $data[3],
@@ -127,7 +127,7 @@ class Updatedb extends CI_Controller {
 	}
 
 	private function updateSips($data){
-		# $data = ['sips', gameID, player, taken, given]
+		# $data = [debug, 'sips', gameID, player, taken, given]
 		$dbData = array(
 			'taken' => $data[4],
 			'given' => $data[5]
