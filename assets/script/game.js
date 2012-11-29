@@ -1038,7 +1038,7 @@ function giveCoinFromField(coinType){
 		if(coinType == "silver"){
 			cur.silver++;
 			silverbank--; // For economical integrity, Jimmy
-			//coinsToDatabase(cur, "", 0, 1, 0);
+			coinsToDatabase(cur, "", 0, 1, 0);
 		}else{
 			cur.gold++;
 			goldbank--; // For economical integrity, Jimmy
