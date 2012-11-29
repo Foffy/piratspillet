@@ -1038,11 +1038,11 @@ function giveCoinFromField(coinType){
 		if(coinType == "silver"){
 			cur.silver++;
 			silverbank--; // For economical integrity, Jimmy
-			coinsToDatabase(cur, "", 0, 1, 0);
+			coinsToDatabase(cur.name, "", 0, 1, 0);
 		}else{
 			cur.gold++;
 			goldbank--; // For economical integrity, Jimmy
-			coinsToDatabase(cur, "", 1, 0, 0);
+			coinsToDatabase(cur.name, "", 1, 0, 0);
 		}
 		recievingPlayers.push(cur);
 	}
@@ -1223,8 +1223,8 @@ function switchCoins(p1, p2){
 	p2.gold = tempG;
 	p2.silver = tempS;
 
-	//coinsToDatabase(p1.name, p2.name, p1.gold, p1.silver,0);
-	//coinsToDatabase(p2.name, p1.name, p2.gold, p2.silver,0);
+	coinsToDatabase(p1.name, p2.name, p1.gold, p1.silver,0);
+	coinsToDatabase(p2.name, p1.name, p2.gold, p2.silver,0);
 }
 
 function drawSwitchTile(player){
@@ -1276,12 +1276,12 @@ function checkForClickAndSteal(currentPlayer){
 	if(stealType == 0){
 		currentPlayer.silver++;
 		player.silver--;
-		//player, other, gold, silver, whore
-		//coinsToDatabase(currentPlayer.name, player.name, 0, 1, 0);
+
+		coinsToDatabase(currentPlayer.name, player.name, 0, 1, 0);
 	}else if(stealType == 1){
 		currentPlayer.gold++;
 		player.gold--;
-		//coinsToDatabase(currentPlayer.name, player.name, 1, 0, 0);
+		coinsToDatabase(currentPlayer.name, player.name, 1, 0, 0);
 	}
 
 	return true;
