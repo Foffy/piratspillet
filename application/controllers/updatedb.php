@@ -32,7 +32,7 @@ class Updatedb extends CI_Controller {
 		}
 	}
 
-	private function updateDatabase($data){
+	private function updateDatabase($data, $dbData){
 		$check = 0;
 		$this->db->where('gameId',$data[2]);
 		$this->db->where('player',$data[3]);
@@ -59,7 +59,7 @@ class Updatedb extends CI_Controller {
 			'last' => "NOW()"
 			);
 
-		$check = $this->updateDatabase($data);
+		$check = $this->updateDatabase($data, $dbData);
 
 		if($check==0){
 			$dbData = array(
@@ -80,7 +80,7 @@ class Updatedb extends CI_Controller {
 			$data[4] => $data[4]+"+1",
 			);
 
-		$check = $this->updateDatabase($data);
+		$check = $this->updateDatabase($data,$dbData);
 
 		if($check ==0){
 			$dbData = array(
@@ -100,7 +100,7 @@ class Updatedb extends CI_Controller {
 			$data[4] => $data[4]+"+1",
 			);
 
-		$check = $this->updateDatabase($data);
+		$check = $this->updateDatabase($data,$dbData);
 
 		if($check ==0){
 			$dbData = array(
@@ -133,7 +133,7 @@ class Updatedb extends CI_Controller {
 			'given' => $data[5]
 			);
 
-		$check = $this->updateDatabase($data);
+		$check = $this->updateDatabase($data,$dbData);
 
 		if($check==0){
 			$dbData = array(
