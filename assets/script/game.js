@@ -1601,24 +1601,24 @@ function inputForTile(tile){
 		default:{
 			var tempActivatedPlayers = activatedPlayers();
 			for (var i = 0; i < tempActivatedPlayers.length; i++) {
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
+				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos));
 			}
 			if(tile==1){
-				sipsToDatabase(players[curPlayer].name, 2, 0]});
+				sipsToDatabase(players[curPlayer].name, 2, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					sipsToDatabase(tempActivatedPlayers[i].name, 2, 0]});
+					sipsToDatabase(tempActivatedPlayers[i].name, 2, 0);
 				}
 			}
 			if(tile==2){
-				sipsToDatabase(players[curPlayer].name, 5, 0]});
+				sipsToDatabase(players[curPlayer].name, 5, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					sipsToDatabase(tempActivatedPlayers[i].name, 5, 0]});
+					sipsToDatabase(tempActivatedPlayers[i].name, 5, 0);
 				}
 			}
 			if(tile==4){
-				sipsToDatabase(players[curPlayer].name, 3, 0]});
+				sipsToDatabase(players[curPlayer].name, 3, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
-					sipsToDatabase(tempActivatedPlayers[i].name, 3, 0]});
+					sipsToDatabase(tempActivatedPlayers[i].name, 3, 0);
 				}
 			}
 			if(tile==5){
