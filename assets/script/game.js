@@ -845,8 +845,7 @@ function diceToString(dice){
 // Create game on database
 $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	function(data) {
-		alert(data);
-		gameID = data;
+		gameID = ""+data;
 	});
 
 // INITIALISATION
