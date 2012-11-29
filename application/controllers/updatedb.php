@@ -14,3 +14,4 @@ class Updatedb extends CI_Controller {
 		$this->db->insert('rolls',$dbData);
 
 	}
+}
