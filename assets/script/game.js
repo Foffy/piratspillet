@@ -1,3 +1,8 @@
+/*$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['debug','games']},
+	function(data) {
+		alert("Data loaded: "+data);
+	});*/
+
 var local = false;
 var debug = false;
 

@@ -5,7 +5,7 @@ class Updatedb extends CI_Controller {
 	public function index()
 	{
 		$data = $this->input->post('data');
-		if($data[0]=='debug'){
+		if($data[0]==TRUE){
 			$this->load->database('debug', TRUE); 
 		}
 
