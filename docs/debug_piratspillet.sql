@@ -3,7 +3,7 @@ DROP DATABASE debug_piratspillet;
 CREATE DATABASE debug_piratspillet;
 
 -- Create tables
-CREATE TABLE debug_piratspillet.games (id int(6) NOT NULL AUTO_INCREMENT, varchar(25) ip, varchar(255) browser, started datetime NOT NULL, PRIMARY KEY(id));
+CREATE TABLE debug_piratspillet.games (id int NOT NULL AUTO_INCREMENT, ip varchar(25), browser varchar(255), started datetime NOT NULL, PRIMARY KEY(id));
 
 CREATE TABLE debug_piratspillet.rolls (gameId int(6) NOT NULL, player varchar(25) NOT NULL, first datetime NOT NULL, last datetime NOT NULL, one int(6) DEFAULT 0, two int(6) DEFAULT 0, three int(6) DEFAULT 0, four int(6) DEFAULT 0, five int(6) DEFAULT 0, six int(6) DEFAULT 0, PRIMARY KEY (gameId,player), FOREIGN KEY (gameId) REFERENCES debug_piratspillet.games(id));
 
