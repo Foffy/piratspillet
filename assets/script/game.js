@@ -1602,7 +1602,7 @@ function inputForTile(tile){
 			var tempActivatedPlayers = activatedPlayers();
 			for (var i = 0; i < tempActivatedPlayers.length; i++) {
 				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
-			}/*
+			}
 			if(tile==1){
 				sipsToDatabase(players[curPlayer].name, 2, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
@@ -1632,7 +1632,7 @@ function inputForTile(tile){
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
 					sipsToDatabase(tempActivatedPlayers[i].name, 4, 0);
 				}
-			}*/
+			}
 			fieldUsed = false;
 			nextPlayer();
 			curState = State.ROLL;
