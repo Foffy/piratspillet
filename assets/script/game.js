@@ -846,7 +846,7 @@ function diceToString(dice){
 
 // Update sips table on database
 function sipsToDatabase(player, taken, given){
-	//$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
+	$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
 }
 
 // Update coins table on database
