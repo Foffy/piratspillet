@@ -5,7 +5,7 @@ class Updatedb extends CI_Controller {
 	public function index()
 	{
 		$data = $this->input->post('data');
-		updateRolls($data);
+		$this->updateRolls($data);
 
 	}
 
