@@ -5,7 +5,7 @@ class Updatedb extends CI_Controller {
 	public function index()
 	{
 		$data = $this->input->post('data');
-		if($data[0]==TRUE){
+		if($data[0]=='true'){
 			$this->load->database('debug', TRUE); 
 		}
 
@@ -34,7 +34,7 @@ class Updatedb extends CI_Controller {
 
 	private function updateDatabase($data){
 		$check = 0;
-		$this->db->where('gameID',$data[2]);
+		$this->db->where('gameId',$data[2]);
 		$this->db->where('player',$data[3]);
 		$check = $this->db->update($data[1],$dbData);
 	}
@@ -63,7 +63,7 @@ class Updatedb extends CI_Controller {
 
 		if($check==0){
 			$dbData = array(
-				'gameID' => $data[2],
+				'gameId' => $data[2],
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1",
 				'first' => "NOW()",
@@ -114,25 +114,16 @@ class Updatedb extends CI_Controller {
 	}
 
 	private function updateCoins($data){
-		# $data = ['coins', gameID, player, gold, silver, whore]
+		# $data = ['coins', gameID, player, fromPlayer, gold, silver, whore]
 		$dbData = array(
-			'gold' => 'gold'+$data[4],
-			'silver' => 'silver'+$data[5],
-			'whore' => 'whore'+$data[6]
+			'gameId' => $data[2],
+			'player' => $data[3],
+			'fromPlayer' => $data[4],
+			'gold' => $data[5],
+			'silver' => $data[6],
+			'whore' => $data[7]
 			);
-
-		$check = $this->updateDatabase($data);
-
-		if($check==0){
-			$dbData = array(
-				'gameID' => $data[2],
-				'player' => $data[3],
-				'gold' => $data[4],
-				'silver' => $data[5],
-				'whore' => $data[6]
-				);
-			$this->db->insert($data[1],$dbData);
-		}
+		$this->db->insert($data[1],$dbData);
 	}
 
 	private function updateSips($data){
@@ -146,7 +137,7 @@ class Updatedb extends CI_Controller {
 
 		if($check==0){
 			$dbData = array(
-				'gameID' => $data[2],
+				'gameId' => $data[2],
 				'player' => $data[3],
 				'taken' => $data[4],
 				'given' => $data[5]

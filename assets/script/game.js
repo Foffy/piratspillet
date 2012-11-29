@@ -1,10 +1,3 @@
-/*
-$.post("http://beta.piratspillet.dk/index.php/updatedb", {'data':['debug','games']},
-	function(data) {
-		alert("Data loaded: "+data);
-	});
-*/
-
 var local = false;
 var debug = false;
 
@@ -266,6 +259,8 @@ function addImage(fileName){
 // THE ACTUAL GAME
 
 // constants and stuff
+var gameID;
+var dbURL = 'http://beta.piratspillet.dk/index.php/updatedb'
 var players = [];
 var curPlayer = 0;
 var curState = null;
@@ -393,6 +388,13 @@ State = {
 	SITTING_OUT : "10: Player sitting out",
 	DRINK_TOGETHER : "11: Everybody drinks together"
 }
+
+
+$.post(dbURL, {'data[]':[debug? 'true': 'false','games']},
+	function(data) {
+		gameID = data;
+	});
+
 
 // the main gameloop function
 function GameLoop(){
@@ -646,6 +648,7 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
+			$.post(dbURL, { 'data[]': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,""+diceToShow]});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
@@ -668,10 +671,12 @@ function takeInput(){
 			break;
 		}
 		case State.LANDED:{
+			$.post(dbURL, { 'data[]': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
 			inputForTile(players[curPlayer].pos);
 			break;
 		}
 		case State.ACTIVATED:{
+			$.post(dbURL, {'data[]':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
 			switch(players[curPlayer].pos){
 				case 3:
 				case 7:
@@ -804,6 +809,71 @@ function takeInput(){
 	}
 	
 	mouseClicked = null; // click consumed
+}
+
+
+// Creates a string value for a position
+function posToString(position){
+	var pos;
+	switch(position){
+		case 0:{
+			pos = "harbour";
+			break;
+		}
+		case 1:{
+			pos = "parrotTwo";
+			break;
+		}
+		case 2:{
+			pos = "skull";
+			break;
+		}
+		case 3:{
+			pos = "buyOne";
+			break;
+		}
+		case 4:{
+			pos = "mouth";
+			break;
+		}
+		case 5:{
+			pos = "parrotThree";
+			break;
+		}
+		case 6:{
+			pos = "chestOpen";
+			break;
+		}
+		case 7:{
+			pos = "buyTwo";
+			break;
+		}
+		case 8:{
+			pos = "exchange";
+			break;
+		}
+		case 9:{
+			pos = "steal";
+			break;
+		}
+		case 10:{
+			pos = "parrotFour";
+			break;
+		}
+		case 11:{
+			pos = "chestClosed";
+			break;
+		}
+		case 12:{
+			pos = "island";
+			break;
+		}
+		case 13:{
+			pos = "buyThree";
+			break;
+		}
+	}
+	return pos;
 }
 
 // INITIALISATION
@@ -1533,6 +1603,10 @@ function inputForTile(tile){
 			break;
 		}
 		default:{
+			var tempActivatedPlayers = activatedPlayers();
+			for (var i = 0; i < tempActivatedPlayers.length; i++) {
+				$.post(dbURL, {'data[]':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
+			}
 			fieldUsed = false;
 			nextPlayer();
 			curState = State.ROLL;
