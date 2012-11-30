@@ -1,4 +1,4 @@
-var local = false;
+var local = true;
 var debug = true;
 
 // global variables
@@ -437,7 +437,7 @@ function drawState(){
 
 			drawTextInBox(players[curPlayer].name+"'s Turn","header");
 			drawTextInBox("Click the die to determine your roll");
-			drawTextInBox("Avast! Pull Me Mast!","flavor");
+			drawTextInBox("Avast! Shiver me timbers!","flavor");
 			break;
 		}
 		case State.GAME_WON:{
@@ -445,6 +445,7 @@ function drawState(){
 			drawBox(null);
 			drawTextInBox("Game Won!","header");
 			drawTextInBox(onTileActivatedString(winners)+(winners.length > 1 ? " have" : " has")+" won the game and "+(winners.length > 1 ? "are" : "is")+" now promoted to Über Pirate Captain"+(winners.length > 1 ? "s!" : "!"));
+			drawTextInBox("Only Über Pirate Captains get both the beauties and the booty! ARRGH!","flavor");
 			break;
 		}
 		case State.SITTING_OUT:{
@@ -500,7 +501,7 @@ function drawState(){
 			drawBox(players[curPlayer]);
 			drawTextInBox("Hidden Treasure!","header");
 			drawTextInBox("Arrr! "+players[curPlayer].name+" has found a treasure!!! There be "+curSips+" sips for "+onTileString()+".");
-			drawTextInBox("Flavurrrrrrr text!","flavor");
+			drawTextInBox("It's a pass-time that never gets old","flavor");
 			break;
 		}
 		case State.LANDED:{
@@ -548,20 +549,22 @@ function drawState(){
 		}
 		case State.COIN_STOLEN:{
 			drawBox(leftToActivate[0]);
-			drawTextInBox("You don't have permission to be aboard there mate!","flavor");
 			var coinImg = null;
 			switch(stealType){
 				case -1:{ // nothing
 					drawTextInBox("Nothing To Steal","header");
+					drawTextInBox("Our holds be empty, mate","flavor");
 					break;
 				}
 				case 0:{ // silver
 					drawTextInBox("Silver Coin Stolen","header");
+					drawTextInBox("Hands off the booty, you bilge rat!","flavor");
 					coinImg = imgSilverLarge;
 					break;
 				}
 				case 1:{ // gold
 					drawTextInBox("Gold Coin Stolen","header");
+					drawTextInBox("Hands off the booty, you bilge rat!","flavor");
 					coinImg = imgGoldLarge;
 					break;
 				}
@@ -643,7 +646,7 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
-			$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
+			if(!local) $.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
@@ -669,12 +672,12 @@ function takeInput(){
 			break;
 		}
 		case State.LANDED:{
-			$.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
+			if(!local) $.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
 			inputForTile(players[curPlayer].pos);
 			break;
 		}
 		case State.ACTIVATED:{
-			$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
+			if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, leftToActivate[0].name, posToString(leftToActivate[0].pos)]});
 			switch(players[curPlayer].pos){
 				case 3:
 				case 7:
@@ -846,17 +849,17 @@ function diceToString(dice){
 
 // Update sips table on database
 function sipsToDatabase(player, taken, given){
-	$.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
+	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
 }
 
 // Update coins table on database
 function coinsToDatabase(player, fromPlayer, gold, silver, whore){
-	$.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
+	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
 }
 
 
 // Create game on database
-$.post(dbURL, {'data':[debug? 'true': 'false','games']},
+if(!local) $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	function(data) {
 		gameID = ""+data;
 	});
@@ -1016,13 +1019,13 @@ function printCoinRecieved(coinType){
 	
 	if(recievingPlayers.length == 0){
 		drawTextInBox(onTileActivatedString(nonRecievingPlayers)+" receives nothing 'cus the treasure chest was empty!");
-		drawTextInBox("T' Davy Jones wit it!","flavor");
+		drawTextInBox("Don't hang ye jib","flavor");
 	}else if(nonRecievingPlayers.length == 0){
 		drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " chest.");
-		drawTextInBox("Dead man tell no tale.","flavor");
+		drawTextInBox(coinType == "silver" ? "Prizes come in many sizes" : "Chests o'plenty","flavor");
 	}else{
 		drawTextInBox(onTileActivatedString(recievingPlayers)+" receives a "+coinType+" coin from the " + (newField == 6 ? "open" : "closed") + " treasure chest."+nonRecievingText);
-		drawTextInBox("Dead man tell no tale.","flavor");
+		drawTextInBox(coinType == "silver" ? "Prizes come in many sizes" : "Chests o'plenty","flavor");
 	}
 }
 
@@ -1326,11 +1329,13 @@ function drawLandedTile(tile){
 		case 1:{
 			drawTextInBox("Fucked by Parrot!","header");
 			drawTextInBox("You have been fucked twice by the parrot. "+onTileString()+" must drink 2 sips!");
+			drawTextInBox("T' be wenching, you need rum 'n ye parrot be no 'ception","flavor");
 			break;
 		}
 		case 2:{
 			drawTextInBox("Skull n' Bones","header");
 			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" landed on the skull and bones and must empty half a beer, unless you have a Skull n' Bones on you, then it's only half of that.");
+			drawTextInBox("Drink up, me hearties, yo ho!","flavor");
 			break;
 		}
 		case 3:
@@ -1348,12 +1353,13 @@ function drawLandedTile(tile){
 		case 4:{
 			drawTextInBox("Mouth full","header");
 			drawTextInBox("You must fill your mouth with beer before swallowing it, "+onTileString()+".");
-			drawTextInBox("Arrr! Bring more beer!","flavor");
+			drawTextInBox("Put 'im in ye longboat 'till he's sober!","flavor");
 			break;
 		}
 		case 5:{
 			drawTextInBox("Fucked by Parrot!","header");
 			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" been fucked three times by the parrot. Drink 3 sips to ease the pain.");
+			drawTextInBox("T' be wenching, you need rum 'n ye parrot be no 'ception","flavor");
 			break;
 		}
 		case 6:{
@@ -1388,6 +1394,7 @@ function drawLandedTile(tile){
 		case 10:{
 			drawTextInBox("Fucked by Parrot!","header");
 			drawTextInBox(onTileString()+(activatedPlayers().length > 0 ? " have" : " has")+" been fucked four times by the parrot. Drink 4 sips to douse the pain.");
+			drawTextInBox("T' be wenching, you need rum 'n ye parrot be no 'ception","flavor");
 			break;
 		}
 		case 11:{
@@ -1436,7 +1443,7 @@ function digDownOption(player){
 	}else{
 		drawTextInBox(player.name+" is too poor to dig down treasure on the island!");
 	}
-	drawTextInBox("X marks the spot","flavor");
+	drawTextInBox("X marks the spot, landlubber","flavor");
 }
 
 function digDownOptionInput(player){
@@ -1601,7 +1608,7 @@ function inputForTile(tile){
 		default:{
 			var tempActivatedPlayers = activatedPlayers();
 			for (var i = 0; i < tempActivatedPlayers.length; i++) {
-				$.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
+				if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'activated', gameID, tempActivatedPlayers[i].name, posToString(tempActivatedPlayers[i].pos)]});
 			}
 			if(tile==1){
 				sipsToDatabase(players[curPlayer].name, 2, 0);
