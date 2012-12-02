@@ -35,13 +35,13 @@ class Updatedb extends CI_Controller {
 	private function updateDatabase($data, $dbData){
 		$this->db->where('gameId',$data[2]);
 		$this->db->where('player',$data[3]);
-		$check = $this->db->update($data[1],$dbData);
+		$this->db->update($data[1],$dbData);
+		$check = mysqli_affected_rows();
 		return $check;
 	}
 
 	private function insertGame($data){
 		# $data = [debug, 'games']
-		//$id = 0;
 		$dbData = array(
 			'ip' => $_SERVER['REMOTE_ADDR'],
 			'browser' => 'TODO',
