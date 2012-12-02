@@ -861,8 +861,7 @@ function coinsToDatabase(player, fromPlayer, gold, silver, whore){
 // Create game on database
 if(!local) $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	function(data) {
-		gameID = ""+data;
-		alert(""+data);
+		gameID = ""+data;.
 	});
 
 // INITIALISATION
