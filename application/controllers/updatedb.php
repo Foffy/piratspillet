@@ -11,8 +11,7 @@ class Updatedb extends CI_Controller {
 
 		switch($data[1]){
 			case 'games':
-				$id = $this->insertGame($data);
-				echo $id;
+				$this->insertGame($data);
 				break;
 			case 'rolls':
 				$this->updateRolls($data);
@@ -50,7 +49,7 @@ class Updatedb extends CI_Controller {
 			);
 		$this->db->insert($data[1],$dbData);
 		$id = $this->db->insert_id();
-		return $id;
+		echo $id;
 	}
 
 	private function updateRolls($data){
