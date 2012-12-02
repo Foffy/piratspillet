@@ -1616,35 +1616,30 @@ function inputForTile(tile){
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
 					sipsToDatabase(tempActivatedPlayers[i].name, 2, 0);
 				}
-				break;
 			}
 			else if(tile==2){
 				sipsToDatabase(players[curPlayer].name, 5, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
 					sipsToDatabase(tempActivatedPlayers[i].name, 5, 0);
 				}
-				break;
 			}
 			else if(tile==4){
 				sipsToDatabase(players[curPlayer].name, 3, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
 					sipsToDatabase(tempActivatedPlayers[i].name, 3, 0);
 				}
-				break;
 			}
 			else if(tile==5){
 				sipsToDatabase(players[curPlayer].name, 3, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
 					sipsToDatabase(tempActivatedPlayers[i].name, 3, 0);
 				}
-				break;
 			}
 			else if(tile==10){
 				sipsToDatabase(players[curPlayer].name, 4, 0);
 				for (var i = 0; i < tempActivatedPlayers.length; i++) {
 					sipsToDatabase(tempActivatedPlayers[i].name, 4, 0);
 				}
-				break;
 			}
 			fieldUsed = false;
 			nextPlayer();
