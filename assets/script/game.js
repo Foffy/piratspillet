@@ -673,6 +673,7 @@ function takeInput(){
 		}
 		case State.LANDED:{
 			if(!local) $.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
+			if(!local) alert("landed");
 			inputForTile(players[curPlayer].pos);
 			break;
 		}
