@@ -673,7 +673,6 @@ function takeInput(){
 		}
 		case State.LANDED:{
 			if(!local) $.post(dbURL, { 'data': [debug? 'true': 'false', 'landed', gameID, players[curPlayer].name,posToString(players[curPlayer].pos)]});
-			if(!local) alert("landed");
 			inputForTile(players[curPlayer].pos);
 			break;
 		}
@@ -862,6 +861,7 @@ function coinsToDatabase(player, fromPlayer, gold, silver, whore){
 // Create game on database
 if(!local) $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	function(data) {
+		alert(data);
 		gameID = ""+data;
 	});
 
