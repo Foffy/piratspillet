@@ -128,12 +128,7 @@ class Updatedb extends CI_Controller {
 
 	private function updateSips($data){
 		# $data = [debug, 'sips', gameID, player, taken, given]
-		$dbData = array(
-			'taken' => 'taken+'+$data[4],
-			'given' => 'given+'+$data[5]
-			);
-
-		$check = $this->updateDatabase($data,$dbData);
+		$check = $this->db->query("UPDATE sips SET taken = taken + "+$data[4]+", given = given + "+$data[5]+" WHERE gameId = "+$data[2]+" AND player = "+$data[3]);
 
 		if($check==0){
 			$dbData = array(
