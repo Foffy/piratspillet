@@ -8,6 +8,7 @@ $(document).keydown(function (e) {
           $('.slideshow').cycle('prev');
         	break;
         case 68:
+        case 32:
         case arrow.right:
           $('.slideshow').cycle('next');
         	break;
