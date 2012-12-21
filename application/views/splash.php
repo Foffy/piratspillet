@@ -12,7 +12,7 @@
   		<a href="http://beta.piratspillet.dk/index.php/rules" title="Play the game!">READ THE RULES</a>
   		</br>
   		Time is: <?php
-		date_default_timezone_set('EUROPE/BELGRADE');
+		date_default_timezone_set('CET');
 		$date = new DateTime();
 		echo $date->getTimestamp();
 		echo "<br>";
