@@ -113,13 +113,13 @@
 		height: 100%;
 	}
 
-	h1 {
+	H1 {
 		font-family:IM Fell DW Pica, serif;
 		font-size:70px;
 		line-height:90px;
 	}
 
-	h1.center{
+	H1.center{
 		text-align: center;
 	}
 
