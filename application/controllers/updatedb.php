@@ -60,7 +60,7 @@ class Updatedb extends CI_Controller {
 
 		$dbData = array(
 			$data[4] => $data[4]+"+1",
-			'last' => echo $dateTime->format("Y-m-d H:i:s")
+			'last' => echo $date->format("Y-m-d H:i:s")
 			);
 
 		$check = $this->updateDatabase($data, $dbData);
@@ -70,8 +70,8 @@ class Updatedb extends CI_Controller {
 				'gameId' => $data[2],
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1",
-				'first' => echo $dateTime->format("Y-m-d H:i:s"),
-				'last' => echo $$dateTime->format("Y-m-d H:i:s")
+				'first' => echo $date->format("Y-m-d H:i:s"),
+				'last' => echo $$date->format("Y-m-d H:i:s")
 				);
 			$this->db->insert($data[1],$dbData);
 
