@@ -1,4 +1,4 @@
-<div id="topBox">
+<div id="topBox" align="center">
   <h1>Piratspillet!</h1>
 </div>
 
