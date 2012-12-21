@@ -1,5 +1,5 @@
-<div id="topBox" align="center">
-  <h1>Piratspillet!</h1>
+<div id="topBox">
+  <h1 class="center">Piratspillet!</h1>
 </div>
 
 </br>
