@@ -57,10 +57,10 @@ class Updatedb extends CI_Controller {
 
 		date_default_timezone_set('Europe/Belgrade');
 		$date = new DateTime();
-		
+
 		$dbData = array(
 			$data[4] => $data[4]+"+1",
-			'last' => $date->getTimestamp()
+			'last' => echo $dateTime->format("Y-m-d H:i:s")
 			);
 
 		$check = $this->updateDatabase($data, $dbData);
@@ -70,8 +70,8 @@ class Updatedb extends CI_Controller {
 				'gameId' => $data[2],
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1",
-				'first' => $date->getTimestamp(),
-				'last' => $date->getTimestamp()
+				'first' => echo $dateTime->format("Y-m-d H:i:s"),
+				'last' => echo $$dateTime->format("Y-m-d H:i:s")
 				);
 			$this->db->insert($data[1],$dbData);
 
