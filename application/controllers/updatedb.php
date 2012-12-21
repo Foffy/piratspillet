@@ -45,10 +45,10 @@ class Updatedb extends CI_Controller {
 
 		date_default_timezone_set('CET');
 		$date = new DateTime();
-		
+
 		$dbData = array(
 			'ip' => $_SERVER['REMOTE_ADDR'],
-			'browser' => 'TODO',
+			'browser' => $this->getUserBrowser(),
 			'started' => $date->format("Y-m-d H:i:s")
 			);
 		$this->db->insert($data[1],$dbData);
@@ -153,4 +153,36 @@ class Updatedb extends CI_Controller {
 			$this->db->insert($data[1],$dbData);
 		}
 	}
+
+	function getUserBrowser() 
+	{ 
+	    $u_agent = $_SERVER['HTTP_USER_AGENT']; 
+	    $ub = ''; 
+	    if(preg_match('/MSIE/i',$u_agent)) 
+	    { 
+	        $ub = "ie"; 
+	    } 
+	    elseif(preg_match('/Firefox/i',$u_agent)) 
+	    { 
+	        $ub = "firefox"; 
+	    } 
+	    elseif(preg_match('/Safari/i',$u_agent)) 
+	    { 
+	        $ub = "safari"; 
+	    } 
+	    elseif(preg_match('/Chrome/i',$u_agent)) 
+	    { 
+	        $ub = "chrome"; 
+	    } 
+	    elseif(preg_match('/Flock/i',$u_agent)) 
+	    { 
+	        $ub = "flock"; 
+	    } 
+	    elseif(preg_match('/Opera/i',$u_agent)) 
+	    { 
+	        $ub = "opera"; 
+	    } 
+	    
+	    return $ub; 
+	} 
 }
