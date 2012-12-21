@@ -55,7 +55,7 @@ class Updatedb extends CI_Controller {
 	private function updateRolls($data){
 		# $data = [debug, 'rolls', gameID, player, dice]
 
-		date_default_timezone_set('Europe/Belgrade');
+		date_default_timezone_set('CET');
 		$date = new DateTime();
 
 		$dbData = array(
