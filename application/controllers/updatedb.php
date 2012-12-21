@@ -49,7 +49,7 @@ class Updatedb extends CI_Controller {
 
 		$dbData = array(
 			'ip' => $_SERVER['REMOTE_ADDR'],
-			'browser' => $browserInfo['pattern'],
+			'browser' => $browserInfo['name'],
 			'started' => $date->format("Y-m-d H:i:s")
 			);
 		$this->db->insert($data[1],$dbData);
