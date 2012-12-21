@@ -16,7 +16,7 @@
 		$date = new DateTime();
 		echo $date->getTimestamp();
 		echo "<br>";
-		echo $dateTime->format("Y-m-d H:i:s");
+		echo $date->format("Y-m-d H:i:s");
 
  		?>
 
