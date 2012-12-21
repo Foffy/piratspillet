@@ -42,10 +42,14 @@ class Updatedb extends CI_Controller {
 
 	private function insertGame($data){
 		# $data = [debug, 'games']
+
+		date_default_timezone_set('CET');
+		$date = new DateTime();
+		
 		$dbData = array(
 			'ip' => $_SERVER['REMOTE_ADDR'],
 			'browser' => 'TODO',
-			'started' => 'NOW()'
+			'started' => $date->format("Y-m-d H:i:s")
 			);
 		$this->db->insert($data[1],$dbData);
 		$id = $this->db->insert_id();
@@ -60,7 +64,7 @@ class Updatedb extends CI_Controller {
 
 		$dbData = array(
 			$data[4] => $data[4]+"+1",
-			'last' => ""+$date->format("Y-m-d H:i:s")
+			'last' => $date->format("Y-m-d H:i:s")
 			);
 
 		$check = $this->updateDatabase($data, $dbData);
@@ -70,8 +74,8 @@ class Updatedb extends CI_Controller {
 				'gameId' => $data[2],
 				'player' => $data[3],
 				$data[4] => $data[4]+"+1",
-				'first' => ""+$date->format("Y-m-d H:i:s"),
-				'last' => ""+$date->format("Y-m-d H:i:s")
+				'first' => $date->format("Y-m-d H:i:s"),
+				'last' => $date->format("Y-m-d H:i:s")
 				);
 			$this->db->insert($data[1],$dbData);
 
