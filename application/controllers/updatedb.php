@@ -64,7 +64,7 @@ class Updatedb extends CI_Controller {
 		$date = new DateTime();
 
 		$dbData = array(
-			$data[4] => $data[4]." + 1",
+			$data[4] => $data[4]+"+1",
 			'last' => $date->format("Y-m-d H:i:s")
 			);
 
@@ -74,7 +74,7 @@ class Updatedb extends CI_Controller {
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]." + 1",
+				$data[4] => $data[4]+"+1",
 				'first' => $date->format("Y-m-d H:i:s"),
 				'last' => $date->format("Y-m-d H:i:s")
 				);
@@ -86,7 +86,7 @@ class Updatedb extends CI_Controller {
 	private function updateLanded($data){
 		# $data = [debug, 'landed', gameID, player, field]
 		$dbData = array(
-			$data[4] => $data[4]." + 1",
+			$data[4] => $data[4]+"+1",
 			);
 
 		$check = $this->updateDatabase($data,$dbData);
@@ -95,7 +95,7 @@ class Updatedb extends CI_Controller {
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]." + 1"
+				$data[4] => $data[4]+"+1"
 				);
 
 			$this->db->insert($data[1],$dbData);
@@ -106,7 +106,7 @@ class Updatedb extends CI_Controller {
 	private function updateActivated($data){
 		# $data = [debug, 'activated', gameID, player, field]
 		$dbData = array(
-			$data[4] => $data[4]." + 1",
+			$data[4] => $data[4]+"+1",
 			);
 
 		$check = $this->updateDatabase($data,$dbData);
@@ -115,7 +115,7 @@ class Updatedb extends CI_Controller {
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]." + 1"
+				$data[4] => $data[4]+"+1"
 				);
 			$this->db->insert($data[1],$dbData);
 
