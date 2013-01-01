@@ -25,7 +25,7 @@ class Testdb extends CI_Controller {
 			'browser' => $browserInfo['name'],
 			'started' => $date->format("Y-m-d H:i:s")
 			);
-		$this->db->insert($data[1],$dbData);
+		$this->db->insert('games',$dbData);
 		$id = $this->db->insert_id();
 		return $id;
 	}
