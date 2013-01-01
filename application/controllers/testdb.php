@@ -4,7 +4,6 @@ class Testdb extends CI_Controller {
 
 	public function index(){
 		$this->load->database('debug', TRUE);
-		<script src="/assets/script/dbtest.js"></script>
 		$dbstuff = $this->input->post('data');
 
 		$this->updateLanded($dbstuff);

@@ -24,6 +24,7 @@
     })();
 
   </script>
+  <script src="/assets/script/dbtest.js"></script>
 
 </head>
 <body>
