@@ -32,14 +32,6 @@ class Updatedb extends CI_Controller {
 		}
 	}
 
-	private function updateDatabase($data, $dbData){
-		$this->db->where('gameId',$data[2]);
-		$this->db->where('player',$data[3]);
-		$this->db->update($data[1],$dbData);
-		$check = mysqli_affected_rows();
-		return $check;
-	}
-
 	private function insertGame($data){
 		# $data = [debug, 'games']
 
