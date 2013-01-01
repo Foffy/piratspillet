@@ -6,7 +6,7 @@ class Testdb extends CI_Controller {
 		$this->load->database('debug', TRUE);
 		$data = $this->input->post('data');
 
-		$this->updateLanded($dbstuff);
+		$this->updateLanded($data);
 		$datas['title'] = "default";
 		$this->load->view('testdb', $datas);
 	}
