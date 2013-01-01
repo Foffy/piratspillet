@@ -4,30 +4,12 @@ class Testdb extends CI_Controller {
 
 	public function index(){
 		$this->load->database('debug', TRUE);
+		<script src="/assets/script/dbtest.js"></script>
 		$dbstuff = $this->input->post('data');
 
-		$data['gameid'] = $this->insertGame();
-
-		echo "lol";
+		$this->updateLanded($dbstuff);
 		$data['title'] = "default";
 		$this->load->view('testdb', $data);
-	}
-
-	private function insertGame(){
-		# $data = [debug, 'games']
-
-		date_default_timezone_set('CET');
-		$date = new DateTime();
-		$browserInfo = 'lol';//$this->getBrowser();
-
-		$dbData = array(
-			'ip' => $_SERVER['REMOTE_ADDR'],
-			'browser' => $browserInfo['name'],
-			'started' => $date->format("Y-m-d H:i:s")
-			);
-		$this->db->insert('games',$dbData);
-		$id = $this->db->insert_id();
-		return $id;
 	}
 
 	private function updateLanded($dbstuff){
@@ -36,7 +18,7 @@ class Testdb extends CI_Controller {
 			$data[4] => $data[4]+" + 1",
 			);
 
-		$this->db->where('gameId',$data['gameid']);
+		$this->db->where('gameId',1);
 		$this->db->where('player',$data[3]);
 		$this->db->update($data[1],$dbData);
 		$check = mysqli_affected_rows();
