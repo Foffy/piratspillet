@@ -18,7 +18,7 @@ class Testdb extends CI_Controller {
 
 		date_default_timezone_set('CET');
 		$date = new DateTime();
-		$browserInfo = $this->getBrowser();
+		$browserInfo = 'lol';//$this->getBrowser();
 
 		$dbData = array(
 			'ip' => $_SERVER['REMOTE_ADDR'],
