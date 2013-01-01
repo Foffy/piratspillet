@@ -3,7 +3,6 @@
 class Dotest extends CI_Controller {
 
   public function index(){
-
   	$data['title'] = "Piratspillet - BETA!";
   	$this->load->view('testdb', $data);
   }

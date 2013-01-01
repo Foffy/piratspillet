@@ -24,11 +24,12 @@
     })();
 
   </script>
-  <script src="/assets/script/dbtest.js"></script>
 
 </head>
 <body>
-
+<div class="hidden">
+  <script src="/assets/script/dbtest.js"></script>
+</div>
 <h1>Done</h1>
 
 </body>
