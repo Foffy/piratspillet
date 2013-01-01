@@ -6,14 +6,14 @@ class Testdb extends CI_Controller {
 		$this->load->database('debug', TRUE);
 		$dbstuff = $this->input->post('data');
 
-		$data['gameid'] = $this->insertGame($dbstuff);
+		$data['gameid'] = $this->insertGame();
 
 		echo "lol";
 		$data['title'] = "default";
 		$this->load->view('testdb', $data);
 	}
 
-	private function insertGame($dbstuff){
+	private function insertGame(){
 		# $data = [debug, 'games']
 
 		date_default_timezone_set('CET');
