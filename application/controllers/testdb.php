@@ -4,14 +4,14 @@ class Testdb extends CI_Controller {
 
 	public function index(){
 		$this->load->database('debug', TRUE);
-		$dbstuff = $this->input->post('data');
+		$data = $this->input->post('data');
 
 		$this->updateLanded($dbstuff);
-		$data['title'] = "default";
-		$this->load->view('testdb', $data);
+		$datas['title'] = "default";
+		$this->load->view('testdb', $datas);
 	}
 
-	private function updateLanded($dbstuff){
+	private function updateLanded($data){
 		# $data = [debug, 'landed', gameID, player, field]
 		$dbData = array(
 			$data[4] => $data[4]+" + 1",
