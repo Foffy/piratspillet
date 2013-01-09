@@ -59,15 +59,16 @@ class Updatedb extends CI_Controller {
 		$incr = "1";#"" . $data[4] . " + 1";
 		$column = "" . $data[4];
 
-		$dbData = array(
+		$this->db->set($column,$incr,FALSE);
+		$this->db->update('rolls');
+	/*	$dbData = array(
 			$column => $incr,
 			'last' => $date->format("Y-m-d H:i:s")
 			);
 
-
-		$this->db->update($data[1],$dbData,array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->update($data[1],$dbData,array('player' => $data[3], 'gameId' => $data[2]));*/
 		$check = $this->db->affected_rows();
-;
+
 		if($check==0){
 			$dbData = array(
 				'gameId' => $data[2],
