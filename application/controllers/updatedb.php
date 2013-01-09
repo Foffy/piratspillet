@@ -85,6 +85,7 @@ class Updatedb extends CI_Controller {
 		$field = "" . $data[4];
 
 		$this->db->set($field,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$check = $this->db->affected_rows();
 
 		if($check ==0){
 			$dbData = array(
