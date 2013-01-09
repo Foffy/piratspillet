@@ -103,7 +103,13 @@ class Updatedb extends CI_Controller {
 			$data[4] => $data[4]."+1",
 			);
 
-		$check = $this->updateDatabase($data,$dbData);
+		$incr = "" . $data[4] . " + 1";
+		$column = "" . $data[4];
+
+		$this->db->set($column,$incr,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->update('activated');
+
+		$check = $this->db->affected_rows();
 
 		if($check ==0){
 			$dbData = array(
