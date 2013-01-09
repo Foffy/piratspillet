@@ -1,5 +1,5 @@
 var local = false;
-var debug = false;
+var debug = true;
 
 // global variables
 var c = document.getElementById('c');
@@ -646,7 +646,11 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
-			if(!local) $.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
+			if(!local) {
+				$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]}
+					function(data) {
+						gameID = ""+data;
+					});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
