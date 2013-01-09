@@ -59,7 +59,7 @@ class Updatedb extends CI_Controller {
 		$incr = "" . $data[4] . " + 1";
 		$column = "" . $data[4];
 
-		$this->db->set($column,$incr,FALSE);
+		$this->db->set($column,$incr,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
 		$this->db->update('rolls');
 	/*	$dbData = array(
 			$column => $incr,
