@@ -60,10 +60,12 @@ class Updatedb extends CI_Controller {
 			'last' => $date->format("Y-m-d H:i:s")
 			);
 
-		$check = $this->db->query("UPDATE rolls SET '".$data[4]."' = '".$data[4]."' + 1, 'last' = '".$date->format("Y-m-d H:i:s")."' WHERE 'gameId' = '".$data[2]."' AND player = '".$data[3]."'");
-		//$check = $this->updateDatabase($data, $dbData);
 
+		$check = $this->db->qury("UPDATE rolls SET ".$data[4]." = ".$data[4]." + 1  WHERE gameId = ".$data[2]." AND player = ".$data[3]);
+		//$check = $this->db->query("UPDATE rolls SET '".$data[4]."' = '".$data[4]."' + 1, 'last' = '".$date->format("Y-m-d H:i:s")."' WHERE 'gameId' = '".$data[2]."' AND player = '".$data[3]."'");
+		//$check = $this->updateDatabase($data, $dbData);
 		if($check==0){
+
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
@@ -136,6 +138,7 @@ class Updatedb extends CI_Controller {
 			);
 
 		$check = $this->updateDatabase($data,$dbData);
+
 
 		if($check==0){
 			$dbData = array(
