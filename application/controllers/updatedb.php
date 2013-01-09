@@ -60,8 +60,8 @@ class Updatedb extends CI_Controller {
 			$data[4] => $data[4]+"+1",
 			'last' => $date->format("Y-m-d H:i:s")
 			);
-		
-		$this->db->update($data[1],$dbData,array('player' => $data[3], 'gameId' => $data[2]);
+
+		$this->db->update($data[1],$dbData,array('player' => $data[3], 'gameId' => $data[2]));
 		$check = $this->db->affected_rows();
 ;
 		if($check==0){
