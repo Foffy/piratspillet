@@ -148,8 +148,8 @@ class Updatedb extends CI_Controller {
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				'taken' => $data[4],
-				'given' => $data[5]
+				'taken' => "" . $data[4],
+				'given' => "" . $data[5]
 				);
 			$this->db->insert($data[1],$dbData);
 		}
