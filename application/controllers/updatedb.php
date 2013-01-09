@@ -79,9 +79,10 @@ class Updatedb extends CI_Controller {
 	private function updateLanded($data){
 		# $data = [debug, 'landed', gameID, player, field]
 
-		$field = "" . $data[4] . " + 1";
+		$incr = "" . $data[4] . " + 1";
+		$column = "" . $data[4];
 
-		$this->db->set($field,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->set($column,$incr,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
 		$this->db->update('landed');
 
 		$check = $this->db->affected_rows();
