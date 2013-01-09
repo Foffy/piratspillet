@@ -57,7 +57,7 @@ class Updatedb extends CI_Controller {
 		$date = new DateTime();
 
 		$dbData = array(
-			$data[4] => "{$data[4]} + 1",
+			$data[4] => $data[4]+"+1",
 			'last' => $date->format("Y-m-d H:i:s")
 			);
 
