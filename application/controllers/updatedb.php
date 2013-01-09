@@ -56,7 +56,7 @@ class Updatedb extends CI_Controller {
 		date_default_timezone_set('CET');
 		$date = new DateTime();
 
-		$incr = "" . $data[4] . " +1";
+		$incr = "" . $data[4] . " + 1";
 
 		$dbData = array(
 			$data[4] => $incr,
