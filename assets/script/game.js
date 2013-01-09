@@ -260,7 +260,6 @@ function addImage(fileName){
 
 // constants and stuff
 var gameID;
-var rollValue;
 var dbURL = 'http://beta.piratspillet.dk/index.php/updatedb';
 var players = [];
 var curPlayer = 0;
@@ -647,12 +646,7 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
-			if(!local) {
-				$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]}
-					function(data) {
-						rollValue = ""+data;
-					});
-			if(debug) debugging = rollValue;
+			if(!local) {$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
