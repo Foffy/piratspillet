@@ -645,7 +645,7 @@ function takeInput(){
 			break;
 		}
 		case State.ROLL:{
-			diceToShow = rollDice(); // real dice roll
+			diceToShow = 2; //rollDice(); // real dice roll
 			if(!local) {$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
