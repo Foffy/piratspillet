@@ -56,10 +56,13 @@ class Updatedb extends CI_Controller {
 		date_default_timezone_set('CET');
 		$date = new DateTime();
 
+		$incr = "" . $data[4] . " +1"
+
 		$dbData = array(
-			$data[4] => $data[4]+"+1",
+			$data[4] => $incr,
 			'last' => $date->format("Y-m-d H:i:s")
 			);
+
 
 		$this->db->update($data[1],$dbData,array('player' => $data[3], 'gameId' => $data[2]));
 		$check = $this->db->affected_rows();
