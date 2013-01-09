@@ -61,7 +61,7 @@ class Updatedb extends CI_Controller {
 			'last' => $date->format("Y-m-d H:i:s")
 			);
 
-		$this->db->where('player',$data[3]).where('gameId',$data[2]);
+		$this->db->where('player = '.$data[3]." AND gameId = ".$data[2]);
 		$this->db->update($data[1],$dbData);
 		$check = $this->db->affected_rows();
 
