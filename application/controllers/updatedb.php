@@ -44,6 +44,7 @@ class Updatedb extends CI_Controller {
 			'browser' => $browserInfo['name'],
 			'started' => $date->format("Y-m-d H:i:s")
 			);
+
 		$this->db->insert($data[1],$dbData);
 		$id = $this->db->insert_id();
 		return $id;
@@ -69,7 +70,7 @@ class Updatedb extends CI_Controller {
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]+"+1",
+				$data[4] => $data[4],
 				'first' => $date->format("Y-m-d H:i:s"),
 				'last' => $date->format("Y-m-d H:i:s")
 				);
