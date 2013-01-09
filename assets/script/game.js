@@ -849,12 +849,12 @@ function diceToString(dice){
 
 // Update sips table on database
 function sipsToDatabase(player, taken, given){
-	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
+	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, taken, given]});
 }
 
 // Update coins table on database
 function coinsToDatabase(player, fromPlayer, gold, silver, whore){
-	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
+	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, gold, silver, whore]});
 }
 
 
