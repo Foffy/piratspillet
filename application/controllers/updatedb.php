@@ -93,6 +93,7 @@ class Updatedb extends CI_Controller {
 				'player' => $data[3],
 				$data[4] => "1"
 				);
+			$this->db->insert($data[1],$dbData);
 		}
 	}
 
