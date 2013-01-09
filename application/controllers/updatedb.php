@@ -62,10 +62,9 @@ class Updatedb extends CI_Controller {
 			);
 
 		$this->db->where('player = '.$data[3].' AND gameId = '.$data[2]);
-		$this->db->update($data[1],$dbData);
-		$check = $this->db->affected_rows();
-		if($check == False) die("Nope, bitch!");
-
+		$check = this->db->update($data[1],$dbData);
+		//$check = $this->db->affected_rows();
+		if($check==False) die("nope!");
 ;
 		if($check==0){
 			$dbData = array(
