@@ -115,7 +115,7 @@ class Updatedb extends CI_Controller {
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]."+1"
+				$data[4] => "1"
 				);
 			$this->db->insert($data[1],$dbData);
 
