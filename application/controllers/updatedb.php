@@ -99,9 +99,6 @@ class Updatedb extends CI_Controller {
 
 	private function updateActivated($data){
 		# $data = [debug, 'activated', gameID, player, field]
-		$dbData = array(
-			$data[4] => $data[4]."+1",
-			);
 
 		$incr = "" . $data[4] . " + 1";
 		$column = "" . $data[4];
@@ -137,12 +134,14 @@ class Updatedb extends CI_Controller {
 
 	private function updateSips($data){
 		# $data = [debug, 'sips', gameID, player, taken, given]
-		$dbData = array(
-			'taken' => 'taken +'.$data[4],
-			'given' => 'given +'.$data[5]
-			);
 
-		$check = $this->updateDatabase($data,$dbData);
+		$taken = "taken + " . $data[4];
+		$given = "given + " . $data[5];
+
+		$this->db->set(array('taken' => $taken, 'given' => $given),FALSE);
+		$this->db->update('sips');
+
+		$check = $this->db->affected_rows();
 
 
 		if($check==0){
