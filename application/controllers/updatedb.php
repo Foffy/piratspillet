@@ -15,7 +15,8 @@ class Updatedb extends CI_Controller {
 				echo $id;
 				break;
 			case 'rolls':
-				$this->updateRolls($data);
+				$rollValue = $this->updateRolls($data);
+				echo $rollValue;
 				break;
 			case 'landed':
 				$this->updateLanded($data);
@@ -76,6 +77,7 @@ class Updatedb extends CI_Controller {
 			$this->db->insert($data[1],$dbData);
 
 		}
+		return $check;
 	}
 
 	private function updateLanded($data){
