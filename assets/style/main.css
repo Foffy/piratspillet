@@ -80,6 +80,10 @@
 		text-align:center;
 	}
 
+	.nav {
+		margin-left: 100px;
+	}
+
 	.box {
 		background-color: #fff;
 		width: 700px;
