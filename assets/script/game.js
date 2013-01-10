@@ -1521,9 +1521,10 @@ function inputForTile(tile){
 				player.whore++;
 				whorebank--;
 				coinsToDatabase(player.name, "", 0, 0, 1);
-				for(var i = 0; i < players.length; i++){
-					sipsToDatabase(players[i].name, 0, newField == 14 ? 10: 5);
+				for(var i = 0; i < players.length-1; i++){
+					sipsToDatabase(players[i].name, 0, (newField == 14) ? 10 : 5);
 				}
+				sipsToDatabase(players[curPlayer].name, (newField == 14) ? 10 : 5, 0);
 				
 				curState = (player.gold > 0 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
 
