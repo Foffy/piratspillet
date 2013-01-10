@@ -124,9 +124,12 @@
 	}
 
 	h2 {
-		font-family:IM Fell DW Pica, serif;
-		font-size:40px;
-		line-height:60px;
+		font-family:Questrial, "Times New Roman", serif;
+				font-size:36px;
+				line-height:20px;
+				margin:0 0 20px 0;
+				padding:0;
+				display:block;
 	}
 
 	.topBox{
