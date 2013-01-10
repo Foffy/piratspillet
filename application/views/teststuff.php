@@ -17,9 +17,9 @@
     <div class="rightContainer">
       <h2>Leaderboards</h2>
       <ul class="tabs">
-        <li><a href="#">Wins</a></li>
-        <li><a href="#">Coins</a></li>
         <li><a href="#">Sips</a></li>
+        <li><a href="#">Coins</a></li>
+        <li><a href="#">Wins</a></li>
       </ul>
 
       <!-- tab "panes" -->
@@ -33,13 +33,29 @@
 
           foreach ($query->result() as $row)
           {
-            array_push($players, $row->player);
+            array_push($gameID, $row->gameid);
           }
 
-          foreach ($players as $value)
+          foreach ($gameID as $id)
           {
-            echo $value . "</br>";
-          }
+            $this->db->select('player')->where(array('gameid' => $id);
+            $query = $this->db->get('sips');
+            
+            array_push($players[0], $query->result()->player;
+          {
+          echo $players;
+
+         /* foreach ($players[0] as $player)
+          {
+            $this->db->select('taken')->where(array('player' => $player, 'gameid' => $gameID[0]));
+            $query = $this->db->get('sips');
+
+            foreach ($query->result() as $row)
+            {
+              echo $row->player . "</br>";
+            }
+          }*/
+          
           ?>
         </div>
         <div>Second tab content</div>
