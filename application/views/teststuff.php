@@ -31,7 +31,7 @@
           $query = $this->db->get('sips');
           foreach ($query->result() as $row)
           {
-            echo $row->gameid . " " . $row->player . "" . $row->taken . "</br>";
+            echo $row->gameid . " " . $row->player . " " . $row->taken . " sips.</br>";
           }
           
           ?>
