@@ -26,8 +26,8 @@
       <div class="panes">
         <div class="textStuff">
           <?php
-          $players = []
-          $gameID = []
+          $players = array();
+          $gameID = array();
 
           $query = $this->db->get('sips');
 
