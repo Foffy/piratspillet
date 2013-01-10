@@ -267,5 +267,6 @@
 	.tweets p{
 		font-family: 'IM fell Great Primer', serif;
 		font-size:18px;
+		text-align: left;
 		line-height:20px;
 	}
