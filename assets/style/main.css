@@ -67,7 +67,6 @@
 	}
 
 	table{
-		border: 1px;
 		width: 100%;
 	}
 
@@ -161,7 +160,7 @@
 
 	.textStuff{
 		font-family:'IM Fell DW Pica', serif;
-		font-size: 30px;
+		font-size: 22px;
 		line-height: 20px;
 		padding: 0 15px 0 15px;
 		text-align: left;
