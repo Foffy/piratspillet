@@ -60,7 +60,7 @@
 
   </div>
 
-  <div class="middleContainer" align="left">
+  <div class="middleContainer" align="center">
     <div class="box">
       <div class="counterBox">
       </div>
