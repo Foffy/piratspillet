@@ -38,7 +38,7 @@
           }
           foreach ($players as $value)
           {
-            echo $value . "<br>"
+            echo $value . "<br>";
           }
           ?>
         </div>
