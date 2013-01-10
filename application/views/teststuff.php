@@ -34,7 +34,7 @@
 
           foreach ($query->result() as $row)
           {
-              echo $row->player;
+              echo $row->player . "</br>";
           }
           ?>
         </div>
