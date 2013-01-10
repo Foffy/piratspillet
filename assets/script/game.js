@@ -488,7 +488,6 @@ function drawState(){
 			if(curTreasure == null){
 				curTreasure = findTreasure();
 				curSips = treasureToSips(curTreasure);
-				sipsToDatabase(players[curPlayer].name, curSips, 0);
 				
 				// if nothing go
 				if(curSips == 0){
@@ -849,12 +848,12 @@ function diceToString(dice){
 
 // Update sips table on database
 function sipsToDatabase(player, taken, given){
-	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, ""+taken, ""+given]});
+	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'sips', gameID, player, taken, given]});
 }
 
 // Update coins table on database
 function coinsToDatabase(player, fromPlayer, gold, silver, whore){
-	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, ""+gold, ""+silver, ""+whore]});
+	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, gold, silver, whore]});
 }
 
 
@@ -1523,6 +1522,7 @@ function inputForTile(tile){
 				
 				player.whore++;
 				whorebank--;
+				coinsToDatabase(player.name, "", 0, 0, 1);
 				
 				curState = (player.gold > 0 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
 

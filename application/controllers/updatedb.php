@@ -32,22 +32,19 @@ class Updatedb extends CI_Controller {
 		}
 	}
 
-	private function updateDatabase($data, $dbData){
-		$check = 0;
-		$this->db->where('gameId',$data[2]);
-		$this->db->where('player',$data[3]);
-		$check = $this->db->update($data[1],$dbData);
-	}
-
 	private function insertGame($data){
 		# $data = [debug, 'games']
-		$id = 0;
-		$browser = get_browser(null,true);
+
+		date_default_timezone_set('CET');
+		$date = new DateTime();
+		$browserInfo = $this->getBrowser();
+
 		$dbData = array(
 			'ip' => $_SERVER['REMOTE_ADDR'],
-			'browser' => 'TODO',
-			'started' => 'NOW()'
+			'browser' => $browserInfo['name'],
+			'started' => $date->format("Y-m-d H:i:s")
 			);
+
 		$this->db->insert($data[1],$dbData);
 		$id = $this->db->insert_id();
 		return $id;
@@ -55,59 +52,67 @@ class Updatedb extends CI_Controller {
 
 	private function updateRolls($data){
 		# $data = [debug, 'rolls', gameID, player, dice]
-		$dbData = array(
-			$data[4] => $data[4]+"+1",
-			'last' => "NOW()"
-			);
 
-		$check = $this->updateDatabase($data, $dbData);
+		date_default_timezone_set('CET');
+		$date = new DateTime();
+
+		$incr = "" . $data[4] . " + 1";
+		$column = "" . $data[4];
+
+		$this->db->set($column,$incr,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->update('rolls');
+
+		$check = $this->db->affected_rows();
 
 		if($check==0){
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]+"+1",
-				'first' => "NOW()",
-				'last' => "NOW()"
+				$data[4] => "1",
+				'first' => $date->format("Y-m-d H:i:s"),
+				'last' => $date->format("Y-m-d H:i:s")
 				);
 			$this->db->insert($data[1],$dbData);
-
 		}
 	}
 
 	private function updateLanded($data){
 		# $data = [debug, 'landed', gameID, player, field]
-		$dbData = array(
-			$data[4] => $data[4]+"+1",
-			);
 
-		$check = $this->updateDatabase($data,$dbData);
+		$incr = "" . $data[4] . " + 1";
+		$column = "" . $data[4];
+
+		$this->db->set($column,$incr,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->update('landed');
+
+		$check = $this->db->affected_rows();
 
 		if($check ==0){
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]+"+1"
+				$data[4] => "1"
 				);
-
 			$this->db->insert($data[1],$dbData);
-
 		}
 	}
 
 	private function updateActivated($data){
 		# $data = [debug, 'activated', gameID, player, field]
-		$dbData = array(
-			$data[4] => $data[4]+"+1",
-			);
 
-		$check = $this->updateDatabase($data,$dbData);
+		$incr = "" . $data[4] . " + 1";
+		$column = "" . $data[4];
+
+		$this->db->set($column,$incr,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->update('activated');
+
+		$check = $this->db->affected_rows();
 
 		if($check ==0){
 			$dbData = array(
 				'gameId' => $data[2],
 				'player' => $data[3],
-				$data[4] => $data[4]+"+1"
+				$data[4] => "1"
 				);
 			$this->db->insert($data[1],$dbData);
 
@@ -129,12 +134,18 @@ class Updatedb extends CI_Controller {
 
 	private function updateSips($data){
 		# $data = [debug, 'sips', gameID, player, taken, given]
-		$dbData = array(
-			'taken' => 'taken+'+$data[4],
-			'given' => 'given+'+$data[5]
-			);
 
-		$check = $this->updateDatabase($data,$dbData);
+		$taken = "taken + " . $data[4];
+		$given = "given + " . $data[5];
+
+		$this->db->set('taken',$taken,FALSE);
+		$this->db->set('given',$given,FALSE);
+		$this->db->where(array('player' => $data[3]));
+		$this->db->update('sips');
+
+
+		$check = $this->db->affected_rows();
+
 
 		if($check==0){
 			$dbData = array(
@@ -146,4 +157,91 @@ class Updatedb extends CI_Controller {
 			$this->db->insert($data[1],$dbData);
 		}
 	}
+
+	function getBrowser() 
+	{ 
+	    $u_agent = $_SERVER['HTTP_USER_AGENT']; 
+	    $bname = 'Unknown';
+	    $platform = 'Unknown';
+	    $version= "";
+
+	    //First get the platform?
+	    if (preg_match('/linux/i', $u_agent)) {
+	        $platform = 'linux';
+	    }
+	    elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+	        $platform = 'mac';
+	    }
+	    elseif (preg_match('/windows|win32/i', $u_agent)) {
+	        $platform = 'windows';
+	    }
+	    
+	    // Next get the name of the useragent yes seperately and for good reason
+	    if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) 
+	    { 
+	        $bname = 'Internet Explorer'; 
+	        $ub = "MSIE"; 
+	    } 
+	    elseif(preg_match('/Firefox/i',$u_agent)) 
+	    { 
+	        $bname = 'Mozilla Firefox'; 
+	        $ub = "Firefox"; 
+	    } 
+	    elseif(preg_match('/Chrome/i',$u_agent)) 
+	    { 
+	        $bname = 'Google Chrome'; 
+	        $ub = "Chrome"; 
+	    } 
+	    elseif(preg_match('/Safari/i',$u_agent)) 
+	    { 
+	        $bname = 'Apple Safari'; 
+	        $ub = "Safari"; 
+	    } 
+	    elseif(preg_match('/Opera/i',$u_agent)) 
+	    { 
+	        $bname = 'Opera'; 
+	        $ub = "Opera"; 
+	    } 
+	    elseif(preg_match('/Netscape/i',$u_agent)) 
+	    { 
+	        $bname = 'Netscape'; 
+	        $ub = "Netscape"; 
+	    } 
+	    
+	    // finally get the correct version number
+	    $known = array('Version', $ub, 'other');
+	    $pattern = '#(?<browser>' . join('|', $known) .
+	    ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+	    if (!preg_match_all($pattern, $u_agent, $matches)) {
+	        // we have no matching number just continue
+	    }
+	    
+	    // see how many we have
+	    $i = count($matches['browser']);
+	    if ($i != 1) {
+	        //we will have two since we are not using 'other' argument yet
+	        //see if version is before or after the name
+	        if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
+	            $version= $matches['version'][0];
+	        }
+	        else {
+	            $version= $matches['version'][1];
+	        }
+	    }
+	    else {
+	        $version= $matches['version'][0];
+	    }
+	    
+	    // check if we have a number
+	    if ($version==null || $version=="") {$version="?";}
+	    
+	    return array(
+	        'userAgent' => $u_agent,
+	        'name'      => $bname,
+	        'version'   => $version,
+	        'platform'  => $platform,
+	        'pattern'    => $pattern
+	    );
+	} 
+
 }

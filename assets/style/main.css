@@ -125,9 +125,55 @@
 	}
 
 	h2 {
-		font-family:Creepster, serif;
-		font-size:70px;
-		line-height:90px;
+		font-family:IM Fell DW Pica, serif;
+		font-size:40px;
+		line-height:60px;
+	}
+
+	.topBox{
+		width: 100%;
+		height: 150px;
+		margin: 0 0 0 0;
+	}
+
+
+	.gobalContainer{
+		margin: 0 auto;
+		font: 16px/23px normal Helvetica, Arial, sans-serif;
+		position: relative;
+		color: #4F5155;
+	}
+
+	.leftContainer{
+		height: 400px;
+		float:left;
+		width: 300px;
+		border-right: 1px solid #BBB;
+	}
+
+	.rightContainer{
+		float:right;
+		height: 400px;
+		width: 300px;
+		border-left: 1px solid #BBB;
+	}
+
+	.textStuff{
+		padding: 0 15px 0 15px;
+		text-align: left;
+	}
+
+	.contentCol{
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.middleContainer{
+		width: 500px;
+		height: 400px;
+		margin: auto;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #BBB;
 	}
 
 	#container{
@@ -209,3 +255,5 @@
 		margin: auto;
 		text-align: left;
 	}
+
+	

@@ -1,6 +1,6 @@
 -- CREATE GAME
 INSERT INTO games (ip,browser,started) VALUES ($ip,$browser,$timestamp)
--- returns the autoincremented id
+-- returns the auto incremented id
 
 -- ROLLS
 UPDATE rolls SET $field = $field + 1, last = $timestamp WHERE gameId = $gameId AND player = $player

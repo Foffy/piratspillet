@@ -47,8 +47,6 @@
 
 
 /* Debugging */
-$active_group = 'debug';
-$active_record = TRUE;
 
 $db['debug']['hostname'] = 'localhost';
 $db['debug']['username'] = 'root';
