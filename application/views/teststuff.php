@@ -27,11 +27,11 @@
         <div class="textStuff">
           <?php
  
-          $this->db->select('gameid, player, taken');
+          $this->db->select('player, taken');
           $query = $this->db->get('sips');
           foreach ($query->result() as $row)
           {
-            echo "Game ID: " . $row->gameid . " " . $row->player . " received " . $row->taken . " sips.</br>";
+            echo $row->player . " received " . $row->taken . " sips.</br>";
           }
           
           ?>
