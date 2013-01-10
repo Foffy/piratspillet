@@ -44,7 +44,7 @@
 
           foreach ($query->result() as $row)
           {
-            echo "<tr><td><strong>" . $row->player . "</strong></td><td>taken:&nbsp;&nbsp;" . $row->taken . "</td><td> given:&nbsp;&nbsp;".$row->given ."</td></tr><br>";
+            echo "<tr><td><strong>" . $row->player . "</strong></td><td>taken:&nbsp;&nbsp;&nbsp;" . $row->taken . "</td><td> given:&nbsp;&nbsp;&nbsp;".$row->given ."</td></tr><br>";
           }
           echo "</table>";
           
