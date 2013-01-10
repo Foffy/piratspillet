@@ -3,7 +3,7 @@
 <head>
   <title>"Piratspillet - DEBUG!"</title>
 
-  <link type="text/css" rel="stylesheet" href="style/main.css"/>
+  <link type="text/css" rel="stylesheet" href="/assets/style/main.css"/>
 
   <meta charset="utf-8">
 
@@ -14,9 +14,9 @@
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
-  <link rel="stylesheet" href="style/tabs.css"
+  <link rel="stylesheet" href="/assets/style/tabs.css"
         type="text/css" media="screen" />
-  <link rel="stylesheet" href="style/tabs-panes.css"
+  <link rel="stylesheet" href="/assets/style/tabs-panes.css"
         type="text/css" media="screen" />
 </head>
 <div class="topBox">
