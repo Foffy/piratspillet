@@ -133,7 +133,7 @@
 	.topBox{
 		width: 100%;
 		height: 150px;
-		margin: 150px 0 0 0;
+		margin: 50px 0 0 0;
 	}
 
 
@@ -145,21 +145,22 @@
 	}
 
 	.leftContainer{
-		text-align: left;
 		height: 400px;
 		float:left;
-		margin:20px 0 0 50px;
 		width: 300px;
 		border-right: 1px solid #BBB;
 	}
 
 	.rightContainer{
-		text-align: right;
 		float:right;
 		height: 400px;
-		margin:20px 50px 0 0;
 		width: 300px;
 		border-left: 1px solid #BBB;
+	}
+
+	.textStuff{
+		padding: 0 15px 0 15px;
+		text-align: left;
 	}
 
 	.contentCol{
@@ -254,3 +255,5 @@
 		margin: auto;
 		text-align: left;
 	}
+
+	
