@@ -38,7 +38,7 @@
 
           foreach ($gameID as $id)
           {
-            $this->db->select('player')->where(array('gameid' => $id);
+            $this->db->select('player')->where(array('gameid' => $id));
             $query = $this->db->get('sips');
             
             array_push($players[0], $query->result()->player;
