@@ -7,8 +7,9 @@
   <div class="leftContainer">
     </br>
     <h2>Activity</h2>
-    <div class="textStuff">
-    </div>
+    <a class="twitter-timeline" width="300" href="https://twitter.com/search?q=%23piratspillet" data-widget-id="289391947272044544">Tweets about "#piratspillet"</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
   </div>
 
   <div class="contentCol">
