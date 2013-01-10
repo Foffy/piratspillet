@@ -15,7 +15,7 @@
   <div class="contentCol">
 
     <div class="rightContainer">
-      <h2>Leaderboards</h2>
+      <h2>Top ...</h2>
       <ul class="tabs">
         <li><a href="#">Sips</a></li>
         <li><a href="#">Coins</a></li>
