@@ -6,7 +6,6 @@
 <div class="globalContainer">
   <div class="leftContainer">
     </br>
-    <h2>#piratspillet</h2>
     <table>
       <tr>
     <ol class="tweets"></ol>
