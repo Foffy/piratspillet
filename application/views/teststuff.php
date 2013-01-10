@@ -44,8 +44,8 @@
 
           foreach ($query->result() as $row)
           {
-            $key = array_search($row,array_keys($query));
-            echo "<tr><td>".$key."</td><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
+            $key = array_keys($query, $row)
+            echo "<tr><td>" . $key . "</td><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
           }
           echo "</table>";
           
