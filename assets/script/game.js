@@ -865,7 +865,7 @@ if(!local) $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	});
 
 // INITIALISATION
-GameLoop();
+//GameLoop();
 
 // name inputs
 var numPlayers = parseInt(prompt("How many players?",""));
