@@ -31,11 +31,6 @@
 
           $this->db->select('player');
           $query = $this->db->get('sips');
-
-          foreach ($query->results() as $row)
-          {
-            echo $row->player;
-          }
           ?>
         </div>
         <div>Second tab content</div>
