@@ -30,6 +30,7 @@
           $this->db->select('player, taken, given');
           $this->db->order_by('taken', 'DESC');
           $query = $this->db->get('sips');
+          $player = array();
           foreach ($query->result() as $row)
           {
             echo "<strong>" . $row->player . "</strong> has drunk " . $row->taken . " sips. and given ".$row->given ."</br>";
