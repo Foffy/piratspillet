@@ -31,15 +31,7 @@
 
           $query = $this->db->get('sips');
 
-          foreach ($query->result() as $row)
-          {
-              array_push($player, $row->player);
-
-          }
-          foreach ($players as $value)
-          {
-            echo $value . "<br>";
-          }
+          echo $query->result()
           ?>
         </div>
         <div>Second tab content</div>
