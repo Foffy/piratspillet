@@ -29,29 +29,7 @@
           $players = array();
           $gameID = array();
 
-          $query = $this->db->get('sips');
-
-          foreach ($query->result() as $row)
-          {
-            array_push($gameID, $row->gameid);
-          }
-
-          foreach ($gameID as $id)
-          {
-            echo $id . "</br>";
-          {
-
-         /* foreach ($players[0] as $player)
-          {
-            $this->db->select('taken')->where(array('player' => $player, 'gameid' => $gameID[0]));
-            $query = $this->db->get('sips');
-
-            foreach ($query->result() as $row)
-            {
-              echo $row->player . "</br>";
-            }
-          }*/
-          
+          $query = $this->db->get('sips');          
           ?>
         </div>
         <div>Second tab content</div>
