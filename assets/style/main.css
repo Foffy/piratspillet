@@ -256,4 +256,10 @@
 		text-align: left;
 	}
 
-	
+	.tweets{
+
+	}
+
+	.tweets img{
+		max-height:50px;
+	}
