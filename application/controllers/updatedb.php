@@ -29,6 +29,9 @@ class Updatedb extends CI_Controller {
 			case 'sips':
 				$this->updateSips($data);
 				break;
+			case 'winners':
+				$this->updateWinners($data);
+				break;
 		}
 	}
 
@@ -128,6 +131,16 @@ class Updatedb extends CI_Controller {
 			'gold' => $data[5],
 			'silver' => $data[6],
 			'whore' => $data[7]
+			);
+		$this->db->insert($data[1],$dbData);
+	}
+
+	private function updateWinners($data){
+		# $data = [debug, 'winners', gameid', 'player']		
+		
+		$dbData = array(
+			'gameId' => $data[2],
+			'player' => $data[3]
 			);
 		$this->db->insert($data[1],$dbData);
 	}
