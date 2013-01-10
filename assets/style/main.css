@@ -160,7 +160,8 @@
 	}
 
 	.textStuff{
-		font-family:'Annie Use Your Telescope', serif;
+		font-family: 'Kingthings';
+		src: url('../fonts/Kingthings_Calligraphica_2-webfont.ttf') format('truetype');
 		padding: 0 15px 0 15px;
 		text-align: left;
 	}
