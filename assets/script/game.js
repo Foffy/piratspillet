@@ -319,7 +319,7 @@ var imgExit = addImage("icon_exit.png");
 function Player(name){
 	this.name = name;
 	this.active = true;
-	this.gold = 6;
+	this.gold = 0;
 	this.silver = 0;
 	this.whore = 0;
 	this.skeleton = 0;
@@ -488,7 +488,6 @@ function drawState(){
 			if(curTreasure == null){
 				curTreasure = findTreasure();
 				curSips = treasureToSips(curTreasure);
-				sipsToDatabase(players[curPlayer].name, curSips, 0);
 				
 				// if nothing go
 				if(curSips == 0){
