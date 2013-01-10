@@ -159,7 +159,8 @@
 	}
 
 	.textStuff{
-		text-shadow: 1px 1px 0px black;
+		font:13px 'Lucida Sans', 'Lucida Sans Unicode', 'Lucida Grande', tahoma, sans-serif;
+		text-shadow: 1px 1px 0px white;
 		padding:5px 0 0 0;
 		margin:0 0 15px 0;
 		text-align: left;
