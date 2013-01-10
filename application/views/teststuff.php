@@ -91,16 +91,18 @@
           $this->db->limit('10');
           $query = $this->db->get('winners');
           $count = 1;
+          if ($query->num_rows() > 0){
+            echo "<table><tr><th></th><th></th><th>Wins</th></tr>";
 
-          echo "<table><tr><th></th><th></th><th>Wins</th></tr>";
-
-          foreach ($query->result() as $row)
-          {
-            echo "<tr><td>".$count."</td><td>" . $row->player . "</td><td>" . $row->gameId . "</td></tr>";
-            $count += 1;
+            foreach ($query->result() as $row)
+            {
+              echo "<tr><td>".$count."</td><td>" . $row->player . "</td><td>" . $row->gameId . "</td></tr>";
+              $count += 1;
+            }
+            echo "</table>";
+          }else{
+            echo "Yeah... About that.";
           }
-          echo "</table>";
-          
           ?>
         </div>
       </div>
