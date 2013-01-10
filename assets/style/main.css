@@ -71,18 +71,22 @@
 	}
 
 
-/* LAYOUT STYLE */
+/* LAYOUT STYLE #ebebeb;*/
 	html, body {
-		background-color: #ebebeb;
+		background-color: #a2cee7;
 		border:0px;
 		margin:0;
 		padding:0;
 		text-align:center;
 	}
 
+	.nav {
+		margin-left: 100px;
+	}
+
 	.box {
 		background-color: #fff;
-		width: 800px;
+		width: 700px;
 		height: 500px;
 		border:2px solid #000;
 		margin: auto;
@@ -145,6 +149,7 @@
 	}
 
 	.leftContainer{
+		margin-left: 10px;
 		height: 400px;
 		float:left;
 		width: 300px;
@@ -169,9 +174,9 @@
 	}
 
 	.middleContainer{
-		width: 500px;
+		width: 600px;
 		height: 400px;
-		margin: auto;
+		margin: 0 0 0 330px;
 		padding-bottom: 20px;
 		border-bottom: 1px solid #BBB;
 	}
@@ -237,7 +242,7 @@
 	}
 
 	.slideshow{
-		width: 800px;
+		width: 700px;
 		height: 150px;
 		margin:auto;
 	}
@@ -250,10 +255,32 @@
 	}
 
 	.slideOutput{
-		width: 800px;
+		width: 700px;
 		height: 320px;
 		margin: auto;
 		text-align: left;
 	}
 
-	
+	.tweets{
+
+	}
+
+	.tweets img{
+		float:left;
+		padding-right: 10px;
+		max-height:50px;
+	}
+
+	.tweets p{
+		width: 90%;
+		text-align: left;
+		margin-left: 15px;
+		font-family: 'IM fell Great Primer', serif;
+		font-size:18px;
+		line-height:20px;
+	}
+
+	.meta{
+		text-align: left;
+		padding-bottom: 5px;
+	}
