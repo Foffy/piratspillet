@@ -1512,6 +1512,8 @@ function inputForTile(tile){
 	switch(tile){
 		case 0:{
 			var player = players[curPlayer];
+			var directly = (newField == 14);
+
 			if((player.gold > 0 || player.silver > 0) && player.skeleton > 0) player.skeleton--; // lose a skeleton if you have coins
 
 			if(player.gold >= 5){ // Whore
@@ -1521,18 +1523,18 @@ function inputForTile(tile){
 				player.whore++;
 				whorebank--;
 				coinsToDatabase(player.name, "", 0, 0, 1);
-				for(var i = 0; i < players.length-1; i++){
-					sipsToDatabase(players[i].name, 0, (newField == 14) ? 10 : 5);
+				for(var i = 0; i < players.length; i++){
+					sipsToDatabase(players[i].name, directly ? 10 : 5, 0);
 				}
-				sipsToDatabase(players[curPlayer].name, (newField == 14) ? 10 : 5, 0);
+				sipsToDatabase(player.name, 0, (directly ? 10 : 5)*players.length-1);
 				
 				curState = (player.gold > 0 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
 
 				if(finishedGame()) curState = State.GAME_WON;
 			}else if(player.gold > 0 || player.silver > 0){ // regular give away
+				sipsToDatabase(player.name, 0, coinsToSips(player.gold, player.silver, directly));
 				goldbank += player.gold;
 				silverbank += player.silver;
-				sipsToDatabase(players[curPlayer].name, 0, coinsToSips(player.gold, player.silver, newField == 14));
 				player.gold = 0;
 				player.silver = 0;
 				
