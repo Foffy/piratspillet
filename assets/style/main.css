@@ -71,6 +71,10 @@
 		width: 100%;
 	}
 
+	th{
+		border-bottom: 1px;
+	}
+
 
 /* LAYOUT STYLE */
 	html, body {
