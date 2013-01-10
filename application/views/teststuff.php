@@ -35,6 +35,11 @@
           {
             array_push($players, $row->player);
           }
+
+          foreach ($players as $value)
+          {
+            echo $value . "</br>";
+          }
           ?>
         </div>
         <div>Second tab content</div>
