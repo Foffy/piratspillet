@@ -1,6 +1,5 @@
 <div class="topBox">
   <h1>Piratspillet!</h1>
-  <hr>
 </div>
 
 
