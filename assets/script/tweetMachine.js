@@ -34,7 +34,7 @@
 				settings = $.extend({
 					backendScript:  '/assets/ajax/getFromTwitter.php', // Path to your backend script that holds your Twitter credentials and calls the API
 					endpoint:       'search/tweets', // Twitter API endpoint to call. Currently only search/tweets is supported
-					rate:           50000, // Rate in ms to refresh the tweets. Any higher than 5000 for search/tweets will get you rate limited
+					rate:           2000, // Rate in ms to refresh the tweets. Any higher than 5000 for search/tweets will get you rate limited
 					limit:          5, // Number of tweets to display at a time
 					autoRefresh:    true, // CURRENTLY REQUIRED. Auto-refresh the tweets
 					animateOut:     false, // NOT YET SUPPORTED. Animate out old tweets.
