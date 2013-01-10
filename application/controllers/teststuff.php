@@ -31,7 +31,7 @@
     <h2>Activity</h2>
     <div class="textStuff">
       <?php
-        echo "lol!";
+        echo "Work. Now!";
       ?>
     </div>
   </div>
