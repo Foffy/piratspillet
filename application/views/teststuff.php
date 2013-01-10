@@ -80,7 +80,31 @@
           ?>
         </div>
 
-        <div class="textStuff">Yeah... About that.</div>
+        <div class="textStuff">
+          <?php
+          //SELECT player, COUNT(gameId) FROM winners GROUP BY player ORDER BY COUNT(gameId) DESC LIMIT 10
+
+          $this->db->select('player');
+          $this->db->select_sum('gameId');
+          $this->db->group_by('player');
+          $this->db->order_by('gameId', 'DESC');
+          $this->db->limit('10');
+          $query = $this->db->get('winners');
+          $count = 1;
+          if ($query->num_rows() > 0){
+            echo "<table><tr><th></th><th></th><th>Wins</th></tr>";
+
+            foreach ($query->result() as $row)
+            {
+              echo "<tr><td>".$count."</td><td>" . $row->player . "</td><td>" . $row->gameId . "</td></tr>";
+              $count += 1;
+            }
+            echo "</table>";
+          }else{
+            echo "Yeah... About that.";
+          }
+          ?>
+        </div>
       </div>
 
       <script>
