@@ -936,6 +936,7 @@ function drawCoinsByValue(value, x, y, width, yDisp){
 function giveCoinsByValue(value, player){
 		var goldCoins = 0;
 		var silverCoins = 0;
+		sipsToDatabase(players[curPlayer].name, value, 0);
 		while(value > 1 && goldbank > 0){
 			goldCoins++;
 			player.gold++;
@@ -948,7 +949,6 @@ function giveCoinsByValue(value, player){
 			silverbank--;
 			value -= 1;
 		}
-		sipsToDatabase(players[curPlayer].name, value, 0);
 		coinsToDatabase(player.name,"",goldCoins,silverCoins,0);
 		return[goldCoins, silverCoins];
 }
