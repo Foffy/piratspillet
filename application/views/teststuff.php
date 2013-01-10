@@ -38,13 +38,13 @@
           $this->db->limit('10');
           $query = $this->db->get('sips');
 
-          echo "<table><tr>";
+          echo "<table>";
 
           foreach ($query->result() as $row)
           {
-            echo "<td><strong>" . $row->player . "</strong> has drunk</td><td>" . $row->taken . " sips and given </td><td>".$row->given ."</td></br>";
+            echo "<tr><td><strong>" . $row->player . "</strong> has drunk</td><td>" . $row->taken . " sips and given </td><td>".$row->given ."</td></tr></br>";
           }
-          echo "</tr></table>";
+          echo "</table>";
           
           ?>
         </div>
