@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="/sites/all/themes/customtemplate/style/screenIE7.css">
   <![endif]-->
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
   <link rel="stylesheet" href="/assets/style/tabs.css"
         type="text/css" media="screen" />
