@@ -5,12 +5,9 @@
 
 <div class="globalContainer">
   <div class="leftContainer">
+    <h2>People say ...</h2>
     </br>
-    <table>
-      <tr>
     <ol class="tweets"></ol>
-      </tr>
-    </table>
     <script>window.jQuery || document.write('<script src="/assets/script/vendor/jquery-1.8.2.min.js"><\/script>')</script>
     <script src="/assets/script/tweetMachine.js"></script>
     <script>
