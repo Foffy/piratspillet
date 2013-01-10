@@ -28,7 +28,7 @@
           <?php
  
           $this->db->select('player, taken, given');
-          $this->db->sort('taken', 'DESC');
+          $this->db->order_by('taken', 'DESC');
           $query = $this->db->get('sips');
           foreach ($query->result() as $row)
           {
