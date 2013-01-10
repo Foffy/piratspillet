@@ -29,12 +29,11 @@
           $players = array();
           $gameID = array();
 
-          $this->db->select('player');
           $query = $this->db->get('sips');
 
           foreach ($query->result() as $row)
           {
-              echo $row->player . "</br>";
+              echo $row['player'] . "</br>";
           }
           ?>
         </div>
