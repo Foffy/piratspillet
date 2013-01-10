@@ -31,7 +31,7 @@
 
           $query = $this->db->get('sips');
 
-          echo $query->result()
+          echo $query->result()->player;
           ?>
         </div>
         <div>Second tab content</div>
