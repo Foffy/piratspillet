@@ -40,7 +40,7 @@
           $this->db->limit('10');
           $query = $this->db->get('sips');
 
-          echo """<table vertical_align="top">""";
+          echo "<table vertical_align='top'>";
 
           foreach ($query->result() as $row)
           {
