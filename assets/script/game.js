@@ -646,7 +646,7 @@ function takeInput(){
 		}
 		case State.ROLL:{
 			diceToShow = rollDice(); // real dice roll
-			if(!local) {$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]});
+			if(!local) {$.post(dbURL, { 'data': [debug? 'true': 'false', 'rolls', gameID, players[curPlayer].name,diceToString(diceToShow)]}));
 			newField = players[curPlayer].pos + diceToShow;
 			curState = State.MOVING;
 			newTimeout = 350;
@@ -865,7 +865,7 @@ if(!local) $.post(dbURL, {'data':[debug? 'true': 'false','games']},
 	});
 
 // INITIALISATION
-//GameLoop();
+GameLoop();
 
 // name inputs
 var numPlayers = parseInt(prompt("How many players?",""));
