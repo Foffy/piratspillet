@@ -27,11 +27,12 @@
         <div class="textStuff">
           <?php
  
-          $this->db->select('player, taken');
+          $this->db->select('player, taken, given');
+          $this->db->sort('taken', 'DESC');
           $query = $this->db->get('sips');
           foreach ($query->result() as $row)
           {
-            echo "<strong>" . $row->player . "</strong> has drunk " . $row->taken . " sips.</br>";
+            echo "<strong>" . $row->player . "</strong> has drunk " . $row->taken . " sips. and given ".$row->given ."</br>";
           }
           
           ?>
