@@ -142,6 +142,7 @@
 
 
 	.gobalContainer{
+		width: 1328px;
 		margin: 0 auto;
 		font: 16px/23px normal Helvetica, Arial, sans-serif;
 		position: relative;
