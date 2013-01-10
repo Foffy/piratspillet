@@ -40,11 +40,13 @@
           $this->db->limit('10');
           $query = $this->db->get('sips');
 
+          echo "<table vertical_align="middle">";
 
           foreach ($query->result() as $row)
           {
-            echo "<strong>" . $row->player . " drank :</strong>" . $row->taken . " sips and gave ".$row->given ."</br>";
+            echo "<tr><td><strong>" . $row->player . " drank :</strong></td><td>" . $row->taken . " sips and gave </td><td>".$row->given ."</td></tr></br>";
           }
+          echo "</table>";
           
           ?>
         </div>
