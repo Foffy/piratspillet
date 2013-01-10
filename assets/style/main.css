@@ -160,8 +160,8 @@
 
 	.textStuff{
 		font:13px 'Lucida Sans', 'Lucida Sans Unicode', 'Lucida Grande', tahoma, sans-serif;
-		color:#ebebeb;
-		text-shadow: 1px 1px 0px white;
+		color:#555;
+		text-shadow: 1px 1px 0px #ebebeb;
 		padding:5px 0 0 0;
 		margin:0 0 15px 0;
 		text-align: left;
