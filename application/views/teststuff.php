@@ -18,7 +18,7 @@
   <div class="contentCol">
 
     <div class="rightContainer">
-      <h2>Top ...</h2>
+      <h2>Top 10!</h2>
       <ul class="tabs">
         <li><a href="#">Sips</a></li>
         <li><a href="#">Coins</a></li>
@@ -29,20 +29,58 @@
       <div class="panes">
         <div class="textStuff">
           <?php
- 
-          $this->db->select('player, taken, given');
+          //SELECT player, SUM(taken), SUM(given) FROM sips GROUP BY player ORDER BY SUM(taken) DESC, SUM(given) DESC LIMIT 10
+
+          $this->db->select('player');
+          $this->db->select_sum('taken');
+          $this->db->select_sum('given');
+          $this->db->group_by('player');
           $this->db->order_by('taken', 'DESC');
+          $this->db->order_by('given', 'DESC');
+          $this->db->limit('10');
           $query = $this->db->get('sips');
-          $player = array();
+          $count = 1;
+
+          echo "<table><tr><th></th><th></th><th>Taken</th><th>Given</th></tr>";
+
           foreach ($query->result() as $row)
           {
-            echo "<strong>" . $row->player . "</strong> has drunk " . $row->taken . " sips. and given ".$row->given ."</br>";
+            echo "<tr><td>".$count."</td><td>" . $row->player . "</td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
+            $count += 1;
           }
+          echo "</table>";
           
           ?>
         </div>
-        <div>Moar data</div>
-        <div>Even more!</div>
+        <div class="textStuff">
+          <?php
+          //SELECT player, SUM(whore), SUM(gold), SUM(silver) FROM coins GROUP BY player ORDER BY SUM(whore) DESC, SUM(gold) DESC, SUM(silver) DESC LIMIT 10
+
+          $this->db->select('player');
+          $this->db->select_sum('whore');
+          $this->db->select_sum('gold');
+          $this->db->select_sum('silver');
+          $this->db->group_by('player');
+          $this->db->order_by('whore', 'DESC');
+          $this->db->order_by('gold', 'DESC');
+          $this->db->order_by('silver', 'DESC');
+          $this->db->limit('10');
+          $query = $this->db->get('coins');
+          $count = 1;
+
+          echo "<table><tr><th></th><th></th><th>Whore</th><th>Gold</th><th>Silver</th></tr>";
+
+          foreach ($query->result() as $row)
+          {
+            echo "<tr><td>".$count."</td><td>" . $row->player . "</td><td>" . $row->whore . "</td><td>".$row->gold . "</td><td>" . $row->silver . "</td></tr>";
+            $count += 1;
+          }
+          echo "</table>";
+          
+          ?>
+        </div>
+
+        <div class="textStuff">Yeah... About that.</div>
       </div>
 
       <script>
@@ -58,10 +96,10 @@
   </div>
 
   <a href="http://beta.piratspillet.dk/index.php/rules">
-   <img src="/assets/images/rules.jpg" />
+   <img src="/assets/images/chromeborder.png" />
   </a>
   <a href="http://beta.piratspillet.dk/index.php/game" >
-   <img src="/assets/images/play.png" />
+   <img src="/assets/images/chromefilled.png" />
   </a>
 
 </div>

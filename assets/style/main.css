@@ -70,8 +70,7 @@
 		width: 100%;
 	}
 
-
-/* LAYOUT STYLE #ebebeb;*/
+/* LAYOUT STYLE #a2cee7*/
 	html, body {
 		background-color: #a2cee7;
 		border:0px;
@@ -80,13 +79,9 @@
 		text-align:center;
 	}
 
-	.nav {
-		margin-left: 100px;
-	}
-
 	.box {
 		background-color: #fff;
-		width: 700px;
+		width: 800px;
 		height: 500px;
 		border:2px solid #000;
 		margin: auto;
@@ -118,7 +113,7 @@
 	}
 
 	h1 {
-		font-family:IM Fell DW Pica, serif;
+		font-family:'IM fell Great Primer', serif;
 		font-size:70px;
 		line-height:90px;
 	}
@@ -129,9 +124,12 @@
 	}
 
 	h2 {
-		font-family:IM Fell DW Pica, serif;
-		font-size:40px;
-		line-height:60px;
+		font-family:'IM fell Great Primer', serif;
+				font-size:36px;
+				line-height:20px;
+				margin:0 0 20px 0;
+				padding:0;
+				display:block;
 	}
 
 	.topBox{
@@ -142,7 +140,6 @@
 
 
 	.gobalContainer{
-		width: 1328px;
 		margin: 0 auto;
 		font: 16px/23px normal Helvetica, Arial, sans-serif;
 		position: relative;
@@ -165,7 +162,11 @@
 	}
 
 	.textStuff{
-		padding: 0 15px 0 15px;
+		font:14px 'Lucida Sans', 'Lucida Sans Unicode', 'Lucida Grande', tahoma, sans-serif;
+		color:#455;
+		text-shadow: 1px 1px 0px #BBB;
+		padding:5px 0 0 0;
+		margin:0 0 15px 0;
 		text-align: left;
 	}
 
@@ -175,7 +176,7 @@
 	}
 
 	.middleContainer{
-		width: 600px;
+		width: 500px;
 		height: 400px;
 		margin: auto;
 		padding-bottom: 20px;
@@ -243,7 +244,7 @@
 	}
 
 	.slideshow{
-		width: 700px;
+		width: 800px;
 		height: 150px;
 		margin:auto;
 	}
@@ -256,7 +257,7 @@
 	}
 
 	.slideOutput{
-		width: 700px;
+		width: 800px;
 		height: 320px;
 		margin: auto;
 		text-align: left;
@@ -273,12 +274,11 @@
 	}
 
 	.tweets p{
-		width: 90%;
+		font:14px 'Lucida Sans', 'Lucida Sans Unicode', 'Lucida Grande', tahoma, sans-serif;
+		color:#455;
+		text-shadow: 1px 1px 0px #BBB;
+		padding:5px 0 0 0;
 		text-align: left;
-		margin-left: 15px;
-		font-family: 'IM fell Great Primer', serif;
-		font-size:18px;
-		line-height:20px;
 	}
 
 	.meta{
