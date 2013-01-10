@@ -37,8 +37,8 @@
           
           ?>
         </div>
-        <div>Second tab content</div>
-        <div>Third tab content</div>
+        <div>Moar data</div>
+        <div>Even more!</div>
       </div>
 
       <script>
