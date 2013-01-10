@@ -60,7 +60,7 @@
 
   </div>
 
-  <div class="middleContainer" align="center">
+  <div class="middleContainer" align="left">
     <div class="box">
       <div class="counterBox">
       </div>
@@ -91,11 +91,6 @@
       </div>
       <div class="nav" align="center">
       <a id="prev" href="#"><left><img src="/assets/images/arrowLeft.png" width="100"/></left></a><a id="next" href="#"><right><img src="/assets/images/arrow.png" width="100"/></right></a>
-      </div>
-      <div class="bottomBox">
-        <div class="speak4">
-          <a href="http://beta.piratspillet.dk">Back</a>|<a href="http://beta.piratspillet.dk/index.php/game">Play</a>
-        </div>
       </div>
 
   <a href="http://beta.piratspillet.dk/index.php/rules">
