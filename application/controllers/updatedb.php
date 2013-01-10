@@ -151,8 +151,8 @@ class Updatedb extends CI_Controller {
 		$taken = "taken + " . $data[4];
 		$given = "given + " . $data[5];
 
-		$this->db->set('taken',$taken,FALSE);
-		$this->db->set('given',$given,FALSE);
+		$this->db->set('taken',$taken);
+		$this->db->set('given',$given);
 		$this->db->where(array('player' => $data[3]));
 		$this->db->update('sips');
 
