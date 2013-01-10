@@ -27,7 +27,7 @@
         <div class="textStuff">
           <?php
  
-          $this->db->select('player','gameid','taken');
+          $this->db->select('gameid, player, taken');
           $query = $this->db->get('sips');
           foreach ($query->result() as $row)
           {
