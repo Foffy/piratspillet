@@ -1,5 +1,5 @@
 var local = false;
-var debug = false;
+var debug = true;
 
 // global variables
 var c = document.getElementById('c');
@@ -1544,7 +1544,9 @@ function inputForTile(tile){
 
 				if(finishedGame()) curState = State.GAME_WON;
 			}else if(player.gold > 0 || player.silver > 0){ // regular give away
-				sipsToDatabase(player.name, 0, coinsToSips(player.gold, player.silver, directly));
+				var givenSips = coinsToSips(player.gold, player.silver, directly);
+				sipsToDatabase(player.name, 0, givenSips);
+				debugging = ""+givenSips;
 				goldbank += player.gold;
 				silverbank += player.silver;
 				player.gold = 0;
