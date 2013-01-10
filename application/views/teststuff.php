@@ -18,7 +18,7 @@
   <div class="contentCol">
 
     <div class="rightContainer">
-      <h2>Top 20!</h2>
+      <h2>Top 10!</h2>
       <ul class="tabs">
         <li><a href="#">Sips</a></li>
         <li><a href="#">Coins</a></li>
@@ -37,7 +37,7 @@
           $this->db->group_by('player');
           $this->db->order_by('taken', 'DESC');
           $this->db->order_by('given', 'DESC');
-          $this->db->limit('20');
+          $this->db->limit('10');
           $query = $this->db->get('sips');
           $count = 1;
 
@@ -52,7 +52,34 @@
           
           ?>
         </div>
-        <div>Moar data</div>
+        <div class="textStuff">
+          <?php
+          //SELECT player, SUM(whore), SUM(gold), SUM(silver) FROM coins GROUP BY player ORDER BY SUM(whore) DESC, SUM(gold) DESC, SUM(silver) DESC LIMIT 10
+
+          $this->db->select('player');
+          $this->db->select_sum('whore');
+          $this->db->select_sum('gold');
+          $this->db->select_sum('silver');
+          $this->db->group_by('player');
+          $this->db->order_by('whore', 'DESC');
+          $this->db->order_by('gold', 'DESC');
+          $this->db->order_by('silver', 'DESC');
+          $this->db->limit('10');
+          $query = $this->db->get('coins');
+          $count = 1;
+
+          echo "<table><tr><th></th><th></th><th>Whore</th><th>Gold</th><th>Silver</th></tr>";
+
+          foreach ($query->result() as $row)
+          {
+            echo "<tr><td>".$count."</td><td>" . $row->player . "</td><td>" . $row->whore . "</td><td>".$row->gold . "</td><td>" . $row->silver . "</td></tr>";
+            $count += 1;
+          }
+          echo "</table>";
+          
+          ?>
+        </div>
+
         <div>Even more!</div>
       </div>
 
