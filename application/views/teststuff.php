@@ -29,9 +29,13 @@
           $players = array();
           $gameID = array();
 
+
           $query = $this->db->get('sips');
 
-          echo $query->result()->player;
+          foreach ($query->results() as $row)
+          {
+            echo $row->player;
+          }
           ?>
         </div>
         <div>Second tab content</div>
