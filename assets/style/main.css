@@ -71,11 +71,6 @@
 		width: 100%;
 	}
 
-	th{
-		border-bottom: 1px;
-	}
-
-
 /* LAYOUT STYLE */
 	html, body {
 		background-color: #a2cee7;
@@ -165,6 +160,7 @@
 	}
 
 	.textStuff{
+		margin: auto;
 		padding: 0 15px 0 15px;
 		text-align: left;
 	}
