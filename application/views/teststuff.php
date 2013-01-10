@@ -31,7 +31,7 @@
           $query = $this->db->get('sips');
           foreach ($query->result() as $row)
           {
-            echo "<b>" . $row->player . "</b> has drunk " . $row->taken . " sips.</br>";
+            echo "<strong>" . $row->player . "</strong> has drunk " . $row->taken . " sips.</br>";
           }
           
           ?>
