@@ -263,3 +263,7 @@
 	.tweets img{
 		max-height:50px;
 	}
+
+	.tweets p{
+		font-size: 12px;
+	}
