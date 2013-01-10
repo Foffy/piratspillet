@@ -1313,7 +1313,6 @@ function drawLandedTile(tile){
 			if(player.gold >= 5){
 				drawTextInBox("Arr! You have enough gold for a " + (directly ? "LUXURY WHORE" : "whore") + " for everyone to enjoy! Everyone takes " + (directly ? "10" : "5") + " sips and a Whore Coin is granted to you","body");
 				sipsToDatabase(players[curPlayer].name, 0, directly ? 10 : 5);
-				coinsToDatabase(players[curPlayer].name, "", 0, 0, 1);
 			}else if(player.silver > 0 || player.gold > 0){
 				var lastPart = coinsToSipsString(player.gold,player.silver,directly);
 				sipsToDatabase(players[curPlayer].name, 0, lastPart);
@@ -1524,6 +1523,7 @@ function inputForTile(tile){
 				
 				player.whore++;
 				whorebank--;
+				coinsToDatabase(player.name, "", 0, 0, 1);
 				
 				curState = (player.gold > 0 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
 
