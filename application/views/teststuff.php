@@ -31,18 +31,13 @@
           <?php
           //SELECT player, SUM(taken), SUM(given) FROM sips GROUP BY player ORDER BY SUM(taken) DESC, SUM(given) DESC LIMIT 10
 
-          $this->db->select('player', 'SUM(taken) as takenSum', 'SUM(given) as takenSum');
-          $this->db->group_by('player');
-          $this->db->order_by('SUM(taken)', 'DESC');
-          $this->db->order_by('SUM(given)', 'DESC');
-          $this->db->limit('10');
-          $query = $this->db->get('sips');
+          $query = $this->db->query('SELECT player, SUM(taken), SUM(given) FROM sips GROUP BY player ORDER BY SUM(taken) DESC, SUM(given) DESC LIMIT 10');
 
           echo "<table>";
 
           foreach ($query->result() as $row)
           {
-            echo "<tr><td><strong>" . $row->player . " drank :</strong></td><td>" . $row->takenSum . " sips and gave </td><td>".$row->givenSum ."</td></tr></br>";
+            echo "<tr><td><strong>" . $row->player . " drank :</strong></td><td>" . $row->taken . " sips and gave </td><td>".$row->given ."</td></tr></br>";
           }
           echo "</table>";
           
