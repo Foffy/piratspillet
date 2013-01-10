@@ -159,10 +159,8 @@
 	}
 
 	.textStuff{
-		font-family:'IM fell Great Primer', serif;
-		font-size: 18px;
-		line-height: 20px;
-		padding: 0 15px 0 15px;
+		padding:5px 0 0 0;
+		margin:0 0 15px 0;
 		text-align: left;
 	}
 
