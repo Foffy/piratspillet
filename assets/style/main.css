@@ -71,7 +71,7 @@
 	}
 
 
-/* LAYOUT STYLE #ebebeb;*/
+/* LAYOUT STYLE */
 	html, body {
 		background-color: #a2cee7;
 		border:0px;
@@ -80,13 +80,9 @@
 		text-align:center;
 	}
 
-	.nav {
-		margin-left: 100px;
-	}
-
 	.box {
 		background-color: #fff;
-		width: 700px;
+		width: 800px;
 		height: 500px;
 		border:2px solid #000;
 		margin: auto;
@@ -142,7 +138,6 @@
 
 
 	.gobalContainer{
-		width: 1328px;
 		margin: 0 auto;
 		font: 16px/23px normal Helvetica, Arial, sans-serif;
 		position: relative;
@@ -175,7 +170,7 @@
 	}
 
 	.middleContainer{
-		width: 600px;
+		width: 500px;
 		height: 400px;
 		margin: auto;
 		padding-bottom: 20px;
@@ -243,7 +238,7 @@
 	}
 
 	.slideshow{
-		width: 700px;
+		width: 800px;
 		height: 150px;
 		margin:auto;
 	}
@@ -256,7 +251,7 @@
 	}
 
 	.slideOutput{
-		width: 700px;
+		width: 800px;
 		height: 320px;
 		margin: auto;
 		text-align: left;
