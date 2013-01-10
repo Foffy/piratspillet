@@ -41,6 +41,7 @@
           $query = $this->db->get('sips');
 
           echo "<table><th><strong>Player</strong></th><th>Taken</th><th>Given</th>";
+          echo "<hr>";
 
           foreach ($query->result() as $row)
           {
