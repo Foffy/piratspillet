@@ -25,6 +25,13 @@
       <!-- tab "panes" -->
       <div class="panes">
         <div class="textStuff">
+          <?php
+          $query = $this->db->get('games');
+          foreach ($query->result() as $row)
+          {
+              echo $row->ip;
+          }
+          ?>
         </div>
         <div>Second tab content</div>
         <div>Third tab content</div>
