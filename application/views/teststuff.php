@@ -18,7 +18,7 @@
   <div class="contentCol">
 
     <div class="rightContainer">
-      <h2>Top 10!</h2>
+      <h2>Top 20!</h2>
       <ul class="tabs">
         <li><a href="#">Sips</a></li>
         <li><a href="#">Coins</a></li>
@@ -40,11 +40,11 @@
           $this->db->limit('20');
           $query = $this->db->get('sips');
 
-          echo "<table><tr><th><strong>Player</strong></th><th>Taken</th><th>Given</th></tr>";
+          echo "<table><tr><th>Rank</th><th><strong>Player</strong></th><th>Taken</th><th>Given</th></tr>";
 
           foreach ($query->result() as $row)
           {
-            echo "<tr><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
+            echo "<tr><td>".array_search($row->result(), $array);."</td><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
           }
           echo "</table>";
           
