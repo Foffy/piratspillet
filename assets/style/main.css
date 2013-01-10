@@ -265,6 +265,8 @@
 	}
 
 	.tweets p{
+		width: 70%;
+		margin:auto;
 		font-family: 'IM fell Great Primer', serif;
 		font-size:18px;
 		text-align: left;
