@@ -270,7 +270,7 @@
 	.tweets p{
 		width: 70%;
 		text-align: left;
-		margin:auto;
+		margin-left: 15px;
 		font-family: 'IM fell Great Primer', serif;
 		font-size:18px;
 		line-height:20px;
