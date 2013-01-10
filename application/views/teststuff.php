@@ -29,15 +29,22 @@
       <div class="panes">
         <div class="textStuff">
           <?php
- 
-          $this->db->select('player, taken, given');
-          $this->db->order_by('taken', 'DESC');
+          //SELECT player, SUM(taken), SUM(given) FROM sips GROUP BY player ORDER BY SUM(taken) DESC, SUM(given) DESC LIMIT 10
+
+          $this->db->select('player', 'SUM(taken) as takenSum', 'SUM(given) as givenSum');
+          $this->db->group_by('player'):
+          $this->db->order_by('SUM(taken)', 'DESC');
+          $this->db->order_by('SUM(given)', 'DESC');
+          $this->db->limit('10');
           $query = $this->db->get('sips');
-          $player = array();
+
+          echo "<table><tr>";
+
           foreach ($query->result() as $row)
           {
-            echo "<strong>" . $row->player . "</strong> has drunk " . $row->taken . " sips. and given ".$row->given ."</br>";
+            echo "<td><strong>" . $row->player . "</strong> has drunk</td><td>" . $row->taken . " sips and given </td><td>".$row->given ."</td></br>";
           }
+          echo "</tr></table>";
           
           ?>
         </div>
