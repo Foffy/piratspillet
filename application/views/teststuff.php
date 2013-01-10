@@ -33,7 +33,7 @@
 
           foreach ($query->result() as $row)
           {
-              echo $row->player . "</br>";
+            array_push($players, $row->player);
           }
           ?>
         </div>
