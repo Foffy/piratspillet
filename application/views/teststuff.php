@@ -26,10 +26,14 @@
       <div class="panes">
         <div class="textStuff">
           <?php
-          $players = array();
-          $gameID = array();
-
-          $query = $this->db->get('sips');          
+ 
+          $this->db->select('player','gameid','taken');
+          $query = $this->db->get('sips');
+          foreach {$query->result() as $row}
+          {
+            echo $row->gameid . " " . $row->player . "" . $row->taken;
+          }
+          
           ?>
         </div>
         <div>Second tab content</div>
