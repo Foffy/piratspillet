@@ -138,8 +138,10 @@ class Updatedb extends CI_Controller {
 		$taken = "taken + " . $data[4];
 		$given = "given + " . $data[5];
 
-		$this->db->set(array('taken' => $taken, 'given' => $given),FALSE);
+		$this->db->set('taken',$taken,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->set('given',$given,FALSE)->where(array('player' => $data[3], 'gameId' => $data[2]));
 		$this->db->update('sips');
+
 
 		$check = $this->db->affected_rows();
 
