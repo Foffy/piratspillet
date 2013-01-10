@@ -80,7 +80,7 @@
           ?>
         </div>
 
-        <div>Even more!</div>
+        <div>Yeah... About that.</div>
       </div>
 
       <script>
