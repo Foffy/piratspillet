@@ -140,7 +140,7 @@ class Updatedb extends CI_Controller {
 
 		$this->db->set('taken',$taken,FALSE);
 		$this->db->set('given',$given,FALSE);
-		$this->db->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->where(array('player' => $data[3]));
 		$this->db->update('sips');
 
 
