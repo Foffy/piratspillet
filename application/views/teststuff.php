@@ -34,7 +34,7 @@
           $this->db->select('player', 'SUM(taken) as takenSum', 'SUM(given) as givenSum');
           $this->db->group_by('player');
           $this->db->order_by('takenSum', 'DESC');
-          $this->db->order_by('takenSum', 'DESC');
+          $this->db->order_by('givenSum', 'DESC');
           $this->db->limit('10');
           $query = $this->db->get('sips');
 
