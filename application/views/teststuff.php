@@ -44,7 +44,7 @@
 
           foreach ($query->result() as $row)
           {
-            $searchValue = $row;
+            $searchValue = $row->player;
             $key = array_search($row, $query);
             echo "<tr><td>".$key."</td><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
           }
