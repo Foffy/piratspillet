@@ -10,9 +10,3 @@ class Teststuff extends CI_Controller {
     $this->load->view('includes/template', $data);
   }
 }
-
-?>
-
-
-</body>
-</html>
