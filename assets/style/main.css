@@ -72,7 +72,7 @@
 
 /* LAYOUT STYLE #a2cee7*/
 	html, body {
-		background-color: #ebebeb;
+		background-color: #a2cee7;
 		border:0px;
 		margin:0;
 		padding:0;
@@ -160,7 +160,7 @@
 
 	.textStuff{
 		font:13px 'Lucida Sans', 'Lucida Sans Unicode', 'Lucida Grande', tahoma, sans-serif;
-		color:#555;
+		color:#ebebeb;
 		text-shadow: 1px 1px 0px white;
 		padding:5px 0 0 0;
 		margin:0 0 15px 0;
