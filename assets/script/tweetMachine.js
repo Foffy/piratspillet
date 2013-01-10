@@ -39,7 +39,7 @@
 					autoRefresh:    true, // CURRENTLY REQUIRED. Auto-refresh the tweets
 					animateOut:     false, // NOT YET SUPPORTED. Animate out old tweets.
 					animateIn:      true, // Fade in new tweets.
-					tweetFormat: "<table border="1"><tr><li class='tweet'><td><img class='avatar' src=''/></td><td><div class='meta'><a href='' class='username'></a><a href='' class='time'></a></div><p class='content'></p></td></li></tr>", // Format for each tweet
+					tweetFormat: "<table border="1"><li class='tweet'><tr><td><img class='avatar' src=''/></td><td><div class='meta'><a href='' class='username'></a><a href='' class='time'></a></div><p class='content'></p></td></tr></li>", // Format for each tweet
 					localization: { // Verbiage to use for timestamps
 						seconds:    'seconds ago',
 						minute:     'a minute ago',
