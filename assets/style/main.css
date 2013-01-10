@@ -66,10 +66,11 @@
 		color:inherit;
 	}
 
-/*	table{
+	table{
+		border: 1px;
 		width: 100%;
 	}
-*/
+
 
 /* LAYOUT STYLE */
 	html, body {
