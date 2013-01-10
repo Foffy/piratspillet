@@ -19,7 +19,7 @@ ul.tabs li {
 
 /* link inside the tab. uses a background image */
 ul.tabs a {
-    background: url(../images/tabs.png) no-repeat;
+    background: url(../images/tabs.png) no-repeat 0 0;
     font-size:11px;
     display:block;
     height: 30px;
@@ -40,13 +40,13 @@ ul.tabs a:active {
 
 /* when mouse enters the tab move the background image */
 ul.tabs a:hover {
-    background-position: 0px -31px;
+    background-position: 0 -31px;
     color:#fff;
 }
 
 /* active tab uses a class name "current". its highlight is also done by moving the background image. */
 ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
-    background-position: 0px -31px;
+    background-position: 0 -31px;
     cursor:default !important;
     color:#000 !important;
 }
