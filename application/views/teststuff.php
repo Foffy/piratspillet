@@ -42,7 +42,7 @@
 
           foreach ($query->result() as $row)
           {
-            echo "<tr><td><strong>" . $row->player . "</strong> has drunk</td><td>" . $row->taken . " sips and given </td><td>".$row->given ."</td></tr></br>";
+            echo "<tr><td><strong>" . $row->player . "</strong> has drunk</td><td>" . $row->takenSum . " sips and given </td><td>".$row->givenSum ."</td></tr></br>";
           }
           echo "</table>";
           
