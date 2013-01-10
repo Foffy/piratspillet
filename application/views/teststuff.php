@@ -40,12 +40,12 @@
           $this->db->limit('10');
           $query = $this->db->get('sips');
 
-          echo "<table><th><strong>Player</strong></th><th>Taken</th><th>Given</th>";
+          echo "<table border="1"><th><strong>Player</strong></th><th>Taken</th><th>Given</th>";
           echo "<hr>";
 
           foreach ($query->result() as $row)
           {
-            echo "<tr><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td><".$row->given ."</td></tr><br>";
+            echo "<tr><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td>".$row->given ."</td></tr><br>";
           }
           echo "</table>";
           
