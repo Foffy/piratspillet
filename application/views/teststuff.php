@@ -38,7 +38,7 @@
 
           foreach ($gameID as $id)
           {
-            echo $id . "</br>"
+            echo $id . "</br>";
           {
 
          /* foreach ($players[0] as $player)
