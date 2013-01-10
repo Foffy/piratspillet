@@ -162,6 +162,8 @@
 	.textStuff{
 		font-family: 'Kingthings';
 		src: url('../fonts/Kingthings_Calligraphica_2-webfont.ttf') format('truetype');
+		font-size: 20px;
+		line-height: 22px;
 		padding: 0 15px 0 15px;
 		text-align: left;
 	}
