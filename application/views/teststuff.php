@@ -33,8 +33,8 @@
 
           $this->db->select('player', 'SUM(taken) as takenSum', 'SUM(given) as givenSum');
           $this->db->group_by('player');
-          $this->db->order_by('SUM(taken)', 'DESC');
-          $this->db->order_by('SUM(given)', 'DESC');
+          $this->db->order_by('takenSum', 'DESC');
+          $this->db->order_by('takenSum', 'DESC');
           $this->db->limit('10');
           $query = $this->db->get('sips');
 
@@ -42,7 +42,7 @@
 
           foreach ($query->result() as $row)
           {
-            echo "<tr><td><strong>" . $row->player . "</strong> has drunk</td><td>" . $row->takenSum . " sips and given </td><td>".$row->givenSum ."</td></tr></br>";
+            echo "<tr><td><strong>" . $row->player . " drank :</strong></td><td>" . $row->takenSum . " sips and gave </td><td>".$row->givenSum ."</td></tr></br>";
           }
           echo "</table>";
           
