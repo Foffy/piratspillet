@@ -41,11 +41,11 @@
           $query = $this->db->get('sips');
           $count = 1;
 
-          echo "<table><tr><th>Rank</th><th><strong>Player</strong></th><th>Taken</th><th>Given</th></tr>";
+          echo "<table><tr><th></th><th></th><th>Taken</th><th>Given</th></tr>";
 
           foreach ($query->result() as $row)
           {
-            echo "<tr><td>".$count."</td><td><strong>" . $row->player . "</strong></td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
+            echo "<tr><td>".$count."</td><td>" . $row->player . "</td><td>" . $row->taken . "</td><td>".$row->given . "</td></tr>";
             $count += 1;
           }
           echo "</table>";
