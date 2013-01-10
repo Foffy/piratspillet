@@ -33,7 +33,7 @@
 
           foreach ($query->result() as $row)
           {
-              array_push($player, $row->player)
+              array_push($player, $row->player);
 
           }
           foreach ($players as $value)
