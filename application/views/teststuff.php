@@ -7,17 +7,11 @@
   <div class="leftContainer">
     </br>
     <h2>Activity</h2>
-    <ol class="tweets"></ol>
-
-    <script>window.jQuery || document.write('<script src="/assets/script/vendor/jquery-1.8.2.min.js"><\/script>')</script>
-    <script src="/assets/script/tweetMachine.js"></script>
-
-    <script>
-        $('.tweets').tweetMachine('#piratspillet');
-    </script>
+    <div class="textStuff">
+    </div>
   </div>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <div class="contentCol"
+
+  <div class="contentCol">
 
     <div class="rightContainer">
       <h2>Top ...</h2>
