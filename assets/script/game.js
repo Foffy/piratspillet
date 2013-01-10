@@ -806,6 +806,13 @@ function takeInput(){
 			}
 			break;
 		}
+		case State.GAME_WON:{
+			var winners = whoWon();
+			for(var i = 0; i < winners.length; i++){
+				winnersToDatabase(i.name);
+			}
+			break;
+		}
 	}
 	
 	mouseClicked = null; // click consumed
@@ -854,6 +861,11 @@ function sipsToDatabase(player, taken, given){
 // Update coins table on database
 function coinsToDatabase(player, fromPlayer, gold, silver, whore){
 	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'coins', gameID, player, fromPlayer, gold, silver, whore]});
+}
+
+// Update winners table on database
+function winnersToDatabase(player){
+	if(!local) $.post(dbURL, {'data':[debug? 'true': 'false', 'winners', gameID, player]});
 }
 
 
