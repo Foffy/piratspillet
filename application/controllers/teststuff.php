@@ -69,10 +69,10 @@
   <div class="middleContainer" align="center">
 
   <a href="http://beta.piratspillet.dk/index.php/rules">
-   <img src="images/rules.jpg" width="100" height="100" />
+   <img src="/assets/images/rules.jpg" width="100" height="100" />
   </a>
   <a href="http://beta.piratspillet.dk/index.php/game" >
-   <img src="images/play.jpg" width="100" height="100" />
+   <img src="/assets/images/play.jpg" width="100" height="100" />
   </a>
 
 </div>
