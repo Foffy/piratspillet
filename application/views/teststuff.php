@@ -26,10 +26,19 @@
       <div class="panes">
         <div class="textStuff">
           <?php
-          $query = $this->db->get('games');
+          $players = []
+          $gameID = []
+
+          $query = $this->db->get('sips');
+
           foreach ($query->result() as $row)
           {
-              echo $row->ip;
+              array_push($player, $row->player)
+
+          }
+          foreach ($players as $value)
+          {
+            echo $value . "<br>"
           }
           ?>
         </div>
