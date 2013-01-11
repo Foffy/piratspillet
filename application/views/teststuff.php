@@ -118,14 +118,12 @@
 
 
   </div>
-  <div class="centerBlock">
     <a href="http://beta.piratspillet.dk/index.php/rules">
      <img src="/assets/images/chromeborder.png" />
     </a>
     <a href="http://beta.piratspillet.dk/index.php/game" >
      <img src="/assets/images/chromefilled.png" />
     </a>
-  </div>
 
 </div>
 </div>
