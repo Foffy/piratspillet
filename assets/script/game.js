@@ -1269,7 +1269,6 @@ function checkForOtherClicked(currentPlayer){
 	// switch coins with clicked player
 	var other = otherPlayers[pid];
 	var cur = currentPlayer;
-	player fromplayer gold silver whore
 	coinsToDatabase(cur, other, other.gold, other.silver, 0);
 	coinsToDatabase(other, cur, cur.gold, cur.silver, 0);
 	switchCoins(cur,other);
