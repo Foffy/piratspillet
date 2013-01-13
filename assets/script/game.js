@@ -1268,8 +1268,8 @@ function checkForOtherClicked(currentPlayer){
 	// switch coins with clicked player
 	var other = otherPlayers[pid];
 	var cur = currentPlayer;
-	//coinsToDatabase(cur, other, other.gold, other.silver, 0);
-	//coinsToDatabase(other, cur, cur.gold, cur.silver, 0);
+	coinsToDatabase(cur.name, other.name, other.gold, other.silver, 0);
+	coinsToDatabase(other.name, cur.name, cur.gold, cur.silver, 0);
 	switchCoins(cur,other);
 	return true;
 }
