@@ -1548,8 +1548,7 @@ function inputForTile(tile){
 				if(finishedGame()) curState = State.GAME_WON;
 			}else if(player.gold > 0 || player.silver > 0){ // regular give away
 				var givenSips = coinsToSips(player.gold, player.silver, directly);
-				//sipsToDatabase(player.name, 0, givenSips);
-				sipsToDatabase(player.name, 2, 2);
+				sipsToDatabase(player.name, 0, givenSips);
 				goldbank += player.gold; 
 				silverbank += player.silver;
 				player.gold = 0;

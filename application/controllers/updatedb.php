@@ -156,7 +156,7 @@ class Updatedb extends CI_Controller {
 			'given' => $given
 			);
 
-		$this->db->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->set($dbArray)->where(array('player' => $data[3], 'gameId' => $data[2]));
 		$this->db->update('sips', $dbData);
 
 		$check = $this->db->affected_rows();
