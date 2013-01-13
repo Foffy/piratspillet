@@ -148,9 +148,14 @@ class Updatedb extends CI_Controller {
 	private function updateSips($data){
 		# $data = [debug, 'sips', gameID, player, taken, given]
 
-		$dbData = array('taken' => 'taken + ' . $data[4], 'given' => 'given + ' . $data[5]);
-		$this->db->set($dbArray)->where(array('player' => $data[3], 'gameId' => $data[2]));
-		$this->db->update('sips', $dbData);
+		$taken = "taken + " . $data[4];
+		$given = "given + " . $data[5];
+
+		$this->db->set('taken',$taken,FALSE);
+		$this->db->set('given',$given,FALSE);
+		$this->db->where(array('player' => $data[3]));
+		$this->db->update('sips');
+
 
 		$check = $this->db->affected_rows();
 
