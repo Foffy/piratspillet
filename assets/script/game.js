@@ -1538,18 +1538,18 @@ function inputForTile(tile){
 				player.whore++;
 				whorebank--;
 				coinsToDatabase(player.name, "", 0, 0, 1);
-				/*for(var i = 0; i < players.length; i++){
+				for(var i = 0; i < players.length; i++){
 					sipsToDatabase(players[i].name, directly ? 10 : 5, 0);
 				}
-				sipsToDatabase(player.name, 0, (directly ? 10 : 5)*players.length-1);*/
-				sipsToDatabase(player.name, 2, 2);
+				sipsToDatabase(player.name, 0, (directly ? 10 : 5)*players.length-1);
 				
 				curState = (player.gold > 0 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
 
 				if(finishedGame()) curState = State.GAME_WON;
 			}else if(player.gold > 0 || player.silver > 0){ // regular give away
 				var givenSips = coinsToSips(player.gold, player.silver, directly);
-				sipsToDatabase(player.name, 0, givenSips);
+				//sipsToDatabase(player.name, 0, givenSips);
+				sipsToDatabase(player.name, 2, 2);
 				goldbank += player.gold;
 				silverbank += player.silver;
 				player.gold = 0;
