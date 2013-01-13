@@ -151,12 +151,13 @@ class Updatedb extends CI_Controller {
 		$taken = "taken + " . $data[4];
 		$given = "given + " . $data[5];
 
-		/*$this->db->set('taken',$taken,FALSE);
-		$this->db->set('given',$given,FALSE);
-		$this->db->where(array('player' => $data[3]));
-		$this->db->update('sips');*/
-		
-		$this->db->query("UPDATE sips SET taken = " . $taken . ", given = " . $given . " WHERE gameId = " . $data[2] . " AND player = " . $data[3]);
+		$dbData = array(
+			"taken" => $taken,
+			"given" => $given
+			);
+
+		$this->$db->where(array('player' => $data[3], 'gameId' => $data[2]));
+		$this->db->update('sips', $dbData);
 
 		$check = $this->db->affected_rows();
 
