@@ -1,5 +1,5 @@
 var local = false;
-var debug = false;
+var debug = true;
 
 // global variables
 var c = document.getElementById('c');
@@ -937,6 +937,7 @@ function drawCoinsByValue(value, x, y, width, yDisp){
 function giveCoinsByValue(value, player){
 		var goldCoins = 0;
 		var silverCoins = 0;
+		debugging += value;
 		sipsToDatabase(player, value, 0);
 		while(value > 1 && goldbank > 0){
 			goldCoins++;

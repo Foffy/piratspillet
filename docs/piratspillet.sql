@@ -15,4 +15,4 @@ CREATE TABLE piratspillet.coins (id int NOT NULL AUTO_INCREMENT, gameId int NOT 
 
 CREATE TABLE piratspillet.sips (gameId int NOT NULL, player varchar(25) NOT NULL, taken int(6) DEFAULT 0, given int(6) DEFAULT 0, PRIMARY KEY (gameId,player), FOREIGN KEY (gameId) REFERENCES piratspillet.games(id));
 
-CREATE TABLE piratspillet.winners (gameId int NOT NULL, player varchar(25) NOT NULL);
+CREATE TABLE piratspillet.winners (gameId int NOT NULL, player varchar(25) NOT NULL, FOREIGN KEY (gameId) REFERENCES piratspillet.games(id));
