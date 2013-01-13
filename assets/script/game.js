@@ -1523,11 +1523,11 @@ function finishedGame(){
 }
 
 function inputForTile(tile){
+
 	switch(tile){
 		case 0:{
 			var player = players[curPlayer];
 			var directly = (newField == 14);
-			debugging = ""+newField;
 
 			if((player.gold > 0 || player.silver > 0) && player.skeleton > 0) player.skeleton--; // lose a skeleton if you have coins
 
@@ -1538,10 +1538,11 @@ function inputForTile(tile){
 				player.whore++;
 				whorebank--;
 				coinsToDatabase(player.name, "", 0, 0, 1);
-				for(var i = 0; i < players.length; i++){
+				/*for(var i = 0; i < players.length; i++){
 					sipsToDatabase(players[i].name, directly ? 10 : 5, 0);
 				}
-				sipsToDatabase(player.name, 0, (directly ? 10 : 5)*players.length-1);
+				sipsToDatabase(player.name, 0, (directly ? 10 : 5)*players.length-1);*/
+				sipsToDatabase(player.name, 2, 2);
 				
 				curState = (player.gold > 0 || player.silver > 0) ? State.LANDED : State.ROLL; // landed again if more money
 
