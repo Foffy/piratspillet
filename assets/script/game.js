@@ -1549,7 +1549,6 @@ function inputForTile(tile){
 			}else if(player.gold > 0 || player.silver > 0){ // regular give away
 				var givenSips = coinsToSips(player.gold, player.silver, directly);
 				sipsToDatabase(player.name, 0, givenSips);
-				debugging = ""+givenSips;
 				goldbank += player.gold;
 				silverbank += player.silver;
 				player.gold = 0;
