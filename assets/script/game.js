@@ -1527,6 +1527,7 @@ function inputForTile(tile){
 		case 0:{
 			var player = players[curPlayer];
 			var directly = (newField == 14);
+			debugging = ""+newField;
 
 			if((player.gold > 0 || player.silver > 0) && player.skeleton > 0) player.skeleton--; // lose a skeleton if you have coins
 
