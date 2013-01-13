@@ -1,5 +1,5 @@
 var local = false;
-var debug = true;
+var debug = false;
 
 // global variables
 var c = document.getElementById('c');
@@ -1550,7 +1550,7 @@ function inputForTile(tile){
 				var givenSips = coinsToSips(player.gold, player.silver, directly);
 				//sipsToDatabase(player.name, 0, givenSips);
 				sipsToDatabase(player.name, 2, 2);
-				goldbank += player.gold;
+				goldbank += player.gold; 
 				silverbank += player.silver;
 				player.gold = 0;
 				player.silver = 0;
