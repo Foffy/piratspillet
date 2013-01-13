@@ -1,5 +1,5 @@
 var local = false;
-var debug = false;
+var debug = true;
 
 // global variables
 var c = document.getElementById('c');
