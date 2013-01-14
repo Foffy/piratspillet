@@ -262,7 +262,7 @@
 	/* fonts */
 	@font-face {
 		font-family: 'Treasure map Deadhand';
-		src: url('../fonts/Treamd.ttf') format('truetype');
+		src: url('../inc/Treamd.ttf') format('truetype');
     	font-weight: normal;
     	font-style: normal;
 	}
