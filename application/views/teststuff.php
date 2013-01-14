@@ -4,7 +4,7 @@
 	</div>
 	<div class="imgBox">
 		<div class="leftImgBox">
-			<img src="images/compass.png" width="150" height="150">
+			<img src="/assets/images/compass.png" width="150" height="150">
 		</div>
 		<div class="leftImgTextBox">
 			<div class="ruleText">
@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="rightImgBox">
-			<img src="images/redCross.png" width="150" height="150">
+			<img src="/assets/images/redCross.png" width="150" height="150">
 		</div>
 		<div class="rightImgTextBox">
 			<div class="playText">
