@@ -163,7 +163,7 @@
 	.leftContent{
 		position: absolute;
 		width: 400px;
-		height: 250px;
+		height: 220px;
 		bottom:30px;
 		left: 30px;
 	}
@@ -171,10 +171,10 @@
 	.rightContent{
 		position: absolute;
 		float:right;
-		bottom:0;
+		bottom:30px;
 		right: 0;
 		width: 350px;
-		height: 250px;
+		height: 220px;
 
 	}
 
