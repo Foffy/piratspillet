@@ -25,7 +25,6 @@
 	<div class="middleBox">
 		<div class="leftContent">
 			<h3>People say...</h3>
-			<br>
 			<ol class="tweets"></ol>
 			<script>window.jQuery || document.write('<script src="/assets/script/vendor/jquery-1.8.2.min.js"><\/script>')</script>
 			<script src="/assets/script/tweetMachine.js"></script>
