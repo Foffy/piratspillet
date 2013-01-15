@@ -262,9 +262,16 @@
 	/* fonts */
 	@font-face {
 		font-family: 'Treasure map Deadhand';
-		src: url('../inc/Treamd.ttf') format('truetype');
+		src: url('../fonts/Treamd.ttf') format('truetype');
     	font-weight: normal;
     	font-style: normal;
+	}
+
+	@font-face{
+		font-family: 'Kingthings';
+		src: url('../fonts/Kingthings_Calligraphica_2-webfont.ttf') format('truetype');
+		font-weight: normal;
+		font-style: normal;
 	}
 
 	.speak4 {
