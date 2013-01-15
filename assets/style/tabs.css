@@ -40,7 +40,6 @@ ul.tabs a:hover {
     background-repeat:no-repeat;
     background-size: 70px 20px;
     background-position: 15px -4px;
-    color:#304D80;
 
 }
 
@@ -52,7 +51,6 @@ ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
     background-position: 15px -4px;
     opacity:0.7;
     cursor:default !important;
-    color:#304D80 !important;
 }
 
 /* Different widths for tabs: use a class name: w1, w2, w3 or w2 */
