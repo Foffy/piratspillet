@@ -46,6 +46,10 @@ ul.tabs a:hover {
 
 /* active tab uses a class name "current". its highlight is also done by moving the background image. */
 ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
+    background-image: url('../images/gold_small.png');
+    background-repeat:no-repeat;
+    background-size: 15px 15px;
+    background-position: 17px 0;
     cursor:default !important;
     color:#304D80 !important;
 }
