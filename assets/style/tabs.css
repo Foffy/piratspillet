@@ -38,7 +38,7 @@ ul.tabs a:active {
 ul.tabs a:hover {
     background-image: url('../images/marked.png');
     background-repeat:no-repeat;
-    background-position: 10px 0;
+    background-position: 25px -25px;
     color:#304D80;
     font-weight: bold;
 
