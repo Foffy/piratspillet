@@ -35,7 +35,7 @@ ul.tabs a:active {
 
 /* when mouse enters the tab move the background image */
 ul.tabs a:hover {
-    background-position: 0 -31px;
+    background-image: url('../images/marked.png');
     color:#304D80;
     font-weight: bold;
 
