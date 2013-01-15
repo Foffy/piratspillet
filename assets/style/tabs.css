@@ -38,8 +38,8 @@ ul.tabs a:active {
 ul.tabs a:hover {
     background-image: url('../images/marked.png');
     background-repeat:no-repeat;
-    background-size: 50px 15px;
-    background-position: 35px 0;
+    background-size: 50px 20px;
+    background-position: 25px 0;
     color:#304D80;
 
 }
@@ -48,8 +48,8 @@ ul.tabs a:hover {
 ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
     background-image: url('../images/marked.png');
     background-repeat:no-repeat;
-    background-size: 50px 15px;
-    background-position: 35px 0;
+    background-size: 50px 20px;
+    background-position: 25px 0;
     cursor:default !important;
     color:#304D80 !important;
 }
