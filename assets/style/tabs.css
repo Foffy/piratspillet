@@ -32,14 +32,13 @@ ul.tabs a {
 
 ul.tabs a:active {
     outline:none;
-    font-weight: bold;
 }
 
 /* when mouse enters the tab move the background image */
 ul.tabs a:hover {
     background-image: url('../images/marked.png');
     background-repeat:no-repeat;
-    background-position: 15px 0px;
+    background-position: 15px -4px;
     opacity:0.7;
 
 }
@@ -48,7 +47,7 @@ ul.tabs a:hover {
 ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
     background-image: url('../images/marked.png');
     background-repeat:no-repeat;
-    background-position: 15px 0px;
+    background-position: 15px -4px;
     cursor:default !important;
 }
 
