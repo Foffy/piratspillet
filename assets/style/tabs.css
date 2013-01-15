@@ -40,6 +40,7 @@ ul.tabs a:hover {
     background-repeat:no-repeat;
     background-size: 70px 20px;
     background-position: 15px -3px;
+    opacity:0.4;
     color:#304D80;
 
 }
@@ -50,6 +51,7 @@ ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
     background-repeat:no-repeat;
     background-size: 70px 20px;
     background-position: 15px -3px;
+    opacity:0.4;
     cursor:default !important;
     color:#304D80 !important;
 }
