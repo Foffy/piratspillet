@@ -36,7 +36,7 @@ ul.tabs a:active {
 /* when mouse enters the tab move the background image */
 ul.tabs a:hover {
     background-position: 0 -31px;
-    color:#fff;
+    color:#304D80;
 }
 
 /* active tab uses a class name "current". its highlight is also done by moving the background image. */
