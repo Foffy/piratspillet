@@ -6,7 +6,7 @@ class Splash extends CI_Controller {
 	{
 		$data['header'] = "includes/header_tabs";
 		$data['title'] = "Piratspillet - BETA!";
-		$data['main_content'] = "splash";
+		$data['main_content'] = "rules_page";
 		$this->load->view('includes/template', $data);
 	}
 }
