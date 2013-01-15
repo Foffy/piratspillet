@@ -2,6 +2,7 @@
 /* tab pane styling */
 .panes div {
     display:none;
+    margin-top: -20px;
     border: 0;
     height:100px;
 }
