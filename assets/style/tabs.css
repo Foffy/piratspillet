@@ -36,6 +36,7 @@ ul.tabs a:active {
 /* when mouse enters the tab move the background image */
 ul.tabs a:hover {
     background-image: url('../images/marked.png');
+    background-repeat:no-repeat;
     color:#304D80;
     font-weight: bold;
 
@@ -43,7 +44,6 @@ ul.tabs a:hover {
 
 /* active tab uses a class name "current". its highlight is also done by moving the background image. */
 ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a {
-    background-position: 0 -31px;
     cursor:default !important;
     color:#304D80 !important;
 }
