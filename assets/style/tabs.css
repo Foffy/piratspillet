@@ -18,7 +18,7 @@ ul.tabs li {
 
 /* link inside the tab. uses a background image */
 ul.tabs a {
-    font-size:11px;
+    font-size:13px;
     display:block;
     height: 15px;
     line-height:15px;
