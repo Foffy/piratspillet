@@ -316,7 +316,7 @@
 
 	.tweets img{
 		float:left;
-		padding-right: 10px;
+		margin-right: 10px;
 		max-height:50px;
 		border: 2px solid #555;
 	}
