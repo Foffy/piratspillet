@@ -37,6 +37,8 @@ ul.tabs a:active {
 ul.tabs a:hover {
     background-position: 0 -31px;
     color:#304D80;
+    font-weight: bold;
+
 }
 
 /* active tab uses a class name "current". its highlight is also done by moving the background image. */
