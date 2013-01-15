@@ -215,6 +215,7 @@
 	}
 
 	h2 {
+		opacity: 0.6;
 		font-family: 'Treasure map Deadhand';
 		font-size: 100px;
 		line-height:20px;
