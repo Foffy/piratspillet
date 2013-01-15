@@ -32,6 +32,7 @@ ul.tabs a {
 
 ul.tabs a:active {
     outline:none;
+    font-weight: bold;
 }
 
 /* when mouse enters the tab move the background image */
