@@ -20,8 +20,8 @@ ul.tabs li {
 ul.tabs a {
     font-size:11px;
     display:block;
-    height: 30px;
-    line-height:30px;
+    height: 15px;
+    line-height:15px;
     width: 100px;
     text-align:center;
     text-decoration:none;
@@ -29,7 +29,6 @@ ul.tabs a {
     padding:0px;
     margin:0px;
     position:relative;
-    top:1px;
 }
 
 ul.tabs a:active {
