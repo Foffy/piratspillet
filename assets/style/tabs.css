@@ -36,9 +36,9 @@ ul.tabs a:active {
 
 /* when mouse enters the tab move the background image */
 ul.tabs a:hover {
-    background-image: url('../images/marked.png');
+    background-image: url('../images/gold_small.png');
     background-repeat:no-repeat;
-    background-size: 30px 30px;
+    background-size: 20px 20px;
     background-position: 20px -5px;
     color:#304D80;
     font-weight: bold;
