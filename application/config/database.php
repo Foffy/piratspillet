@@ -48,10 +48,10 @@
 
 /* Debugging */
 
-$db['debug']['hostname'] = 'localhost';
-$db['debug']['username'] = 'root';
-$db['debug']['password'] = 'FOFFi1986';
-$db['debug']['database'] = 'debug_piratspillet';
+$db['debug']['hostname'] = 'http://mysql15.000webhost.com';
+$db['debug']['username'] = 'a5107558_root';
+$db['debug']['password'] = 'crazypassword1337';
+$db['debug']['database'] = 'a5107558_piratsp';
 $db['debug']['dbdriver'] = 'mysql';
 $db['debug']['dbprefix'] = '';
 $db['debug']['pconnect'] = TRUE;
@@ -69,10 +69,10 @@ $db['debug']['stricton'] = FALSE;
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'FOFFi1986';
-$db['default']['database'] = 'piratspillet';
+$db['default']['hostname'] = 'http://mysql15.000webhost.com';
+$db['default']['username'] = 'a5107558_root';
+$db['default']['password'] = 'crazypassword1337';
+$db['default']['database'] = 'a5107558_piratsp';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
