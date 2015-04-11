@@ -4,7 +4,7 @@
 	</div>
 	<div class="imgBox">
 		<div class="leftImgBox">
-			<a href="http://beta.piratspillet.dk/index.php/rules"><img src="/assets/images/compass.png" width="150" height="150"></a>
+			<a href="http://piratspillet.dk/index.php/rules"><img src="/assets/images/compass.png" width="150" height="150"></a>
 		</div>
 		<div class="leftImgTextBox">
 			<div class="ruleText">
@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="rightImgBox">
-			<a href="http://beta.piratspillet.dk/index.php/game" ><img src="/assets/images/redCross.png" width="150" height="150"></a>
+			<a href="http://piratspillet.dk/index.php/game" ><img src="/assets/images/redCross.png" width="150" height="150"></a>
 		</div>
 		<div class="rightImgTextBox">
 			<div class="playText">

@@ -48,7 +48,7 @@
 
 /* Debugging */
 
-$db['debug']['hostname'] = 'http://mysql15.000webhost.com';
+$db['debug']['hostname'] = 'mysql15.000webhost.com';
 $db['debug']['username'] = 'a5107558_root';
 $db['debug']['password'] = 'crazypassword1337';
 $db['debug']['database'] = 'a5107558_piratsp';
@@ -69,7 +69,7 @@ $db['debug']['stricton'] = FALSE;
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'http://mysql15.000webhost.com';
+$db['default']['hostname'] = 'mysql15.000webhost.com';
 $db['default']['username'] = 'a5107558_root';
 $db['default']['password'] = 'crazypassword1337';
 $db['default']['database'] = 'a5107558_piratsp';
